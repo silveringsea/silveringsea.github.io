@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[silveringsea on the run]]></title>
+  <subtitle><![CDATA[going forward]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://silveringsea.github.io/"/>
+  <updated>2015-12-13T09:40:09.000Z</updated>
+  <id>http://silveringsea.github.io/</id>
+  
+  <author>
+    <name><![CDATA[silveringsea]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[markdown入门和进阶]]></title>
+    <link href="http://silveringsea.github.io/2015/12/12/mastering-markdown/"/>
+    <id>http://silveringsea.github.io/2015/12/12/mastering-markdown/</id>
+    <published>2015-12-12T13:14:57.000Z</published>
+    <updated>2015-12-13T09:40:09.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="u7F16_u8F91_u5668"><a href="#u7F16_u8F91_u5668" class="headerlink" title="编辑器"></a>编辑器</h3><p>由于使用sublime，因此博主使用的是sublime的插件ominiMarkupPreviewer进行编辑</p>
+<ol>
+<li><p>在线</p>
+<blockquote>
+<ul>
+<li><a href="https://www.zybuluo.com/mdeditor" title="https://www.zybuluo.com/mdeditor" target="_blank" rel="external">Cmd - 在线 Markdown 编辑阅读器</a><ul>
+<li><a href="http://www.jianshu.com/" target="_blank" rel="external">http://www.jianshu.com/</a></li>
+<li><a href="http://stackedit.io/" target="_blank" rel="external">http://stackedit.io/</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>本地</p>
+<blockquote>
+<ul>
+<li><a href="https://markdownpad.com/" title="https://markdownpad.com/" target="_blank" rel="external">MarkdownPad</a>、 </li>
+<li><a href="http://www.sum16.com/resource/markdownpad-2-pro-key.html" target="_blank" rel="external">MarkdownPad 2 Pro 注册码</a></li>
+<li><a href="http://www.open-open.com/news/view/1be6464" title="http://www.open-open.com/news/view/1be6464" target="_blank" rel="external">实用的 Markdown 编辑器和工具</a></li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h3 id="u5E38_u7528_u8BED_u6CD5_u901F_u67E5"><a href="#u5E38_u7528_u8BED_u6CD5_u901F_u67E5" class="headerlink" title="常用语法速查"></a>常用语法速查</h3><ol>
+<li><p>标题 (Headings)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是 H1 &lt;一级标题&gt;</span></span><br><span class="line"><span class="comment">## 这是 H2 &lt;二级标题&gt;</span></span><br><span class="line"><span class="comment">###### 这是 H6 &lt;六级标题&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文字格式 (Styling text)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">**这是文字粗体格式**</span><br><span class="line">*这是文字斜体格式*</span><br><span class="line">_这是文字粗斜体格式_</span><br><span class="line">~~在文字上添加删除线~~</span><br></pre></td></tr></table></figure>
+<p> <strong>这是文字粗体格式</strong><br> <em>这是文字斜体格式</em><br> <em>这是文字粗斜体格式</em><br> <del>在文字上添加删除线</del></p>
+</li>
+<li><p>列表 (List)</p>
+<ul>
+<li><p>无序列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 项目<span class="number">1</span></span><br><span class="line">* 项目<span class="number">2</span></span><br><span class="line">* 项目<span class="number">3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有序列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 项目<span class="number">1</span></span><br><span class="line"><span class="number">2</span>. 项目<span class="number">2</span></span><br><span class="line"><span class="number">3</span>. 项目<span class="number">3</span></span><br><span class="line">   * 项目<span class="number">1</span></span><br><span class="line">   * 项目<span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>引用 (Blockquotes)</p>
+ <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#可以不用每行都写一个</span></span><br><span class="line">&gt; <span class="constant">Pardon</span> my french</span><br><span class="line"><span class="comment">#可以嵌套</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span> asdfasdf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Pardon my french</p>
+<pre><code>Echo1 Here
+</code></pre><blockquote>
+<p>asdfasdf</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>段落缩进</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;ensp;或&amp;<span class="comment">#8194;半方大的空白</span></span><br><span class="line">&amp;emsp;或&amp;<span class="comment">#8195;全方大的空白</span></span><br><span class="line">不断行的空白格&amp;nbsp;或&amp;<span class="comment">#160;不断行的空白格</span></span><br></pre></td></tr></table></figure>
+<p> &ensp;&#8194;段落:半方大的空白<br> &emsp;&#8195;段落:全方大的空白<br> 不断行的空白格&nbsp;&nbsp;不断行的空白格</p>
+</li>
+<li><p>github特有的markdown格式<br> <a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="external">https://guides.github.com/features/mastering-markdown/</a><br> <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank" rel="external">https://help.github.com/articles/github-flavored-markdown</a><br> <a href="https://help.github.com/articles/writing-on-github" target="_blank" rel="external">https://help.github.com/articles/writing-on-github</a><br> 比如 emoji: :sparkles: :camel: :boom:</p>
+<ul>
+<li>[x] This is a complete item</li>
+<li>[ ] This is an incomplete item<br><a href="https://github.com/sergiolepore/hexo-tag-emojis" title="https://github.com/sergiolepore/hexo-tag-emojis" target="_blank" rel="external">hexo中使用emoji</a>  <figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% emoji heart <span class="number">32</span> custom_class1,custom_class2 <span class="envvar">%&#125;</span><br><span class="line">&#123;%</span> emoji-block %&#125;</span><br><span class="line">Lo<span class="comment">rem ipsum dolor sit amet :smiley:</span></span><br><span class="line">consectetur  adipisicing elit :boom: </span><br><span class="line">&#123;% endemoji-block %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>图像</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="link_label">example</span>](<span class="link_url">http://leanote.com/public/upload/528/5467be5d38f411286b00007b/images/logo/bbd3593e5c2bd29e129c0eb740193969.jpeg</span>)</span><br></pre></td></tr></table></figure>
+<p> <img src="http://leanote.com/public/upload/528/5467be5d38f411286b00007b/images/logo/bbd3593e5c2bd29e129c0eb740193969.jpeg" alt="example"></p>
+<p> 图片居中</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">#上面加一个</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"text-align:center"</span> <span class="attribute">markdown</span>=<span class="value">"1"</span>&gt;</span></span></span><br><span class="line">![<span class="link_label">example</span>](<span class="link_url">http://leanote.com/public/upload/528/5467be5d38f411286b00007b/images/logo/bbd3593e5c2bd29e129c0eb740193969.jpeg</span>)</span><br></pre></td></tr></table></figure>
+<p> <div style="text-align:center" markdown="1"><br> <img src="http://leanote.com/public/upload/528/5467be5d38f411286b00007b/images/logo/bbd3593e5c2bd29e129c0eb740193969.jpeg" alt="example"></div></p>
+<p> 如果拷贝了别人的图片插入到自己的博客中，最好在图片上给出一个超链接指向源头，方便追溯出处。</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="link_label">![example</span>](<span class="link_url">http://leanote.com/public/upload/528/5467be5d38f411286b00007b/images/logo/bbd3593e5c2bd29e129c0eb740193969.jpeg "haroopad"</span>)](<span class="link_url">http://blog.leanote.com/post/freewalk/Markdown-语法手册</span>)</span><br></pre></td></tr></table></figure>
+<p> <a href="http://blog.leanote.com/post/freewalk/Markdown-语法手册" target="_blank" rel="external"><img src="http://leanote.com/public/upload/528/5467be5d38f411286b00007b/images/logo/bbd3593e5c2bd29e129c0eb740193969.jpeg" alt="example"></a></p>
+</li>
+<li><p>链接</p>
+<ul>
+<li><p>自动式</p>
+  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="string">http:</span><span class="comment">//example.com/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  <a href="http://example.com/" target="_blank" rel="external">http://example.com/</a></p>
+</li>
+<li><p>行内式</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="link_label">Display_Text</span>](<span class="link_url">http://example.com/ "http://example.com/"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参考式</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我经常去的几个网站[<span class="link_label">Leanote</span>][<span class="link_reference">1</span>] </span><br><span class="line">[<span class="link_label">Leanote 笔记</span>][<span class="link_reference">1</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>锚点<br>  用普通的html</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#end"</span>&gt;</span>bookmark_text<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  效果： <a href="#end">bookmark_text</a></p>
+</li>
+</ul>
+</li>
+<li><p>注脚 <sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">注脚与注脚之间必须空一行，不然会失效</span><br><span class="line">使用 Markdown[^<span class="number">1</span>]可以效率的书写文档, 直接转换成 HTML[^<span class="number">2</span>], 你可以使用 Leanote[^Le] 编辑器进行书写。</span><br><span class="line"></span><br><span class="line">被添加脚注的词条后面会出现一个超链接数字（有的渲染为上标格式），点击数字跳转到文末 glossary 区域该脚注的定义处。文末 glossary 区域该脚注定义的行尾会添加一个回车符号（↵），点击可回到被标注的脚注点。</span><br><span class="line"></span><br><span class="line">测试 Hexo3<span class="number">.0</span> 有些主题不支持footnote， 可以参考&lt;http:<span class="comment">//nsfw.hjwu.me/2014-07-07/hexo-plugin-for-parse-footnotes/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>嵌入代码</p>
+<blockquote>
+<p>单行的时候用 `asdf`<br>多行的时候用 </p>
+<blockquote>
+<p>```<br>aaaaaa<br>```</p>
+</blockquote>
+</blockquote>
+<p>比如 </p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Here's an idea:</span> why don't we take <span class="escape">`S</span>uperiorProject<span class="escape">` </span><span class="literal">and</span> turn it into <span class="escape">`*</span>*Reasonable**Project<span class="escape">`.</span></span><br></pre></td></tr></table></figure>
+<p>Here’s an idea: why don’t we take <code>SuperiorProject</code> and turn it into <code>**Reasonable**Project</code>.</p>
+<p>嵌入代码里面用反引号怎么办？ <a href="http://daringfireball.net/projects/markdown/syntax#code" target="_blank" rel="external">参考这里</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A single backtick <span class="keyword">in</span> a code span: `` ` ``</span><br><span class="line"></span><br><span class="line">A backtick-delimited string <span class="keyword">in</span> a code span: `` `foo` ``</span><br><span class="line"></span><br><span class="line">`&amp;<span class="comment">#8212;` is the decimal-encoded equivalent of `&amp;mdash;`.</span></span><br><span class="line"></span><br><span class="line">``git archive master --format=zip ＞ `git describe master`.zip``</span><br></pre></td></tr></table></figure>
+<p>会得到：<br>A single backtick in a code span: <code>` </code><br>A backtick-delimited string in a code span: <code>`foo` </code><br><code>&amp;#8212;</code> is the decimal-encoded equivalent of <code>&amp;mdash;</code>.<br><code>git archive master --format=zip ＞ `git describe master`.zip</code></p>
+<p>标准 Markdown 不支持脚标, 只能通过内嵌 HTML 的<code>&lt;sup&gt;</code>和<code>&lt;sub&gt;</code>标签来实现<br>比如 <code>H&lt;sub&gt;2&lt;/sub&gt;O</code> 将生成 H<sub>2</sub>O</p>
+<p>可以直接在反引号里面写html代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">th</span> <span class="attribute">rowspan</span>=<span class="value">"2"</span>&gt;</span>值班人员<span class="tag">&lt;/<span class="title">th</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">th</span>&gt;</span>星期一<span class="tag">&lt;/<span class="title">th</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">th</span>&gt;</span>星期二<span class="tag">&lt;/<span class="title">th</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">th</span>&gt;</span>星期三<span class="tag">&lt;/<span class="title">th</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">td</span>&gt;</span>李强<span class="tag">&lt;/<span class="title">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">td</span>&gt;</span>张明<span class="tag">&lt;/<span class="title">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">td</span>&gt;</span>王平<span class="tag">&lt;/<span class="title">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>表格</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|产品|价格|</span><br><span class="line">|---|--:|</span><br><span class="line">|Leanote 高级账号|<span class="number">60</span>元/年|</span><br><span class="line">|Leanote 超级账号|<span class="number">120</span>元/年 `<span class="built_in">print</span>(<span class="string">"Format with CodeRay"</span>)`|</span><br><span class="line"></span><br><span class="line">|学号|姓名|分数|</span><br><span class="line">|------|-----|---------|</span><br><span class="line">|小明|男|<span class="number">75</span>|</span><br><span class="line">|小红|女|<span class="number">79</span>|</span><br><span class="line">|小陆|男|<span class="number">92</span>|</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分割线</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">- - -</span><br><span class="line">---------------------------------------</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LaTex公式</p>
+<ul>
+<li><p>$ 表示行内公式：</p>
+  <figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">质能守恒方程可以用一个很简洁的方程式 <span class="variable">$E</span>=mc^<span class="number">2</span>$ 来表达。</span><br></pre></td></tr></table></figure>
+<p>  质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。</p>
+</li>
+<li><p>$$ 表示整行公式：每个公式要隔一行</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$$\sum_&#123;i=<span class="number">1</span>&#125;^n a_i=<span class="number">0</span>$$</span><br><span class="line">$$f(x_1,x_x,\ldots,x_n) = x_1^<span class="number">2</span> + x_2^<span class="number">2</span> + \cdots + x_n^<span class="number">2</span> $$</span><br><span class="line">$$\sum^&#123;j-<span class="number">1</span>&#125;_&#123;k=<span class="number">0</span>&#125;&#123;\widehat&#123;\gamma&#125;_&#123;kj&#125; z_k&#125;$$ <span class="preprocessor">#测试不成功</span></span><br></pre></td></tr></table></figure>
+<p>  $$\sum_{i=1}^n a_i=0$$</p>
+<p>  $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
+<p>  $$ {\gamma} $$</p>
+</li>
+</ul>
+</li>
+<li><p>流程图 <a href="http://adrai.github.io/flowchart.js/" title="http://adrai.github.io/flowchart.js/" target="_blank" rel="external">更多</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">st=&gt;start: Start:&gt;https:<span class="comment">//www.zybuluo.com</span></span><br><span class="line">io=&gt;inputoutput: verification</span><br><span class="line">op=&gt;operation: Your Operation</span><br><span class="line">cond=&gt;condition: Yes <span class="keyword">or</span> No?</span><br><span class="line">sub=&gt;subroutine: Your Subroutine</span><br><span class="line">e=&gt;end</span><br><span class="line">st-&gt;io-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;sub-&gt;io</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="http://bramp.github.io/js-sequence-diagrams/" title="http://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="external">序列图</a> </p>
+</li>
+<li><p>其他</p>
+<pre><code>[TOC]
+[图标](http://fortawesome.github.io/Font-Awesome/3.2.1/icons/ &quot;http://fortawesome.github.io/Font-Awesome/3.2.1/icons/&quot;)
+</code></pre></li>
+</ol>
+<p id="end">The end！</p>
+
+<p>参考<br><a href="http://blog.leanote.com/post/freewalk/Markdown-语法手册" title="http://blog.leanote.com/post/freewalk/Markdown-语法手册" target="_blank" rel="external">Markdown-语法手册</a><br><a href="https://guides.github.com/features/mastering-markdown/" title="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="external">Mastering Markdown</a><br><a href="http://blog.csdn.net/phunxm/article/details/49565427" target="_blank" rel="external">Markdown详解</a><br><a href="http://zipperary.com/2013/06/02/hexo-guide-5/" target="_blank" rel="external">Hexo</a><br><a href="http://bellaciela.com/blog/2015/advanced-hexo/#toctable-of-content" target="_blank" rel="external">Hexo进阶</a></p>
+<div id="footnotes"><hr><div id="footnotelist"><ol><li id="fn:1">Footnote_Text<a href="#fnref:1" rev="footnote">↩</a></li></ol></div></div>]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="u7F16_u8F91_u5668"><a href="#u7F16_u8F91_u5668" class="headerlink" title="编辑器"></a>编辑器</h3><p>由于使用sublime，因此博主使用的是sublime的插件ominiMar]]>
+    </summary>
+    
+      <category term="markdown" scheme="http://silveringsea.github.io/tags/markdown/"/>
+    
+      <category term="tool" scheme="http://silveringsea.github.io/categories/tool/"/>
+    
+  </entry>
+  
+</feed>
