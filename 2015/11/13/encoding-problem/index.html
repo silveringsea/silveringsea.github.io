@@ -1,0 +1,690 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>编码问题总结（随时更新） | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="URL编码123456789101112131415### URL中一些字符的特殊含义，基本编码规则如下：   1、空格换成加号(+)   2、正斜杠(/)分隔目录和子目录   3、问号(?)分隔URL和查询   4、百分号(%)制定特殊字符   5、#号指定书签   6、&amp;amp;号分隔参数     ### 如果需要在URL中用到，需要将这些特殊字符换成相应的十六进制的值   +   %20">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编码问题总结（随时更新）">
+<meta property="og:url" content="http://silveringsea.github.io/2015/11/13/encoding-problem/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="URL编码123456789101112131415### URL中一些字符的特殊含义，基本编码规则如下：   1、空格换成加号(+)   2、正斜杠(/)分隔目录和子目录   3、问号(?)分隔URL和查询   4、百分号(%)制定特殊字符   5、#号指定书签   6、&amp;amp;号分隔参数     ### 如果需要在URL中用到，需要将这些特殊字符换成相应的十六进制的值   +   %20">
+<meta property="og:updated_time" content="2016-02-22T15:11:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编码问题总结（随时更新）">
+<meta name="twitter:description" content="URL编码123456789101112131415### URL中一些字符的特殊含义，基本编码规则如下：   1、空格换成加号(+)   2、正斜杠(/)分隔目录和子目录   3、问号(?)分隔URL和查询   4、百分号(%)制定特殊字符   5、#号指定书签   6、&amp;amp;号分隔参数     ### 如果需要在URL中用到，需要将这些特殊字符换成相应的十六进制的值   +   %20">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/13/encoding-problem/" title="编码问题总结（随时更新）" itemprop="url">编码问题总结（随时更新）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-13T14:26:41.000Z" itemprop="datePublished"> 发表于 2015-11-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#URL_u7F16_u7801"><span class="toc-number">1.</span> <span class="toc-text">URL编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tomcat"><span class="toc-number">2.</span> <span class="toc-text">tomcat">tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html"><span class="toc-number">3.</span> <span class="toc-text">html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#termial_u7F16_u8BD1_u4E71_u7801_u95EE_u9898_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">termial编译乱码问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u89E3_u51B3mac_u4E0Bmaven_u7F16_u8BD1_u4E71_u7801_u7684_u95EE_u9898"><span class="toc-number">5.</span> <span class="toc-text">解决mac下maven编译乱码的问题">解决mac下maven编译乱码的问题</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="URL_u7F16_u7801"><a href="#URL_u7F16_u7801" class="headerlink" title="URL编码"></a>URL编码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">### URL中一些字符的特殊含义，基本编码规则如下：   </span></span><br><span class="line"><span class="number">1</span>、空格换成加号(+)   </span><br><span class="line"><span class="number">2</span>、正斜杠(/)分隔目录和子目录   </span><br><span class="line"><span class="number">3</span>、问号(?)分隔URL和查询   </span><br><span class="line"><span class="number">4</span>、百分号(%)制定特殊字符   </span><br><span class="line"><span class="number">5</span>、<span class="preprocessor">#号指定书签   </span></span><br><span class="line"><span class="number">6</span>、&amp;号分隔参数   </span><br><span class="line">  </span><br><span class="line"><span class="preprocessor">### 如果需要在URL中用到，需要将这些特殊字符换成相应的十六进制的值   </span></span><br><span class="line">+   %<span class="number">20</span>   </span><br><span class="line">/   %<span class="number">2F</span>   </span><br><span class="line">?   %<span class="number">3F</span>   </span><br><span class="line">%   %<span class="number">25</span>   </span><br><span class="line"><span class="preprocessor">#   %<span class="number">23</span>   </span></span><br><span class="line">&amp;   %<span class="number">26</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>javascript对url进行编码的函数有3个，escape，encodeURI，encodeURIComponent 推荐使用最后一个，因为encodeURIComponent()不编码的字符最少，只有5个</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~!*<span class="comment">()</span><span class="string">'</span><br><span class="line">encodeURIComponent和decodeURIComponent 可以成对使用</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对应python</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">urllib</span><span class="class">.quote</span> 和 <span class="tag">urllib</span><span class="class">.unquote</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="tomcat"><a href="#tomcat" class="headerlink" title="<a href=" https:="" confluence.atlassian.com="" doc="" configuring-url-encoding-on-tomcat-application-server-174898.html"="">tomcat</a>"><a href="https://confluence.atlassian.com/doc/configuring-url-encoding-on-tomcat-application-server-174898.html" target="_blank" rel="external">tomcat</a></h3><p><connector port="8009" protocol="AJP/1.3" uriencoding="UTF-8"><br>request.getParameter(“name”)之前会自动做一次解码的工作，而且URIEncoding是默认的ISO-8859-1</connector></p>
+<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">表单数据会在未编码的情况下进行发送：</span><br><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"form_action.asp"</span> <span class="attribute">enctype</span>=<span class="value">"text/plain"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>enctype 规定在发送到服务器之前应该如何对表单数据进行编码:<br>application/x-www-form-urlencoded         在发送前编码所有字符（默认）</p>
+<p>multipart/form-data                                        不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。</p>
+<p>text/plain                                                           空格转换为 “+” 加号，但不对特殊字符编码。</p>
+<p>```</p>
+<h3 id="termial_u7F16_u8BD1_u4E71_u7801_u95EE_u9898_uFF1A"><a href="#termial_u7F16_u8BD1_u4E71_u7801_u95EE_u9898_uFF1A" class="headerlink" title="termial编译乱码问题："></a>termial编译乱码问题：</h3><p>macos:<br>在MAC OS X 控制台下使用Javac命令编译java程序时,会出现乱码的情况,现提供一种解决办法:<br>打开终端( terminal)窗口,点击桌面左上方的终端(terminal)–&gt;偏好设置(preferences)–&gt;设置–&gt;高级–&gt;字符编码–&gt;中文(GBK)<br>或者<br>-J-Dfile.encoding=UTF-8<br>javac -encoding utf-8 -classpath D:\web\xxx\WEB-INF\classes;D:\web\xxx\WEB-INF\lib\struts.jar -d D:\web\xxx\WEB-INF\classes xxx.java</p>
+<h3 id="u89E3_u51B3mac_u4E0Bmaven_u7F16_u8BD1_u4E71_u7801_u7684_u95EE_u9898"><a href="#u89E3_u51B3mac_u4E0Bmaven_u7F16_u8BD1_u4E71_u7801_u7684_u95EE_u9898" class="headerlink" title="<a href=" http:="" blog.csdn.net="" xiejx618="" article="" details="" 12031955"="">解决mac下maven编译乱码的问题</a>"><a href="http://blog.csdn.net/xiejx618/article/details/12031955" target="_blank" rel="external">解决mac下maven编译乱码的问题</a></h3><p>在.profile下新增： export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8<br>其他方法， 比如在pom.xml里面的<artifactid>maven-compiler-plugin</artifactid> 增加 <encoding>utf-8</encoding>测试不成功<br>maven:<br>-Dfile.encoding=UTF-8</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a><a href="/tags/javascript/">javascript</a><a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/11/13/encoding-problem/" data-title="编码问题总结（随时更新） | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/11/13/scrawl-problems/" title="scrawl problems">
+  <strong>上一篇：</strong><br/>
+  <span>
+  scrawl problems</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/11/10/hello-world/"  title="j2ee热部署开发">
+ <strong>下一篇：</strong><br/> 
+ <span>j2ee热部署开发
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/11/13/encoding-problem/" data-title="编码问题总结（随时更新）" data-url="http://silveringsea.github.io/2015/11/13/encoding-problem/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#URL_u7F16_u7801"><span class="toc-number">1.</span> <span class="toc-text">URL编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tomcat"><span class="toc-number">2.</span> <span class="toc-text">tomcat">tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html"><span class="toc-number">3.</span> <span class="toc-text">html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#termial_u7F16_u8BD1_u4E71_u7801_u95EE_u9898_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">termial编译乱码问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u89E3_u51B3mac_u4E0Bmaven_u7F16_u8BD1_u4E71_u7801_u7684_u95EE_u9898"><span class="toc-number">5.</span> <span class="toc-text">解决mac下maven编译乱码的问题">解决mac下maven编译乱码的问题</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

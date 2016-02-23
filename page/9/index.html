@@ -1,0 +1,963 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="科学，技术，点滴">
+<meta property="og:type" content="website">
+<meta property="og:title" content="silveringsea on the run">
+<meta property="og:url" content="http://silveringsea.github.io/page/9/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="科学，技术，点滴">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="silveringsea on the run">
+<meta name="twitter:description" content="科学，技术，点滴">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/16/adb-command/" title="adb command" itemprop="url">adb command</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-16T02:12:37.000Z" itemprop="datePublished"> 发表于 2015-10-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="adb__u547D_u4EE4"><a href="#adb__u547D_u4EE4" class="headerlink" title="adb 命令"></a>adb 命令</h3><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">-d: 让唯一连接到该PC端的真实安卓设备执行命令，如果发现USB中连接有多部设备，将会报错</span><br><span class="line">-e: 让唯一连接到该PC端的模拟器执行命令，如果发现开启了多个模拟器，将会报错</span><br><span class="line">-s：通过设备的序列号进行指定设备执行命令</span><br><span class="line">adb devices</span><br><span class="line">adb get-serialno 获取连接到的手机的序列号</span><br><span class="line">adb -s &lt;serialNumber&gt; get-state 获取设备的连接状态</span><br><span class="line">adb wait-<span class="keyword">for</span>-device 该命令将会阻塞一直到默认连接的那部机器状态变为device，也就是连接成功。</span><br><span class="line">adb kill-server</span><br><span class="line">adb start-server</span><br><span class="line">adb install (apk在PC上的路径/)*.apk （将apk文件上传到了模拟器自带操作系统的data/app目录下了）</span><br><span class="line">adb uninstall apk的包名（用EC切换到DDMS的File Explorer中查看，data/data下） 命令行用uninstall</span><br><span class="line">adb shell （进入模拟器自带的操作系统）</span><br><span class="line">adb remount 可能会挂载失败，提示remount failed: Operation not permitted, 用rm方法删除</span><br><span class="line"><span class="keyword">cd</span> data/app （切换到apk的安装目录）</span><br><span class="line">rm ***.apk （用EC切换到DDMS的File Explorer中查看，data/app下）</span><br><span class="line">adb shell </span><br><span class="line">mount <span class="number">1</span>、系统分区</span><br><span class="line">其挂载方式和 Linux 非常类似。其中需要说明一下的可能是 /dev/block/mtdblock* 这几个核心分区（写入 ROM 的），他们都是使用 yaffs2 文件系统（基于 FLASH 存储），其中是 /system 这个分区只有特殊的 readonly 只读权限，由此可见 Android 在安全性设计方面所下的一些功夫。另外 /dev/block/vold 据说是设计来替代 udev 的功能，主要用于支持一些热插拔设备。</span><br><span class="line"></span><br><span class="line">adb pull 手机文件地址 本地目录 就是从真机上拷贝文件到您的PC上。</span><br><span class="line">adb push 本地apk路径 /system/priv-app #安装系统app，直接将apk文件push到/system/priv-app目录下，重启手机即可</span><br><span class="line">删除:</span><br><span class="line">adb shell </span><br><span class="line"><span class="keyword">cd</span> /system/priv-app </span><br><span class="line">rm apk包名.apk </span><br><span class="line"><span class="keyword">cd</span> /data/data </span><br><span class="line">rm -rf 应用包名</span><br><span class="line"></span><br><span class="line">adb shell screenrecord /sdcard/demo.mp4 屏幕开始录像并且储存到/sdcard中，同时名字为demo.mp4</span><br><span class="line">adb shell stop  关闭设备请求，开启设备</span><br><span class="line">adb shell start</span><br><span class="line">adb reboot</span><br><span class="line">adb shutdown</span><br><span class="line">adb get-serialno 获取序列号</span><br><span class="line">adb devices 查看连接计算机的设备：</span><br><span class="line">adb reboot 重启机器：</span><br><span class="line">adb reboot bootloader 重启到bootloader，即刷机模式：</span><br><span class="line">adb reboot recovery 重启到recovery，即恢复模式：</span><br><span class="line">adb kill-server 终止adb服务进程：</span><br><span class="line">adb start-server 重启adb服务进程：</span><br><span class="line">adb install -r &lt;apkfile&gt; //比如：adb install -r baidu.apk 保留数据和缓存文件，重新安装apk：</span><br><span class="line">adb install -s &lt;apkfile&gt; // 比如：adb install -s baidu.apk 安装apk到sd卡：</span><br><span class="line">adb uninstall -k &lt;<span class="keyword">package</span>&gt; //比如：adb uninstall -k com.baidu.search 卸载app但保留数据和缓存文件：</span><br><span class="line">adb shell top 查看设备cpu和内存占用情况：</span><br><span class="line">adb shell top -m <span class="number">6</span> 查看占用内存前<span class="number">6</span>的app：</span><br><span class="line">adb shell top -n <span class="number">1</span> 刷新一次内存信息，然后返回：</span><br><span class="line">adb shell procrank 查询各进程内存使用情况：</span><br><span class="line">adb shell kill [<span class="keyword">pid</span>] 杀死一个进程：</span><br><span class="line">adb shell ps -x [PID] 查看指定进程状态：</span><br><span class="line">adb shell service <span class="keyword">list</span> 查看后台services信息：</span><br><span class="line">adb shell cat /<span class="keyword">proc</span>/meminfo 查看当前内存占用：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /<span class="keyword">proc</span>/iomem 查看IO内存分区：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> rename</span> path/oldfilename<span class="symbol"> path/newfilename</span> 重命名文件：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /data/misc/wifi/*.conf 查看wifi密码：<span class="symbol"></span><br><span class="line"></span><br><span class="line">adb</span> logcat 查看log：<span class="symbol"></span><br><span class="line">adb</span> logcat -c 清除log缓存：<span class="symbol"></span><br><span class="line">adb</span> bugreport 查看bug报告：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /system/build.prop 获取设备名称：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol">  cat</span> /sys/class/net/wlan0/address 获取机器MAC地址：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /<span class="keyword">proc</span>/cpuinfo 获取CPU序列号：<span class="symbol"></span><br><span class="line">adb</span> help<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> monkey</span> -v -p<span class="symbol"> your.package.name</span> 500 跑monkey：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> am</span> start -n &lt;package_name&gt;/.&lt;activity_class_name&gt; 启动应用<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> am</span> start -a<span class="symbol"> android.intent.action.VIEW</span> -n<span class="symbol"> cn.uc.test/.MainActivity</span> -d<span class="symbol"> http://www.baidu.com</span> ## 进行app的开启，并且传递一定的参数过去,比如：</span><br><span class="line">##<span class="symbol"> disable</span> &lt;PACKAGE_OR_COMPONENT&gt; 其中<span class="symbol"> PACKAGE_OR_COMPONENT的格式是</span> package/class， 如<span class="symbol"> com.UCMobile/.main.UCMobile</span></span><br><span class="line">adb<span class="symbol"> shell</span> su<span class="symbol"> disable</span> com.UCMobile/.main.UCMobile<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> su</span> enable<span class="symbol"> com.UCMobile/.main.UCMobile</span> 让一个apk从禁用状态恢复过来<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> pm</span> path<span class="symbol"> com.UCMobile</span>  查看一个apk所在的路径<span class="symbol"></span><br><span class="line">pm</span> list<span class="symbol"> packages</span>   查看手机中装的所有的包</span><br></pre></td></tr></table></figure>
+<h3 id="u76EE_u5F55_u6982_u89C8"><a href="#u76EE_u5F55_u6982_u89C8" class="headerlink" title="目录概览"></a>目录概览</h3><p>1、mnt               挂载点目录<br>2、etc               系统主要配置文件<br>3、system            Android 系统文件<br>     1、usr            用户文件夹，包含共享、键盘布局、时间区域文件等<br>　　2、app            常规下载的应用程序，这些 apk 包都是受保护的哦<br>　　3、lib            系统底层库，如平台运行时库等<br>　　4、etc            系统的配置文件，比如APN接入点设置等核心配置等<br>　　5、framework      Android 系统平台核心 framework 的文件<br>　　6、build.prop     Android 系统属性配置文件<br>　　7、xbin           常用开发工具，比如 tcpdump/sqlite3 等<br>　　8、bin            系统工具，比如 ps/cp/pm 等<br>　　9、priv-app       系统应用程序<br>4、sys               Linux 内核文件<br>5、proc              运行时文件<br>6、init.rc           启动脚本<br>7、default.prop      系统属性配置文件<br>8、data              用户程序目录<br>    1、data            存放安装后的apk数据<br>　　2、app             存放apk文件<br>9、dev              设备文件</p>
+<h3 id="u5E38_u89C1_u9519_u8BEF"><a href="#u5E38_u89C1_u9519_u8BEF" class="headerlink" title="常见错误"></a>常见错误</h3><p>以下错误，部分是由于权限不足引起的，在调试错误前，请保证可以获得手机的root权限 </p>
+<ol>
+<li><p>remount failed: Permission denied<br>fix:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">adb</span> root </span><br><span class="line">adb remount</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>error: device not found<br>尝试在任务管理器中关闭adb.exe进行，然后重试</p>
+</li>
+<li><p>INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES<br>安装包签名不一致，你需要卸载旧的安装包再重新安装。 对于普通app和系统app，分别按照上文方式进行卸载、安装即可。 </p>
+</li>
+<li><p>Read-only file system<br>也就是文件只能读，fix: </p>
+<ul>
+<li>remount或者chmod 777修改目录的读写权限(如果你是root用户)。 <ul>
+<li>顺序执行：<pre><code>1、adb shell
+2、mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system
+或，
+adb shell mount -o remount rw /system
+此时，对大部分设备而言均可解决。
+</code></pre><ul>
+<li>可先把文件PUSH到／DATA目录，然后到adb shell下面，使用su命令进行搬运到最终地址。<br>   1、adb shell<br>   2、su<br>   3、cat /data/test.so &gt; /system/lib/test.so</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>7、INSTALL_FAILED_INVALID_URI<br>在安装apk过程中，遇到这个错误，貌似root过的手机比较常出现，可以尝将/data/local目录的权限<br>从 rwxrwxr– 修改为 rwxrwxrwx</p>
+<h3 id="u6302_u8F7D_u76EE_u5F55_u4E3A_u53EF_u8BFB_u5199_u3001_u53EA_u8BFB_u547D_u4EE4_uFF1A"><a href="#u6302_u8F7D_u76EE_u5F55_u4E3A_u53EF_u8BFB_u5199_u3001_u53EA_u8BFB_u547D_u4EE4_uFF1A" class="headerlink" title="挂载目录为可读写、只读命令："></a>挂载目录为可读写、只读命令：</h3><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">su</span><br><span class="line">mount -o remount rw /<span class="keyword">system</span>                    （挂载/<span class="keyword">system</span>为可读写）</span><br><span class="line">或 busybox mount -o remount,rw /<span class="keyword">system</span>  （挂载/<span class="keyword">system</span>为可读写）</span><br><span class="line">busybox mount -o remount,ro /<span class="keyword">system</span>       （挂载/<span class="keyword">system</span>为只读）</span><br><span class="line">busybox df -h</span><br><span class="line">reboot                 重启命令</span><br><span class="line">reboot -p             关机命令</span><br><span class="line">reboot recovery    重启至recovery模式</span><br></pre></td></tr></table></figure>
+<p>超级终端命令备份 system、data、cache、boot、recodvery等分区为 .img文件：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/mtd</span><br><span class="line">假设mtd1对应recovery分区，mtd2对应system分区，备份命令如下：</span><br><span class="line">cat /dev/mtd/mtd1 &gt; /sdcard/recovery.img</span><br><span class="line">cat /dev/mtd/mtd2 &gt; /sdcard/system.img</span><br></pre></td></tr></table></figure></p>
+<p>　<br>mmcblk 等具体对应哪些分区可参考：APP2SD+开启原理及用Re管理器开启app2sd+方法<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">挂载EXT分区命令 ，假设mmcblk0p2对应内存卡第二分区（ext格式）</span><br><span class="line">mount -t ext2 <span class="regexp">/dev/</span>block<span class="regexp">/mmcblk0p2 /</span>system/sd-ext</span><br><span class="line">重新挂载Fat32格式的内存卡到<span class="regexp">/system/</span>sd-fat，假设mmcblk0p1对应内存卡第一分区（FAT32格式），在/system 下新建一个空目录 sd-fat 来挂载：</span><br><span class="line">mount -o remount -t vfat <span class="regexp">/mmcblk0p1 /</span>system/sd-fat</span><br><span class="line">重新挂载回/sdcard：</span><br><span class="line">mount -o remount -t vfat <span class="regexp">/mmcblk0p1 /</span>sdcard</span><br><span class="line">App2sd+完整开启命令，可参考：APP2SD+开启原理及用Re管理器开启app2sd+方法</span><br><span class="line">su</span><br><span class="line">busybox mount -o remount,rw <span class="regexp">/system  （挂载/</span>system为可读写）</span><br><span class="line">mkdir <span class="regexp">/system/</span>sd-ext                        （/system目录下新建目录 sd-ext）</span><br><span class="line">mount -t ext2 <span class="regexp">/dev/</span>block<span class="regexp">/mmcblk0p2 /</span>system/sd-ext   （将第二分区ext分区挂载到sd-ext）</span><br><span class="line">cp -a <span class="regexp">/data/</span>app <span class="regexp">/system/</span>sd-ext<span class="regexp">/　　    (将/</span>data<span class="regexp">/app目录复制到/</span>system<span class="regexp">/sd/</span>下)　　</span><br><span class="line">rm -r <span class="regexp">/data/</span>app　　                      (删除<span class="regexp">/data/</span>app目录)　</span><br><span class="line">ln -s <span class="regexp">/system/</span>sd-ext<span class="regexp">/app /</span>data/app　　(建立软链接)　　</span><br><span class="line">reboot　　                                    (重启手机)</span><br></pre></td></tr></table></figure></p>
+<h3 id="USB_u65B9_u5F0F_u53CA_u7F51_u7EDC_u65B9_u5F0F_u3002"><a href="#USB_u65B9_u5F0F_u53CA_u7F51_u7EDC_u65B9_u5F0F_u3002" class="headerlink" title="USB方式及网络方式。"></a>USB方式及网络方式。</h3><p>一般手机及平板默认会设置为USB方式, 配置的属性为：<br>   service.adb.tcp.port            &lt;-  监听的网络端口</p>
+<pre><code>&gt; 以上属性的值 &gt; 0    :    adbd将监听网络对应的端口（一般为5555）
+    以上属性的值 &lt;=-1：  adbd将监听USB  
+</code></pre><p>enable adb over wifi:<br>adb tcpip 5555<br>setprop service.adb.tcp.port -1<br>stop adbd<br>start adbd<br>adb connect 192.168.1.5:5555    (:5555可省略）  #如果连接成功会进行相关的提示，如果失败的话，可以先kill-server命令，然后重试连接。<br>adb kill-server<br>adb disconnect 192.168.1.5:5555</p>
+<h4 id="adb_client"><a href="#adb_client" class="headerlink" title="adb client"></a>adb client</h4><pre><code>每当我们发起一个adb命令的时候，就会开启一个client程序。当然，当我们开启DDMS或者ADT的时候，也会自动创建client。当我们开启一个client的时候，它首先会去检测后台是否已经有一个server程序在运行着，否则会开启一个adb-server进程。所有的client都是通过5037端口与adb-server进行通信的。
+</code></pre><h4 id="adb_daemon_uFF08adbd_uFF09__u7BA1_u7406_u5927_u5BB6_u5728_u7535_u8111_u7AEF_u7684adb_u547D_u4EE4_u8FDE_u63A5_uFF0C"><a href="#adb_daemon_uFF08adbd_uFF09__u7BA1_u7406_u5927_u5BB6_u5728_u7535_u8111_u7AEF_u7684adb_u547D_u4EE4_u8FDE_u63A5_uFF0C" class="headerlink" title="adb daemon（adbd） 管理大家在电脑端的adb命令连接，"></a>adb daemon（adbd） 管理大家在电脑端的adb命令连接，</h4><pre><code>作为一个后台进程运行在模拟器/真实Android设备中的, 使用端口的范围是5554-5585，每个模拟器/设备连接到PC端时，总会开启这么一个后台进程，并且为其分配了两个连续的端口，比如：
+</code></pre><p>　　　　Emulator 1, console: 5554<br>　　　　Emulator 1, adb: 5555<br>　　也正因为每个设备都分一组两个端口, adb连接手机的最大数量为16。 其中偶数端口是用于server 与设备进行交互的，可以让server直接从设备中读取数据，而奇数端口是用来与设备的adbd进行连接通信的。<br>adb server<br>　当一个server开启的时候，他会自动绑定并且监听5037端口，接收client通过该端口发送过来的命令。同时server还会对5555-5585间的奇数端口进行扫描，进行对已连接设备的定位。</p>
+<p><a href="http://developer.android.com/tools/help/adb.html#IntentSpec" target="_blank" rel="external">http://developer.android.com/tools/help/adb.html#IntentSpec</a><br><a href="https://code.google.com/p/adb-fastboot-install/downloads/list" target="_blank" rel="external">https://code.google.com/p/adb-fastboot-install/downloads/list</a><br><a href="http://blog.csdn.net/ddna/article/details/6939608" target="_blank" rel="external">http://blog.csdn.net/ddna/article/details/6939608</a><br><a href="http://wojiushiwolxw.spaces.eepw.com.cn/articles/article/item/97054" target="_blank" rel="external">http://wojiushiwolxw.spaces.eepw.com.cn/articles/article/item/97054</a><br><a href="http://blog.csdn.net/crazy__chen/article/details/50221177" target="_blank" rel="external">http://blog.csdn.net/crazy__chen/article/details/50221177</a><br><a href="http://blog.csdn.net/shuaihj/article/details/8889465" target="_blank" rel="external">1</a><br><a href="http://developer.android.com/tools/help/adb.html" target="_blank" rel="external">2</a><br><a href="http://www.cnblogs.com/xiaoxuetu/p/3411214.html" target="_blank" rel="external">3</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/android/">android</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/android/">android</a><a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/16/adb-command/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/16/adb-command/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/15/activemq-usage/" title="activemq usage" itemprop="url">activemq usage</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-14T19:39:27.000Z" itemprop="datePublished"> 发表于 2015-10-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u57FA_u51C6_u6D4B_u8BD5"><a href="#u57FA_u51C6_u6D4B_u8BD5" class="headerlink" title="基准测试"></a>基准测试</h3><p>新版本：<br><a href="http://activemq.apache.org/examples.html" target="_blank" rel="external">http://activemq.apache.org/examples.html</a><br>${ACTIVEMQ_HOME}/bin/activemq producer<br>${ACTIVEMQ_HOME}/bin/activemq consumer</p>
+<p>老版本的测试工具：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">消费者：<span class="keyword">ant</span> consumer</span><br><span class="line">生产者：<span class="keyword">ant</span> producer</span><br><span class="line">设置几百万条消息做压力测试，然后逐步调整heap、perm内存空间大小，慢慢调出最稳定最优的MQ配置</span><br></pre></td></tr></table></figure></p>
+<h3 id="u7279_u5F81"><a href="#u7279_u5F81" class="headerlink" title="特征"></a>特征</h3><ol>
+<li>queue与topic的技术特点对比</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>Topic</th>
+<th>Queue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概要</td>
+<td>Publish Subscribe messaging 发布订阅消息</td>
+<td>Point-to-Point 点对点</td>
+</tr>
+<tr>
+<td>有无状态</td>
+<td>topic数据默认不落地，是无状态的。</td>
+<td>Queue数据默认会在mq服务器上以文件形式保存，比如Active MQ一般保存在$AMQ_HOME\data\kr-store\data下面。也可以配置成DB存储。</td>
+</tr>
+<tr>
+<td>完整性</td>
+<td>并不保证publisher发布的每条数据，Subscriber都能接受到。</td>
+<td>Queue保证每条数据都能被receiver接收。</td>
+</tr>
+<tr>
+<td>消息是否会丢失</td>
+<td>一般来说publisher发布消息到某一个topic时，只有正在监听该topic地址的sub能够接收到消息；如果没有sub在监听，该topic就丢失了。</td>
+<td>Sender发送消息到目标Queue，receiver可以异步接收这个Queue上的消息。Queue上的消息如果暂时没有receiver来取，也不会丢失。</td>
+</tr>
+<tr>
+<td>消息发布接收策略</td>
+<td>一对多的消息发布接收策略，监听同一个topic地址的多个sub都能收到publisher发送的消息。Sub接收完通知mq服务器</td>
+<td>一对一的消息发布接收策略，一个sender发送的消息，只能有一个receiver接收。receiver接收完后，通知mq服务器已接收，mq服务器对queue里的消息采取删除或其他操作。</td>
+</tr>
+<tr>
+<td>最大区别</td>
+<td>topic是以广播的形式，通知所有在线监听的客户端有新的消息，没有监听的客户端将收不到消息</td>
+<td>queue则是以点对点的形式通知多个处于监听状态的客户端中的一个。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="u6D4B_u8BD5_u6570_u636E"><a href="#u6D4B_u8BD5_u6570_u636E" class="headerlink" title="测试数据"></a>测试数据</h3><h3 id="u96C6_u7FA4_u90E8_u7F72"><a href="#u96C6_u7FA4_u90E8_u7F72" class="headerlink" title="集群部署"></a>集群部署</h3><ol>
+<li><p>Master-Slave的部署方式, 优点 故障恢复，但是没有负载均衡</p>
+<ul>
+<li>主从 persistenceAdapter<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">broker</span> <span class="attribute">masterConnectorURI</span>=<span class="value">"tcp://masterhost:61617"</span> <span class="attribute">shutdownOnMasterFailure</span>=<span class="value">"false"</span>&gt;</span> </span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="title">transportConnectors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">transportConnector</span> <span class="attribute">uri</span>=<span class="value">"tcp://slavehost:61616"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">transportConnectors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">broker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>根据文件系统的排它锁 Shared File System Master Slave </li>
+<li>shared database Master-Slave方式<br> 与shared filesystem方式类似，只是共享的存储介质由文件系统改成了数据库</li>
+<li><p>Replicated LevelDB Store方式<br> 这种主备方式是ActiveMQ5.9以后才新增的特性，使用ZooKeeper协调选择一个node作为master。被选择的master broker node开启并接受客户端连接。<br>其他node转入slave模式，连接master并同步他们的存储状态。slave不接受客户端连接。所有的存储操作都将被复制到连接至Master的slaves。</p>
+<p>如果master死了，得到了最新更新的slave被允许成为master。fialed node能够重新加入到网络中并连接master进入slave mode。所有需要同步的disk的消息操作都将等待存储状态被复制到其他法定节点的操作完成才能完成。所以，如果你配置了replicas=3，那么法定大小是(3/2)+1=2. Master将会存储并更新然后等待 (2-1)=1个slave存储和更新完成，才汇报success。至于为什么是2-1，熟悉Zookeeper的应该知道，有一个node要作为观擦者存在。</p>
+<p>单一个新的master被选中，你需要至少保障一个法定node在线以能够找到拥有最新状态的node。这个node将会成为新的master。因此，推荐运行至少3个replica nodes，以防止一个node失败了，服务中断。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p> MQ 各Broker节点通过共享文件目录来实现主从的热备，所有的节点都在不断地获取共享目录的排它锁，哪个应用抢到了排它锁，它就成为Master，其他节点为Slave。如果Master节点宕机，它会释放排它锁，从而抢到独占锁的Slave节点可以接管。</p>
+<p>因此使用这种主从热备的方式，不仅需要一个多服务器可以共享目录的机制（比如磁盘柜或分布式文件系统），而且文件系统需要支持文件排它锁。</p>
+<p>多台节点启动时，先启动的节点获取排它锁，成为Master节点，其他节点成为Slave节点并等待获取共享目录的排它锁。</p>
+<ol>
+<li>Broker Cluster  有集群负载均衡的功能</li>
+</ol>
+<h3 id="u6E90_u7801_u7F16_u8BD1"><a href="#u6E90_u7801_u7F16_u8BD1" class="headerlink" title="源码编译"></a>源码编译</h3><p>mvn eclipse:eclipse<br>mvn idea:idea</p>
+<p><a href="http://activemq.apache.org/stomp.html" target="_blank" rel="external">stomp</a><br><a href="http://blog.evercoding.net/2014/07/17/activemq-note/" target="_blank" rel="external">activemq</a><br><a href="http://wenku.baidu.com/view/6989622de2bd960590c67760.html" target="_blank" rel="external">Ac​t​i​v​e​M​Q​集​群​的​使​用​与​配​置</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/activemq/">activemq</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/15/activemq-usage/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/15/activemq-usage/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/12/vim-usage/" title="vim usage" itemprop="url">vim usage</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-12T05:35:10.000Z" itemprop="datePublished"> 发表于 2015-10-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="vi_u5E38_u7528_u64CD_u4F5C"><a href="#vi_u5E38_u7528_u64CD_u4F5C" class="headerlink" title="vi常用操作"></a>vi常用操作</h2><ol>
+<li><p>文件操作 </p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="keyword">FileName</span> 打开文件 <span class="keyword">FileName</span>,并将光标置于第一行首。 </span><br><span class="line">vi +n <span class="keyword">FileName</span> 打开文件 <span class="keyword">FileName</span>,并将光标置于第 n 行首。 </span><br><span class="line">vi + <span class="keyword">FileName</span> 打开文件 <span class="keyword">FileName</span>,并将光标置于最后一行。 </span><br><span class="line">vi + /pattern <span class="keyword">File</span> 打开文件 <span class="keyword">File</span>,并将光标置于其中第一个于 pattern 匹配的字符串处。 </span><br><span class="line">vi –r <span class="keyword">FileName</span> 在上次正用 vi 编辑 <span class="keyword">FileName</span> 发生系统崩溃后,恢复<span class="keyword">FileName</span>。 </span><br><span class="line">vi File1 … Filen 打开多个文件,依次对之进行编辑。 </span><br><span class="line">:%!xxd 按十六进制查看当前文件 </span><br><span class="line">:%!xxd -r 从十六进制返回正常模式 </span><br><span class="line"></span><br><span class="line">:n1,n2 co n3 将 n1 行到 n2 行之间的内容拷贝到第 n3 行下。 </span><br><span class="line">:n1,n2 m m3 将 n1 行到 n2 行之间的内容移至第 n3 行下。 </span><br><span class="line">:n1,n2 d 将 n1 行到 n2 行之间的内容删除。 </span><br><span class="line">:n1,n2 w filename 将 n1 行到 n2 行之间的内容保存到文件 filename 中 </span><br><span class="line">:n1,n2 w! Command 将文件中n1行到n2行的内容作为 Command的输入并执行之， </span><br><span class="line">若不指定 n1、n2，则将整个文件内容作为 Command 的输入。 </span><br><span class="line">:r! Command 将命令 Command 的输出结果放到当前行。 </span><br><span class="line">:nr &lt;文件&gt; 把&lt;文件&gt;插入到第n行 </span><br><span class="line">:so &lt;文件&gt; 读取&lt;文件&gt;,再执行文件里面的命令(文件中的命令应该都是一些ex命令) </span><br><span class="line">:l1,l2w &lt;文件&gt; 把第l1和第l2行之间的文本写到&lt;文件&gt;中去 </span><br><span class="line">:w &gt;&gt; &lt;文件&gt; 添加到&lt;文件&gt;末尾. 也可以使用行号 </span><br><span class="line">:e! 重新编辑当前文件,忽略所有的修改 </span><br><span class="line">:w !sudo tee % 编辑了没有权限的文件时</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>光标移动</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">h</span> 光标左移一个字符。 </span><br><span class="line"><span class="keyword">l</span> 光标右移一个字符。  </span><br><span class="line">w 或 W 光标右移一个字至字首。 </span><br><span class="line">B 或 b 光标左移一个字至字首。 </span><br><span class="line"><span class="keyword">E</span> 或 <span class="keyword">e</span> 光标右移一个字至字尾。  </span><br><span class="line">·句&#125; 光标移至句尾。 </span><br><span class="line">( 光标移至句首。  </span><br><span class="line">·段) 光标移至段落开头。 </span><br><span class="line">&#123; 光标移至段落结尾。  </span><br><span class="line">·行k 或 Ctrl+p 光标上移一行。 </span><br><span class="line">j 或 Ctrl+<span class="keyword">n</span> 光标下移一行。 </span><br><span class="line">Enter 光标下移一行。 </span><br><span class="line">nG 光标移至第 <span class="keyword">n</span> 行首。 </span><br><span class="line"><span class="keyword">n</span>+ 光标下移 <span class="keyword">n</span> 行。 </span><br><span class="line"><span class="keyword">n</span>- 光标上移 <span class="keyword">n</span> 行。 </span><br><span class="line"><span class="keyword">n</span>$ 光标移至第 <span class="keyword">n</span> 行尾。 </span><br><span class="line">0 光标移至当前行首。 </span><br><span class="line">$ 光标移至当前行尾。  </span><br><span class="line"><span class="keyword">H</span> 光标移至屏幕顶行。 </span><br><span class="line"><span class="keyword">M</span> 光标移至屏幕中间行。 </span><br><span class="line"><span class="keyword">L</span> 光标移至屏幕最后行。 </span><br><span class="line">Ctrl+<span class="keyword">u</span> 向文件首翻半屏。 </span><br><span class="line">Ctrl+<span class="keyword">d</span> 向文件尾翻半屏。 </span><br><span class="line">Ctrl+f 向文件尾翻一屏。 </span><br><span class="line">Ctrl+b 向文件首翻一屏。 </span><br><span class="line">nz 将第 <span class="keyword">n</span> 行滚至屏幕顶部。不指定 <span class="keyword">n</span> 时将当前行滚至屏幕顶。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件中插入行号(不是显示行号，是插入！) </span></span><br><span class="line"><span class="symbol">:g/^/exec</span> <span class="string">"s/^/"</span>.strpart(line(<span class="string">"."</span>).<span class="string">" "</span>, <span class="number">0</span>, <span class="number">4</span>)  </span><br><span class="line">i 在光标前插入。 </span><br><span class="line">a 在光标后插入。  </span><br><span class="line"><span class="constant">I </span>在当前行首插入。 </span><br><span class="line"><span class="constant">A </span>在当前行尾插入。 </span><br><span class="line">o 在当前行之下一新行插入。 </span><br><span class="line"><span class="constant">O </span>在当前行之上新开一行插入。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>替换 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">r 替换当前字符。 </span><br><span class="line"><span class="constant">R </span>替换当前字符及其后的字符，直至按 <span class="constant">ESC </span>键。 </span><br><span class="line">s 从当前光标位置处开始，以输入的文本代替指定数目的字符。 </span><br><span class="line"><span class="constant">S </span>删除指定数目的行，并以所输入的文本代替。</span><br><span class="line"><span class="symbol">:</span>.,+<span class="number">3</span> s/^<span class="regexp">/#/g</span>            注释从当前行起的后三行（不含当前行）</span><br><span class="line"><span class="symbol">:ranges/pat1/pat2/g</span>  </span><br><span class="line">range  可以使用百分号（%）表示所有行，使用点（.）表示当前行，使用美元符号（<span class="variable">$）</span>表示最后一行。你还可以使用行号，例如<span class="number">10</span>,<span class="number">20</span>表 示第<span class="number">10</span>到<span class="number">20</span>行，.,<span class="variable">$表</span>示当前行到最后一行，.+<span class="number">2</span>,<span class="variable">$-</span><span class="number">5</span>表示当前行后两行直到全文的倒数第五行，等等。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 </p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ncw 或 nCW 修改指定数目的字符。 </span><br><span class="line">nCC 修改指定数目的行。 </span><br><span class="line">:r <span class="keyword">filename</span> 将文件 <span class="keyword">filename</span> 插入在当前行之下</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找替换 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/&lt;<span class="constant">C-R&gt;</span>&lt;<span class="constant">C-W&gt;</span> 把狭义单词 &lt;cword&gt; 写到 搜索命令 行 </span><br><span class="line">/&lt;<span class="constant">C-R&gt;</span>&lt;<span class="constant">C-A&gt;</span> 把广义单词 &lt;cWORD&gt; 写到 搜索命令 行 </span><br><span class="line"><span class="symbol">:g/str/s/str1/str2/g</span>  </span><br><span class="line"><span class="symbol">:%s/f</span> <span class="variable">$/</span><span class="keyword">for</span><span class="variable">$/</span>g 将每一行尾部的“f ”（f键和空格键）替换为<span class="keyword">for</span> </span><br><span class="line"><span class="symbol">:%s/^/mv</span> /g 在每一行的头部添加“mv ”（mv键和空格键） </span><br><span class="line"><span class="symbol">:s/fred/&lt;c-r&gt;a/g</span> 替换fred成register a中的内容，呵呵 </span><br><span class="line"><span class="symbol">:g/&lt;input|&lt;form/p</span> 显示含&lt;input或&lt;form的行 </span><br><span class="line"><span class="comment"># 替换一个visual区域 </span></span><br><span class="line"><span class="comment"># 选择一个区域，然后输入 :s/Emacs/Vim/ 等等，vim会自动进入:模式 </span></span><br><span class="line"><span class="symbol">:<span class="string">'&lt;,'</span>&gt;s/Emacs/Vim/g</span> 前面的<span class="string">'&lt;,'</span>&gt;是vim自动添加的 </span><br><span class="line"><span class="comment"># 在多个文档中搜索 </span></span><br><span class="line"><span class="symbol">:bufdo</span> /searchstr </span><br><span class="line"><span class="symbol">:argdo</span> /searchstr  </span><br><span class="line">复制与剪切 </span><br><span class="line">xp 交换前后两个字符的位置 </span><br><span class="line">ddp 上下两行的位置交换 </span><br><span class="line"><span class="symbol">:g/fred/t</span><span class="variable">$ </span>拷贝行，从fred到文件末尾(<span class="constant">EOF)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>窗口操作 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:vne</span> [filename] </span><br><span class="line"><span class="symbol">:sp</span> [filename] </span><br><span class="line"><span class="symbol">:S</span> [filename] </span><br><span class="line"><span class="symbol">:new</span> [filename] </span><br><span class="line"><span class="symbol">:^w</span> + ^r 交换两个窗口的位置 </span><br><span class="line">^w = 窗口等宽 </span><br><span class="line"><span class="symbol">:res</span> -n 窗口高度减小n </span><br><span class="line"><span class="symbol">:res</span> +n 窗口高度增大n </span><br><span class="line"><span class="symbol">:vert</span> res -n </span><br><span class="line"><span class="symbol">:vert</span> res +n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除操作 </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:%s/r//g</span> 删除<span class="constant">DOS</span>方式的回车^<span class="constant">M</span> </span><br><span class="line"><span class="symbol">:%s=</span> *<span class="variable">$=</span>= 删除行尾空白 </span><br><span class="line"></span><br><span class="line"><span class="symbol">:%s/^</span>(.*)n1/<span class="number">1</span><span class="variable">$/</span> 删除重复行 </span><br><span class="line"></span><br><span class="line"><span class="symbol">:%s/^</span>.&#123;-&#125;pdf/new.pdf/ 只是删除第一个pdf </span><br><span class="line"></span><br><span class="line"><span class="symbol">:%s/&lt;</span>!--<span class="number">_</span>.&#123;-&#125;--&gt;<span class="regexp">//</span> 又是删除多行注释（咦？为什么要说「又」呢？） </span><br><span class="line"></span><br><span class="line"><span class="symbol">:g/^s*</span><span class="variable">$/</span>d 删除所有空行 </span><br><span class="line"><span class="symbol">:g!/^dd/d</span> 删除不含字符串<span class="string">'dd'</span>的行 </span><br><span class="line"><span class="symbol">:v/^dd/d</span> 同上 （译释：v == g!，就是不匹配！） </span><br><span class="line"></span><br><span class="line"><span class="symbol">:g/str1/</span>,<span class="regexp">/str2/d</span> 删除所有第一个含str1到第一个含str2之间的行 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="symbol">:v/</span>./.,<span class="regexp">/./</span>-<span class="number">1</span>join 压缩空行 </span><br><span class="line"><span class="symbol">:g/^</span><span class="variable">$/</span>,<span class="regexp">/./</span>-j 压缩空行 </span><br><span class="line"></span><br><span class="line">ndw 或 ndW 删除光标处开始及其后的 n-<span class="number">1</span> 个字符。 </span><br><span class="line">d<span class="number">0</span> 删至行首。 </span><br><span class="line">d<span class="variable">$ </span>删至行尾。 </span><br><span class="line">ndd 删除当前行及其后 n-<span class="number">1</span> 行。 </span><br><span class="line">x 或 <span class="constant">X</span> 删除一个字符。 </span><br><span class="line"><span class="constant">Ctrl</span>+u 删除输入方式下所输入的文本。 </span><br><span class="line">^<span class="constant">R</span> 恢复u的操作 </span><br><span class="line"><span class="constant">J</span> 把下一行合并到当前行尾 </span><br><span class="line"><span class="constant">V</span> 选择一行 </span><br><span class="line">^<span class="constant">V</span> 按下^<span class="constant">V</span>后即可进行矩形的选择了 </span><br><span class="line">aw 选择单词 </span><br><span class="line">iw 内部单词(无空格) </span><br><span class="line">as 选择句子 </span><br><span class="line">is 选择句子(无空格) </span><br><span class="line">ap 选择段落 </span><br><span class="line">ip 选择段落(无空格) </span><br><span class="line"><span class="constant">D</span> 删除到行尾 </span><br><span class="line">x,y 删除与复制包含高亮区 </span><br><span class="line"></span><br><span class="line">dl 删除当前字符（与x命令功能相同） </span><br><span class="line">d<span class="number">0</span> 删除到某一行的开始位置 </span><br><span class="line">d^ 删除到某一行的第一个字符位置（不包括空格或<span class="constant">TAB</span>字符） </span><br><span class="line">dw 删除到某个单词的结尾位置 </span><br><span class="line">d3w 删除到第三个单词的结尾位置 </span><br><span class="line">db 删除到某个单词的开始位置 </span><br><span class="line">dW 删除到某个以空格作为分隔符的单词的结尾位置 </span><br><span class="line">dB 删除到某个以空格作为分隔符的单词的开始位置 </span><br><span class="line">d7B 删除到前面<span class="number">7</span>个以空格作为分隔符的单词的开始位置 </span><br><span class="line">d） 删除到某个语句的结尾位置 </span><br><span class="line">d4） 删除到第四个语句的结尾位置 </span><br><span class="line">d（ 删除到某个语句的开始位置 </span><br><span class="line">d） 删除到某个段落的结尾位置 </span><br><span class="line">d&#123; 删除到某个段落的开始位置 </span><br><span class="line">d7&#123; 删除到当前段落起始位置之前的第<span class="number">7</span>个段落位置 </span><br><span class="line">dd 删除当前行 </span><br><span class="line">d/text 删除从文本中出现“text”中所指定字样的位置， </span><br><span class="line">一直向前直到下一个该字样所出现的位置（但不包括该字样）之间的内容 </span><br><span class="line">dfc 删除从文本中出现字符“c”的位置，一直向前直到下一个该字符所出现的位置（包括该字符）之间的内容 </span><br><span class="line">dtc 删除当前行直到下一个字符“c”所出现位置之间的内容 </span><br><span class="line"><span class="constant">D</span> 删除到某一行的结尾 </span><br><span class="line">d<span class="variable">$ </span>删除到某一行的结尾 </span><br><span class="line"><span class="number">5</span>dd 删除从当前行所开始的<span class="number">5</span>行内容 </span><br><span class="line">dL 删除直到屏幕上最后一行的内容 </span><br><span class="line">dH 删除直到屏幕上第一行的内容 </span><br><span class="line">dG 删除直到工作缓存区结尾的内容 </span><br><span class="line">d1G 删除直到工作缓存区开始的内容 </span><br><span class="line">修改命令操作 </span><br><span class="line">r 更改当前字符 </span><br><span class="line">cw 修改到某个单词的结尾位置 </span><br><span class="line">c3w 修改到第三个单词的结尾位置 </span><br><span class="line">cb 修改到某个单词的开始位置 </span><br><span class="line">cW 修改到某个以空格作为分隔符的单词的结尾位置 </span><br><span class="line">cB 修改到某个以空格作为分隔符的单词的开始位置 </span><br><span class="line">c7B 修改到前面<span class="number">7</span>个以空格作为分隔符的单词的开始位置 </span><br><span class="line">c<span class="number">0</span> 修改到某行的结尾位置 </span><br><span class="line">c&#125; 修改到某个语句的结尾位置 </span><br><span class="line">c4&#125; 修改到第四个语句的结尾位置 </span><br><span class="line">c（ 修改到某个语句的开始位置 </span><br><span class="line">c） 修改到某个段落的结尾位置 </span><br><span class="line">c&#123; 修改到某个段落的开始位置 </span><br><span class="line">c7&#123; 修改到当前段落起始位置之前的第<span class="number">7</span>个段落位置 </span><br><span class="line">ctc 修改当前行直到下一个字符c所出现位置之间的内容 </span><br><span class="line"><span class="constant">C</span> 修改到某一行的结尾 </span><br><span class="line">cc 修改当前行 </span><br><span class="line"><span class="number">5</span>cc 修改从当前行所开始的<span class="number">5</span>行内容 </span><br><span class="line">. 重复上一次修改！</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set 选项设置 </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> all 列出所有选项设置情况。 </span><br><span class="line"><span class="keyword">set</span> term 设置终端类型。 </span><br><span class="line"><span class="keyword">set</span> ignorecase 在搜索中忽略大小写。 </span><br><span class="line"><span class="keyword">set</span> <span class="keyword">list</span> 显示制表位(^I)和行尾标志($)。 </span><br><span class="line"><span class="keyword">set</span> number 显示行号。 </span><br><span class="line"><span class="keyword">set</span> showmode 示用户处在什么模式下 </span><br><span class="line"><span class="keyword">set</span> <span class="keyword">report</span> 显示由面向行的命令修改国的行数目。 </span><br><span class="line"><span class="keyword">set</span> terse 显示简短的警告信息。 </span><br><span class="line"><span class="keyword">set</span> warn 在转到别的文件时，若没有保存当前文件则显示 <span class="keyword">No</span> write 信息。 </span><br><span class="line"><span class="keyword">set</span> autowrite 在“:<span class="keyword">n</span>”和“:!”命令之前都自动保存文件 </span><br><span class="line"><span class="keyword">set</span> nomagic 允许在搜索模式中，使用前面不带/的特殊字符。 </span><br><span class="line"><span class="keyword">set</span> nowrapscan 禁止 vi 在搜索到达文件两端时,又从另一端开始。 </span><br><span class="line"><span class="keyword">set</span> mesg 允许 vi 显示其他用户用 write 写到自己终端上的信息。 </span><br><span class="line"></span><br><span class="line">autoindent (ai) noai 使新行自动缩进,和上(下)行的位置对齐 </span><br><span class="line">autoprint (<span class="keyword">ap</span>) <span class="keyword">ap</span> 每条命令之后都显示出修改之处 </span><br><span class="line">autowrite (aw) noaw 在:<span class="keyword">n</span>,:!命令之前都自动保存文件 </span><br><span class="line">beautify (bf) nobf 在输入的时候忽略所有的控制字符(除了制表键(<span class="keyword">tab</span>),换行(newline),进纸(formfeed)) </span><br><span class="line">directory= (<span class="keyword">dir</span>=) /tmp 存放缓冲区的目录名 </span><br><span class="line">edcompatible noedcompatible 在替换的时候使用类<span class="keyword">ed</span>的用法 </span><br><span class="line">errorbells (eb) errorbells 出错的时候响铃 </span><br><span class="line">exrc (<span class="keyword">ex</span>) noexrc 允许在主目录(home)外面之外放.exrc文件 </span><br><span class="line">hardtabs= (ht=) 8 设置硬制表的边界 </span><br><span class="line">ignore case (ic) noic 正规式里忽略大小写 </span><br><span class="line">lisp nolisp 打开lisp模式 </span><br><span class="line"><span class="keyword">list</span> nolist 显示所有的制表键和行的结尾 </span><br><span class="line">magic agic 可以使用更多的正规表达式 </span><br><span class="line">mesg mesg 允许向终端发送消息 </span><br><span class="line">number (nu) nonumber 显示行号 </span><br><span class="line"><span class="keyword">open</span> <span class="keyword">open</span> 允许开放和可视化 </span><br><span class="line">optimize (opt) optimize 优化吞吐量,打印时不发回车 </span><br><span class="line">paragraphs= (para=) IPLPPPQPPLIbp 设置&#123; &amp; &#125;的分界符 </span><br><span class="line">prompt prompt 命令模式下的输入给出:的提示符 </span><br><span class="line">readonly (ro) noro 除非用!号否则不准保存文件 </span><br><span class="line">redraw noredraw 当编辑的时候重绘屏幕 </span><br><span class="line"><span class="keyword">remap</span> <span class="keyword">remap</span> 允许宏指向其他的宏 </span><br><span class="line"><span class="keyword">report</span>= 5 如果影响的行数&gt;这个数的话就报告 </span><br><span class="line">scroll 1/2 <span class="keyword">window</span> 下卷屏幕时滚动屏幕的数目, 同样这也是z命令输出的行数(z 输出2倍滚屏的大小) </span><br><span class="line">sections= SHNHH HU 定义节的末尾(当使用命令[[ 和 ]] 时) </span><br><span class="line"><span class="keyword">shell</span>= (<span class="keyword">sh</span>=) /bin/<span class="keyword">sh</span> 缺省的<span class="keyword">SHELL</span>,如果设置了环境变量<span class="keyword">SHELL</span>的话,就使用变量 </span><br><span class="line">shiftwidth= (<span class="keyword">sw</span>=) 8 当使用移动(shift)命令时移动的字符数 </span><br><span class="line">showmatch (sm) nosm 显示&#123;, &#125;, (, ), [, 或者 ] 的匹配情况 </span><br><span class="line">showmode noshowmode 显示你处在什么模式下面 </span><br><span class="line">slowopen (slow) 插入之后不要立刻更新显示 </span><br><span class="line">tabstop= (ts=) 8 设置制表停止位(tabstop)的长度 </span><br><span class="line">taglength= (tl=) 0 重要标记的字符个数(0表示所有的字符) </span><br><span class="line">tags= tag, /usr/lib/tags 定义包含标记的文件路径 </span><br><span class="line">term= 设置终端类型 </span><br><span class="line">terse noterse 显示简短的错误信息 </span><br><span class="line">timeout (to) timeout 一秒钟后键盘映射超时 </span><br><span class="line">ttytype= 设置终端类型 </span><br><span class="line">warn warn 显示<span class="string">"No write since last change"</span>信息 </span><br><span class="line"><span class="keyword">window</span>= (w=) 可视模式下窗口的行数 </span><br><span class="line">wrapmargin= (wm=) 0 右边距,大于0的话最右边的单词将折行,留出<span class="keyword">n</span>个空白位置 </span><br><span class="line">wrapscan (ws) ws 查找到文件尾后再重头开始 </span><br><span class="line">writeany (wa) nowa 可以保存到任意一个文件去</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排序 </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:%!<span class="keyword">sort</span> -<span class="keyword">u</span> 使用<span class="keyword">sort</span>程序排序整个文件（用结果重写文件） </span><br><span class="line">!1） <span class="keyword">sort</span> -<span class="keyword">u</span> 排序当前段落 (只能在normal模式下使用!!) </span><br><span class="line">:.,+5!<span class="keyword">sort</span> 排序当前行及以下5行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列操作 </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:%s= [^ ]+$=&amp;&amp;= 复制最后一列 </span><br><span class="line">:%s= f+$=&amp;&amp;= 一样的功能 </span><br><span class="line">:%s= S+$=&amp;&amp; ft,还是一样 </span><br><span class="line"></span><br><span class="line"><span class="attribute">:s/(.*).*)/2"1/ 颠倒用:分割的两个字段</span> </span><br><span class="line"></span><br><span class="line"><span class="attribute">:%s(w+s+)&#123;2&#125;)str1:1str2:</span> 处理列，替换所有在第三列中的str1 </span><br><span class="line"></span><br><span class="line"><span class="attribute">:%sw+)(.*s+)(w+)$:321:</span> 交换第一列和最后一列 (共4列)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DOS格式文本转成Unix格式文本 </p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="number">1</span>,<span class="variable">$s</span>/^M//g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>书签<br>在阅读和编写大的程序文件时，利用标记（书签）功能定位是十分有帮助的。<br>将光标移到想做标记的位置。假如做一个名为“debug1”的标记，那么用户可在命令模式下输入做标记的命令“mdebug1”，然后敲入回车键，一个名 为“debug1”的标记就做好了。<br>接下来用户可以随意将光标移到其它的位置，当在命令模式下输入“`debug1”后，就能快速回到“debug1”的标记所在行的行首。 </p>
+</li>
+<li><p>特殊字符 </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">^ 匹配字符串位于行首。 </span><br><span class="line">$ 匹配字符串位于行尾。 </span><br><span class="line"><span class="bullet">. </span>用在模式串中，表示任何单个字符。 </span><br><span class="line">在命令模式下，重复上次的命令。 </span><br><span class="line"><span class="bullet">* </span>在模式串中，表示其前字符可出现任意多次。 </span><br><span class="line">[] 用在模式串中,表示指定方位内字符，其中可用-表示一个字 </span><br><span class="line">符范围，用^表示不在某个范围内的字符。 </span><br><span class="line">ESC 从插入状态转换到命令状态 </span><br><span class="line">^[ 功能同 ESC</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大小写转换 </p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">guu 行小写 </span><br><span class="line">gUU 行大写 </span><br><span class="line">g~~ 行翻转（当然指大小写啦） </span><br><span class="line">guw 字小写<span class="comment">(狭义字)</span> 译注：建议对比iw </span><br><span class="line">gUw 字大写<span class="comment">(狭义字)</span> </span><br><span class="line">g~w 字翻转<span class="comment">(狭义字)</span> </span><br><span class="line">vEU 字大写<span class="comment">(广义字)</span> </span><br><span class="line">vE~ 字翻转<span class="comment">(广义字)</span></span><br><span class="line">ggguG 把整个文章全部小写（ft!bt!）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跳转足迹’. 跳到最后修改的那一行  </p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`. 不仅跳到最后修改的那一行，还要定位到修改点 </span><br><span class="line">&lt;<span class="keyword">C</span>-<span class="keyword">O</span>&gt; 依次沿着你的跳转记录向回跳 (从最近的一次开始) </span><br><span class="line">&lt;<span class="keyword">C</span>-<span class="keyword">I</span>&gt; 依次沿着你的跳转记录向前跳 </span><br><span class="line">:ju(mps) 列出你跳转的足迹</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命令历史 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:history</span> 列出历史命令记录 </span><br><span class="line"><span class="symbol">:his</span> c 命令行命令历史 </span><br><span class="line"><span class="symbol">:his</span> s 搜索命令历史 </span><br><span class="line">q/ 搜索命令历史的窗口 </span><br><span class="line">q 命令行命令历史的窗口 </span><br><span class="line"><span class="symbol">:&lt;C-F&gt;</span> 历史命令记录的窗口</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄存器 </p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 列出寄存器(Registers) </span></span><br><span class="line">:reg 显示所有当前的registers </span><br><span class="line"><span class="string">"1p 表示引用register，1表示一个名字叫做1的register，p就是粘贴（paste）命令 </span></span><br><span class="line"><span class="string">"也用来定义register </span></span><br><span class="line">先输入 <span class="string">",表示定义register </span></span><br><span class="line">然后输入名字，如<span class="number">0</span>~<span class="number">9</span>,a~z </span><br><span class="line">然后执行删除或复制命令，如dd或y， </span><br><span class="line">或者是visual模式下的d(删除选中的部分)或y(复制选中的部分) </span><br><span class="line">则被删除或复制的部分就被存入了这个命名的register </span><br><span class="line"></span><br><span class="line">观察：一个特殊的register, <span class="string">""</span> ，里面存储了一个匿名的删除/复制 </span><br><span class="line">在你执行dd或y的时候，被作用的部分被存到了<span class="string">""</span>中</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/tools/">tools</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vim-tools/">vim, tools</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/12/vim-usage/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/12/vim-usage/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/20/virtualbox-config/" title="virtualbox config" itemprop="url">virtualbox config</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-20T10:39:07.000Z" itemprop="datePublished"> 发表于 2015-09-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="virtualbox_shared_folder"><a href="#virtualbox_shared_folder" class="headerlink" title="virtualbox shared folder"></a>virtualbox shared folder</h3><p>默认会员<br>sudo usermod -aG vboxsf $(whoami)</p>
+<p>in order to use shared folder functionality few prerequisites need to be met:</p>
+<pre><code>Make sure that Guest Additions are properly installed on the guest OS.
+Users in a guest Ubuntu must be in the group vboxsf to be able to access shares.
+Define a directory on the host that will be used in the virtual machine using the settings dialogue of Virtual Box.
+Do not share personal folders like /home/username or My Documents
+avoid special characters or empty spaces in the path to the shared folder
+use different names for share and mountpoint
+create a mountpoint on the guest OS (best in your HOME directory).
+</code></pre><p>Testing shared folders functionality can thus be done by creating a shared directory on the host (e.g. C:\myshare), define this as a shared folder for your guest system in Virtual Box settings (e.g. share), create a mount point in your guest os (e.g. mkdir /home/username/host)and mount this in the guest OS with the command:</p>
+<p>sudo mount -t vboxsf -o uid=1000,gid=1000 share /home/username/host</p>
+<p>where the option -o makes sure that you will have access to the mount (that will otherwise be owned by root).</p>
+<p>For further information on shared folders see also the Virtual Box User Manual.</p>
+<p>Files or directories can also be shared over the network by using Samba on the host and the guest.<br><a href="http://askubuntu.com/questions/30396/error-mounting-virtualbox-shared-folders-in-an-ubuntu-guest" target="_blank" rel="external">http://askubuntu.com/questions/30396/error-mounting-virtualbox-shared-folders-in-an-ubuntu-guest</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/20/virtualbox-config/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/20/virtualbox-config/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/18/performance-test/" title="performance test" itemprop="url">performance test</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-18T06:31:14.000Z" itemprop="datePublished"> 发表于 2015-09-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/18/performance-test/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/18/performance-test/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/8/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/10/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

@@ -1,0 +1,746 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>activemq usage | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="基准测试新版本：http://activemq.apache.org/examples.html${ACTIVEMQ_HOME}/bin/activemq producer${ACTIVEMQ_HOME}/bin/activemq consumer
+老版本的测试工具：123消费者：ant consumer生产者：ant producer设置几百万条消息做压力测试，然后逐步调整heap、perm内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="activemq usage">
+<meta property="og:url" content="http://silveringsea.github.io/2015/10/15/activemq-usage/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="基准测试新版本：http://activemq.apache.org/examples.html${ACTIVEMQ_HOME}/bin/activemq producer${ACTIVEMQ_HOME}/bin/activemq consumer
+老版本的测试工具：123消费者：ant consumer生产者：ant producer设置几百万条消息做压力测试，然后逐步调整heap、perm内存">
+<meta property="og:updated_time" content="2016-02-22T15:11:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="activemq usage">
+<meta name="twitter:description" content="基准测试新版本：http://activemq.apache.org/examples.html${ACTIVEMQ_HOME}/bin/activemq producer${ACTIVEMQ_HOME}/bin/activemq consumer
+老版本的测试工具：123消费者：ant consumer生产者：ant producer设置几百万条消息做压力测试，然后逐步调整heap、perm内存">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/15/activemq-usage/" title="activemq usage" itemprop="url">activemq usage</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-14T19:39:27.000Z" itemprop="datePublished"> 发表于 2015-10-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u57FA_u51C6_u6D4B_u8BD5"><span class="toc-number">1.</span> <span class="toc-text">基准测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7279_u5F81"><span class="toc-number">2.</span> <span class="toc-text">特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6D4B_u8BD5_u6570_u636E"><span class="toc-number">3.</span> <span class="toc-text">测试数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u96C6_u7FA4_u90E8_u7F72"><span class="toc-number">4.</span> <span class="toc-text">集群部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6E90_u7801_u7F16_u8BD1"><span class="toc-number">5.</span> <span class="toc-text">源码编译</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="u57FA_u51C6_u6D4B_u8BD5"><a href="#u57FA_u51C6_u6D4B_u8BD5" class="headerlink" title="基准测试"></a>基准测试</h3><p>新版本：<br><a href="http://activemq.apache.org/examples.html" target="_blank" rel="external">http://activemq.apache.org/examples.html</a><br>${ACTIVEMQ_HOME}/bin/activemq producer<br>${ACTIVEMQ_HOME}/bin/activemq consumer</p>
+<p>老版本的测试工具：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">消费者：<span class="keyword">ant</span> consumer</span><br><span class="line">生产者：<span class="keyword">ant</span> producer</span><br><span class="line">设置几百万条消息做压力测试，然后逐步调整heap、perm内存空间大小，慢慢调出最稳定最优的MQ配置</span><br></pre></td></tr></table></figure></p>
+<h3 id="u7279_u5F81"><a href="#u7279_u5F81" class="headerlink" title="特征"></a>特征</h3><ol>
+<li>queue与topic的技术特点对比</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>Topic</th>
+<th>Queue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概要</td>
+<td>Publish Subscribe messaging 发布订阅消息</td>
+<td>Point-to-Point 点对点</td>
+</tr>
+<tr>
+<td>有无状态</td>
+<td>topic数据默认不落地，是无状态的。</td>
+<td>Queue数据默认会在mq服务器上以文件形式保存，比如Active MQ一般保存在$AMQ_HOME\data\kr-store\data下面。也可以配置成DB存储。</td>
+</tr>
+<tr>
+<td>完整性</td>
+<td>并不保证publisher发布的每条数据，Subscriber都能接受到。</td>
+<td>Queue保证每条数据都能被receiver接收。</td>
+</tr>
+<tr>
+<td>消息是否会丢失</td>
+<td>一般来说publisher发布消息到某一个topic时，只有正在监听该topic地址的sub能够接收到消息；如果没有sub在监听，该topic就丢失了。</td>
+<td>Sender发送消息到目标Queue，receiver可以异步接收这个Queue上的消息。Queue上的消息如果暂时没有receiver来取，也不会丢失。</td>
+</tr>
+<tr>
+<td>消息发布接收策略</td>
+<td>一对多的消息发布接收策略，监听同一个topic地址的多个sub都能收到publisher发送的消息。Sub接收完通知mq服务器</td>
+<td>一对一的消息发布接收策略，一个sender发送的消息，只能有一个receiver接收。receiver接收完后，通知mq服务器已接收，mq服务器对queue里的消息采取删除或其他操作。</td>
+</tr>
+<tr>
+<td>最大区别</td>
+<td>topic是以广播的形式，通知所有在线监听的客户端有新的消息，没有监听的客户端将收不到消息</td>
+<td>queue则是以点对点的形式通知多个处于监听状态的客户端中的一个。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="u6D4B_u8BD5_u6570_u636E"><a href="#u6D4B_u8BD5_u6570_u636E" class="headerlink" title="测试数据"></a>测试数据</h3><h3 id="u96C6_u7FA4_u90E8_u7F72"><a href="#u96C6_u7FA4_u90E8_u7F72" class="headerlink" title="集群部署"></a>集群部署</h3><ol>
+<li><p>Master-Slave的部署方式, 优点 故障恢复，但是没有负载均衡</p>
+<ul>
+<li>主从 persistenceAdapter<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">broker</span> <span class="attribute">masterConnectorURI</span>=<span class="value">"tcp://masterhost:61617"</span> <span class="attribute">shutdownOnMasterFailure</span>=<span class="value">"false"</span>&gt;</span> </span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="title">transportConnectors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">transportConnector</span> <span class="attribute">uri</span>=<span class="value">"tcp://slavehost:61616"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">transportConnectors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">broker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>根据文件系统的排它锁 Shared File System Master Slave </li>
+<li>shared database Master-Slave方式<br> 与shared filesystem方式类似，只是共享的存储介质由文件系统改成了数据库</li>
+<li><p>Replicated LevelDB Store方式<br> 这种主备方式是ActiveMQ5.9以后才新增的特性，使用ZooKeeper协调选择一个node作为master。被选择的master broker node开启并接受客户端连接。<br>其他node转入slave模式，连接master并同步他们的存储状态。slave不接受客户端连接。所有的存储操作都将被复制到连接至Master的slaves。</p>
+<p>如果master死了，得到了最新更新的slave被允许成为master。fialed node能够重新加入到网络中并连接master进入slave mode。所有需要同步的disk的消息操作都将等待存储状态被复制到其他法定节点的操作完成才能完成。所以，如果你配置了replicas=3，那么法定大小是(3/2)+1=2. Master将会存储并更新然后等待 (2-1)=1个slave存储和更新完成，才汇报success。至于为什么是2-1，熟悉Zookeeper的应该知道，有一个node要作为观擦者存在。</p>
+<p>单一个新的master被选中，你需要至少保障一个法定node在线以能够找到拥有最新状态的node。这个node将会成为新的master。因此，推荐运行至少3个replica nodes，以防止一个node失败了，服务中断。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p> MQ 各Broker节点通过共享文件目录来实现主从的热备，所有的节点都在不断地获取共享目录的排它锁，哪个应用抢到了排它锁，它就成为Master，其他节点为Slave。如果Master节点宕机，它会释放排它锁，从而抢到独占锁的Slave节点可以接管。</p>
+<p>因此使用这种主从热备的方式，不仅需要一个多服务器可以共享目录的机制（比如磁盘柜或分布式文件系统），而且文件系统需要支持文件排它锁。</p>
+<p>多台节点启动时，先启动的节点获取排它锁，成为Master节点，其他节点成为Slave节点并等待获取共享目录的排它锁。</p>
+<ol>
+<li>Broker Cluster  有集群负载均衡的功能</li>
+</ol>
+<h3 id="u6E90_u7801_u7F16_u8BD1"><a href="#u6E90_u7801_u7F16_u8BD1" class="headerlink" title="源码编译"></a>源码编译</h3><p>mvn eclipse:eclipse<br>mvn idea:idea</p>
+<p><a href="http://activemq.apache.org/stomp.html" target="_blank" rel="external">stomp</a><br><a href="http://blog.evercoding.net/2014/07/17/activemq-note/" target="_blank" rel="external">activemq</a><br><a href="http://wenku.baidu.com/view/6989622de2bd960590c67760.html" target="_blank" rel="external">Ac​t​i​v​e​M​Q​集​群​的​使​用​与​配​置</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/activemq/">activemq</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/10/15/activemq-usage/" data-title="activemq usage | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/10/16/adb-command/" title="adb command">
+  <strong>上一篇：</strong><br/>
+  <span>
+  adb command</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/10/12/vim-usage/"  title="vim usage">
+ <strong>下一篇：</strong><br/> 
+ <span>vim usage
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/10/15/activemq-usage/" data-title="activemq usage" data-url="http://silveringsea.github.io/2015/10/15/activemq-usage/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u57FA_u51C6_u6D4B_u8BD5"><span class="toc-number">1.</span> <span class="toc-text">基准测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7279_u5F81"><span class="toc-number">2.</span> <span class="toc-text">特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6D4B_u8BD5_u6570_u636E"><span class="toc-number">3.</span> <span class="toc-text">测试数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u96C6_u7FA4_u90E8_u7F72"><span class="toc-number">4.</span> <span class="toc-text">集群部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6E90_u7801_u7F16_u8BD1"><span class="toc-number">5.</span> <span class="toc-text">源码编译</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

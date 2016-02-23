@@ -1,0 +1,706 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>installing linux | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="UEFI硬盘安装Ubuntu Dektop
+使用easyBCD 生成引导项，redhat、CentOS等使用Linux/BSD选项或者编辑menu.lst12345title Install Ubunturoot (hd0,1)kernel vmlinuz boot=casper iso-scan/filename=/ubuntu-xxxx-desktop-i386.iso locale=en_U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="installing linux">
+<meta property="og:url" content="http://silveringsea.github.io/2015/08/11/installing-linux/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="UEFI硬盘安装Ubuntu Dektop
+使用easyBCD 生成引导项，redhat、CentOS等使用Linux/BSD选项或者编辑menu.lst12345title Install Ubunturoot (hd0,1)kernel vmlinuz boot=casper iso-scan/filename=/ubuntu-xxxx-desktop-i386.iso locale=en_U">
+<meta property="og:updated_time" content="2016-02-22T15:11:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="installing linux">
+<meta name="twitter:description" content="UEFI硬盘安装Ubuntu Dektop
+使用easyBCD 生成引导项，redhat、CentOS等使用Linux/BSD选项或者编辑menu.lst12345title Install Ubunturoot (hd0,1)kernel vmlinuz boot=casper iso-scan/filename=/ubuntu-xxxx-desktop-i386.iso locale=en_U">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/11/installing-linux/" title="installing linux" itemprop="url">installing linux</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-11T06:46:17.000Z" itemprop="datePublished"> 发表于 2015-08-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UEFI"><span class="toc-number">1.</span> <span class="toc-text">UEFI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u786C_u76D8_u5B89_u88C5Ubuntu_Dektop"><span class="toc-number">2.</span> <span class="toc-text">硬盘安装Ubuntu Dektop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WIN7_u4E2D_u5220_u9664_u591A_u4F59_u7684_u542F_u52A8_u5F15_u5BFC_u9879"><span class="toc-number">2.1.</span> <span class="toc-text">WIN7中删除多余的启动引导项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WIN7__u4FEE_u590DMBR"><span class="toc-number">2.2.</span> <span class="toc-text">WIN7 修复MBR</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="UEFI"><a href="#UEFI" class="headerlink" title="UEFI"></a>UEFI</h2><h2 id="u786C_u76D8_u5B89_u88C5Ubuntu_Dektop"><a href="#u786C_u76D8_u5B89_u88C5Ubuntu_Dektop" class="headerlink" title="硬盘安装Ubuntu Dektop"></a>硬盘安装Ubuntu Dektop</h2><ol>
+<li>使用easyBCD 生成引导项，redhat、CentOS等使用Linux/BSD选项<br>或者编辑menu.lst<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title Install Ubuntu</span><br><span class="line">root (hd0,<span class="number">1</span>)</span><br><span class="line">kernel vmlinuz boot=casper iso-scan/filename=/ubuntu-xxxx-desktop-i386<span class="class">.iso</span> locale=en_US<span class="class">.UTF-8</span></span><br><span class="line">initrd initrd<span class="class">.lz</span></span><br><span class="line">boot</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>*注意(hd0,5)表示第5个分区<br>title install Ubuntu<br>sudo umount -l /isodevice</p>
+<ol>
+<li>安装windows 7的时候 ，如果选择建立新的分区，那么在C盘前面还会产生一个隐藏分区， 磁盘管理工具给这个隐藏分区分配一个盘符。<br>下载Grub4dos 0.4.4。解压出来后，把grldr、grldr.mbr、grub.exe(注意一定要有grldr.mbr，XP就不用了，如果是vista、win7就一定要有grldr.mbr，切记！)丢到隐藏分区<br>最新版是grldr.uefi了</li>
+</ol>
+<p>boot.ini 文件<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">boot</span> loader]</span><br><span class="line">timeout=30</span><br><span class="line">default=multi<span class="list">(<span class="keyword">0</span>)</span>disk<span class="list">(<span class="keyword">0</span>)</span>rdisk<span class="list">(<span class="keyword">0</span>)</span>partition<span class="list">(<span class="keyword">1</span>)</span>\WINDOWS</span><br><span class="line"><span class="list">[<span class="keyword">operating</span> systems]</span><br><span class="line">multi<span class="list">(<span class="keyword">0</span>)</span>disk<span class="list">(<span class="keyword">0</span>)</span>rdisk<span class="list">(<span class="keyword">0</span>)</span>partition<span class="list">(<span class="keyword">1</span>)</span>\WINDOWS=<span class="string">"Microsoft Windows XP Professional"</span> /noexecute=optin /fastdetect</span><br><span class="line">c:\grldr.mbr=<span class="string">"grub"</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>grldr.mbr，而不是grldr，这与XP是不同的。<br>而蓝字部分完全可以不写。<br>这个boot.ini同样丢进隐藏分区去。</p>
+<ol>
+<li><p>把隐藏分区的盘符收回！</p>
+</li>
+<li><p>复制镜像文件中casper目录下的initrd.gz和vmlinuz到C盘根目录</p>
+</li>
+</ol>
+<p>重启即可进行硬盘安装了。如果安装停留在grub里面， 那是因为写错了， 在grub中手动输入<br>root (hd0,1)<br>kernel vmlinuz boot=casper iso-scan/filename=/ubuntu-xxxx-desktop-i386.iso<br>boot<br>进行启动</p>
+<ol>
+<li>安装完重启后会发现无法进入Windows 7，需要<br>编辑/boot/grub/menu.lst<br>加入如下代码：<br>title Microsoft Windows 7<br>root (hd0,0)<br>makeactive<br>chainloader +1</li>
+</ol>
+<p>没隐藏分区就把以上原本放进隐藏分区的东西（grldr、grldr.mbr、grub.exe、menu.lst boot.ini）统统丢进C盘即可。</p>
+<p>以下为转载， 未经测试：</p>
+<h3 id="WIN7_u4E2D_u5220_u9664_u591A_u4F59_u7684_u542F_u52A8_u5F15_u5BFC_u9879"><a href="#WIN7_u4E2D_u5220_u9664_u591A_u4F59_u7684_u542F_u52A8_u5F15_u5BFC_u9879" class="headerlink" title="WIN7中删除多余的启动引导项"></a>WIN7中删除多余的启动引导项</h3><p>多次安装双系统，有时候会存在多个启动引导项目，这些引导项目没有用处，如果删除如下：<br>使用Windows7的内置命令就可以删除你指定的启动引导项，这个命令就是BCDEdit。<br>打开CMD窗口，在命令输入bcdedit并回车，可查看当前所有启动项。<br>每个启动项都有自己的ID，如：{bootmgr}、{ntldr}、{current}，<br>删除某个启动引导项的命令是： bcdedit/delete{ID}/f 注意：ID需要使用上面启动项的大括号中的序号代替。 current的引导不要删除，使用中的linux引导不要删除。</p>
+<h3 id="WIN7__u4FEE_u590DMBR"><a href="#WIN7__u4FEE_u590DMBR" class="headerlink" title="WIN7 修复MBR"></a>WIN7 修复MBR</h3><p>当安装双系统后，主引导安装到linux系统情况下，如果直接格式化linux所在的盘，则造成windows无法引导，此时需要window MBR进行修复。xp可以使用winPE进行修复，而Win7系统盘不再带有PE功能，不过可以使用其他方法，如下：<br>1、在光驱插入win7安装盘或者用USB启动（win7支持USB直接启动安装，不过USB方法我没有测试过）；<br>2、选择完语言选项后，进入下一步，选择底下的系统修复而不是继续安装；<br>3、自动搜索完已经安装的系统后，进入下一步；<br>4、不要让Windows自动修复，没用的，进入命令提示符模式；<br>5、先输入命令bootrec /fixmbr 回车，再输入命令bootrec /fixboot 回车；<br>6、重启系统即可重新恢复Win7启动模式。</p>
+<p>win7修复mbr仍有grub界面<br>解决方法：<br>1、win7的安装盘里有这个文件，bootsect.exe。<br>2、把它复制到系统盘。然后在win7命令行运行bootsect /nt60  /mbr<br>3、成功后mbr的grub就被nt60覆盖了。<br>4、重启后将不会再有grub引导。</p>
+<p>UEFI Win7/8/Ubuntu<br><a href="https://forum.ubuntu.org.cn/viewtopic.php?f=139&amp;t=460579" target="_blank" rel="external">https://forum.ubuntu.org.cn/viewtopic.php?f=139&amp;t=460579</a><br><a href="https://www.zhihu.com/question/22502670" target="_blank" rel="external">https://www.zhihu.com/question/22502670</a><br><a href="http://teliute.org/linux/Ubsetup/jichu1/jichu1.html" target="_blank" rel="external">http://teliute.org/linux/Ubsetup/jichu1/jichu1.html</a></p>
+<p>uefi:<br><a href="https://www.zhihu.com/question/22502670" target="_blank" rel="external">https://www.zhihu.com/question/22502670</a><br><a href="http://www.insanelymac.com/forum/topic/305730-help-clover-boot-windows-and-ubuntu/" target="_blank" rel="external">http://www.insanelymac.com/forum/topic/305730-help-clover-boot-windows-and-ubuntu/</a><br><a href="http://www.nc1234.com/html/changjianguzhangjijiejue/2013/0711/90.html" target="_blank" rel="external">http://www.nc1234.com/html/changjianguzhangjijiejue/2013/0711/90.html</a></p>
+<p><a href="http://www.partition-tool.com/personal.htm" target="_blank" rel="external">http://www.partition-tool.com/personal.htm</a><br><a href="https://forum.ubuntu.org.cn/viewtopic.php?f=139&amp;t=460579" target="_blank" rel="external">https://forum.ubuntu.org.cn/viewtopic.php?f=139&amp;t=460579</a></p>
+<p>也可以选择不安装grub4dos，采用下面的方式 系统安装好以后，使用安装界面中的终端， 输入下面的命令生成ubuntu.boot：</p>
+<p>#使用df命令查看分区情况<br>sudo dd if=/dev/sda/[boot 分区] of=[输出目录，比如 ./ubuntu.boot] bs=512 count=1<br><a href="http://www.mepis.org/docs/en/index.php?title=GRUB_from_command_line" target="_blank" rel="external">http://www.mepis.org/docs/en/index.php?title=GRUB_from_command_line</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux-UEFI-clover/">linux, UEFI, clover</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/08/11/installing-linux/" data-title="installing linux | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/08/22/compress-tools/" title="compress tools">
+  <strong>上一篇：</strong><br/>
+  <span>
+  compress tools</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/08/06/git-common/"  title="git common">
+ <strong>下一篇：</strong><br/> 
+ <span>git common
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/08/11/installing-linux/" data-title="installing linux" data-url="http://silveringsea.github.io/2015/08/11/installing-linux/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UEFI"><span class="toc-number">1.</span> <span class="toc-text">UEFI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u786C_u76D8_u5B89_u88C5Ubuntu_Dektop"><span class="toc-number">2.</span> <span class="toc-text">硬盘安装Ubuntu Dektop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WIN7_u4E2D_u5220_u9664_u591A_u4F59_u7684_u542F_u52A8_u5F15_u5BFC_u9879"><span class="toc-number">2.1.</span> <span class="toc-text">WIN7中删除多余的启动引导项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WIN7__u4FEE_u590DMBR"><span class="toc-number">2.2.</span> <span class="toc-text">WIN7 修复MBR</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

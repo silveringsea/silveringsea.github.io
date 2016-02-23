@@ -1,0 +1,692 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>java principles | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。•生产者使用extends
+如果你需要一个列表提供T类型的元素（即你想从列表中读取T类型的元素），你需要把这个列表声明成&amp;lt;? extends T&amp;gt;，比如List&amp;lt;? extends Integer&amp;gt;，因此你不能往该列表中添加任何元素。•消费者使用super
+如果需要一个列表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java principles">
+<meta property="og:url" content="http://silveringsea.github.io/2016/01/15/java-principles/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。•生产者使用extends
+如果你需要一个列表提供T类型的元素（即你想从列表中读取T类型的元素），你需要把这个列表声明成&amp;lt;? extends T&amp;gt;，比如List&amp;lt;? extends Integer&amp;gt;，因此你不能往该列表中添加任何元素。•消费者使用super
+如果需要一个列表">
+<meta property="og:updated_time" content="2016-02-22T15:11:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java principles">
+<meta name="twitter:description" content="PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。•生产者使用extends
+如果你需要一个列表提供T类型的元素（即你想从列表中读取T类型的元素），你需要把这个列表声明成&amp;lt;? extends T&amp;gt;，比如List&amp;lt;? extends Integer&amp;gt;，因此你不能往该列表中添加任何元素。•消费者使用super
+如果需要一个列表">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/15/java-principles/" title="java principles" itemprop="url">java principles</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-15T02:40:46.000Z" itemprop="datePublished"> 发表于 2016-01-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PECS_u539F_u5219_uFF1A_u751F_u4EA7_u8005_uFF08Producer_uFF09_u4F7F_u7528extends_uFF0C_u6D88_u8D39_u8005_uFF08Consumer_uFF09_u4F7F_u7528super_u3002"><span class="toc-number">1.</span> <span class="toc-text">PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="PECS_u539F_u5219_uFF1A_u751F_u4EA7_u8005_uFF08Producer_uFF09_u4F7F_u7528extends_uFF0C_u6D88_u8D39_u8005_uFF08Consumer_uFF09_u4F7F_u7528super_u3002"><a href="#PECS_u539F_u5219_uFF1A_u751F_u4EA7_u8005_uFF08Producer_uFF09_u4F7F_u7528extends_uFF0C_u6D88_u8D39_u8005_uFF08Consumer_uFF09_u4F7F_u7528super_u3002" class="headerlink" title="PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。"></a>PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。</h3><p>•生产者使用extends</p>
+<p>如果你需要一个列表提供T类型的元素（即你想从列表中读取T类型的元素），你需要把这个列表声明成&lt;? extends T&gt;，比如List&lt;? extends Integer&gt;，因此你不能往该列表中添加任何元素。<br>•消费者使用super</p>
+<p>如果需要一个列表使用T类型的元素（即你想把T类型的元素加入到列表中），你需要把这个列表声明成&lt;? super T&gt;，比如List&lt;? super Integer&gt;，因此你不能保证从中读取到的元素的类型。<br>•即是生产者，也是消费者</p>
+<p>如果一个列表即要生产，又要消费，你不能使用泛型通配符声明列表，比如List<integer>。<br>请参考java.util.Collections里的copy方法(JDK1.7)：<br>来自stackoverflow的例子</integer></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">PECS</span> (short <span class="keyword">for</span> <span class="string">"Producer extends and Consumer super"</span>) can be explained by : <span class="type">Get</span> <span class="keyword">and</span> <span class="type">Put</span> <span class="type">Principle</span></span><br><span class="line"><span class="type">Get</span> <span class="type">And</span> <span class="type">Put</span> <span class="type">Principle</span> (<span class="type">From</span> <span class="type">Java</span> <span class="type">Generics</span> <span class="keyword">and</span> <span class="type">Collections</span>)</span><br><span class="line"></span><br><span class="line"><span class="type">It</span> states,</span><br><span class="line"></span><br><span class="line">    use an extends wildcard <span class="keyword">when</span> you only get values <span class="keyword">out</span> <span class="keyword">of</span> a structure</span><br><span class="line">    use a super wildcard <span class="keyword">when</span> you only put values into a structure</span><br><span class="line">    <span class="keyword">and</span> don’t use a wildcard <span class="keyword">when</span> you both get <span class="keyword">and</span> put.</span><br><span class="line"></span><br><span class="line"><span class="type">Let</span>'s understand it by example:</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>. <span class="type">For</span> <span class="type">Extends</span> <span class="type">Wildcard</span>(get values i.e <span class="type">Producer</span> extends)</span><br><span class="line"></span><br><span class="line"><span class="type">Here</span> <span class="keyword">is</span> a <span class="keyword">method</span>, that takes a collection <span class="keyword">of</span> numbers, converts each to a double, <span class="keyword">and</span> sums them up</span><br><span class="line"></span><br><span class="line">public <span class="keyword">static</span> double sum(<span class="type">Collection</span>&lt;? extends <span class="type">Number</span>&gt; nums) &#123;</span><br><span class="line">   double s = <span class="number">0</span>.<span class="number">0</span>;</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">Number</span> num : nums) </span><br><span class="line">      s += num.doubleValue();</span><br><span class="line">   <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Let</span>'s call the <span class="keyword">method</span> :</span><br><span class="line"></span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Integer</span>&gt;ints = <span class="type">Arrays</span>.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">assert sum(ints) == <span class="number">6</span>.<span class="number">0</span>;</span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Double</span>&gt;doubles = <span class="type">Arrays</span>.asList(<span class="number">2</span>.<span class="number">78</span>,<span class="number">3</span>.<span class="number">14</span>);</span><br><span class="line">assert sum(doubles) == <span class="number">5</span>.<span class="number">92</span>;</span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Number</span>&gt;nums = <span class="type">Arrays</span>.&lt;<span class="type">Number</span>&gt;asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>.<span class="number">78</span>,<span class="number">3</span>.<span class="number">14</span>);</span><br><span class="line">assert sum(nums) == <span class="number">8</span>.<span class="number">92</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">Since</span>, sum() <span class="keyword">method</span> uses extends, all <span class="keyword">of</span> the following calls are legal. <span class="type">The</span> first two calls would <span class="keyword">not</span> be legal <span class="keyword">if</span> extends was <span class="keyword">not</span> used.</span><br><span class="line"></span><br><span class="line"><span class="type">EXCEPTION</span> : <span class="type">You</span> cannot put anything into a <span class="keyword">type</span> declared <span class="keyword">with</span> an extends wildcard—<span class="keyword">except</span> <span class="keyword">for</span> the value null, which belongs to every reference <span class="keyword">type</span>:</span><br><span class="line"></span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Integer</span>&gt; ints = new <span class="type">ArrayList</span>&lt;<span class="type">Integer</span>&gt;();</span><br><span class="line">ints.add(<span class="number">1</span>);</span><br><span class="line">ints.add(<span class="number">2</span>);</span><br><span class="line"><span class="type">List</span>&lt;? extends <span class="type">Number</span>&gt; nums = ints;</span><br><span class="line">nums.add(null);  // ok</span><br><span class="line">assert nums.toString().equals(<span class="string">"[1, 2, null]"</span>);</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. <span class="type">For</span> <span class="type">Super</span> <span class="type">Wildcard</span>(put values i.e <span class="type">Consumer</span> super)</span><br><span class="line"></span><br><span class="line"><span class="type">Here</span> <span class="keyword">is</span> a <span class="keyword">method</span>, that takes a collection <span class="keyword">of</span> numbers <span class="keyword">and</span> an <span class="type">int</span> n, <span class="keyword">and</span> puts the first n integers, starting <span class="keyword">from</span> zero, into the collection:</span><br><span class="line"></span><br><span class="line">public <span class="keyword">static</span> <span class="type">void</span> count(<span class="type">Collection</span>&lt;? super <span class="type">Integer</span>&gt; ints, <span class="type">int</span> n) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) ints.add(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Let</span>'s call the <span class="keyword">method</span> :</span><br><span class="line"></span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Integer</span>&gt;ints = new <span class="type">ArrayList</span>&lt;<span class="type">Integer</span>&gt;();</span><br><span class="line">count(ints, <span class="number">5</span>);</span><br><span class="line">assert ints.toString().equals(<span class="string">"[0, 1, 2, 3, 4]"</span>);</span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Number</span>&gt;nums = new <span class="type">ArrayList</span>&lt;<span class="type">Number</span>&gt;();</span><br><span class="line">count(nums, <span class="number">5</span>); nums.add(<span class="number">5</span>.<span class="number">0</span>);</span><br><span class="line">assert nums.toString().equals(<span class="string">"[0, 1, 2, 3, 4, 5.0]"</span>);</span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Object</span>&gt;objs = new <span class="type">ArrayList</span>&lt;<span class="type">Object</span>&gt;();</span><br><span class="line">count(objs, <span class="number">5</span>); objs.add(<span class="string">"five"</span>);</span><br><span class="line">assert objs.toString().equals(<span class="string">"[0, 1, 2, 3, 4, five]"</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">Since</span>, count() <span class="keyword">method</span> uses super, all <span class="keyword">of</span> the following calls are legal: <span class="type">The</span> last two calls would <span class="keyword">not</span> be legal <span class="keyword">if</span> super was <span class="keyword">not</span> used.</span><br><span class="line"></span><br><span class="line"><span class="type">EXCEPTION</span> : you cannot get anything <span class="keyword">out</span> <span class="keyword">from</span> a <span class="keyword">type</span> declared <span class="keyword">with</span> a super wildcard—<span class="keyword">except</span> <span class="keyword">for</span> a value <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">Object</span>, which <span class="keyword">is</span> a supertype <span class="keyword">of</span> every reference <span class="keyword">type</span>:</span><br><span class="line"></span><br><span class="line"><span class="type">List</span>&lt;<span class="type">Object</span>&gt; objs = <span class="type">Arrays</span>.&lt;<span class="type">Object</span>&gt;asList(<span class="number">1</span>,<span class="string">"two"</span>);</span><br><span class="line"><span class="type">List</span>&lt;? super <span class="type">Integer</span>&gt; ints = objs;</span><br><span class="line"><span class="type">String</span> str = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">Object</span> obj : ints) str += obj.toString();</span><br><span class="line">assert str.equals(<span class="string">"1two"</span>);</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. <span class="type">When</span> both <span class="type">Get</span> <span class="keyword">and</span> <span class="type">Put</span>, don't <span class="type">Use</span> wildcard</span><br><span class="line"></span><br><span class="line"><span class="type">Whenever</span> you both put values into <span class="keyword">and</span> get values <span class="keyword">out</span> <span class="keyword">of</span> the same structure, you should <span class="keyword">not</span> use a wildcard.</span><br><span class="line"></span><br><span class="line">public <span class="keyword">static</span> double sumCount(<span class="type">Collection</span>&lt;<span class="type">Number</span>&gt; nums, <span class="type">int</span> n) &#123;</span><br><span class="line">   count(nums, n);</span><br><span class="line">   <span class="keyword">return</span> sum(nums);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>“PECS” is from the collection’s point of view. If you are only pulling items from a generic collection, it is a producer and you should use extends; if you are only stuffing items in, it is a consumer and you should use super. If you do both with the same collection, you shouldn’t use either extends or super.</p>
+<p>Suppose you have a method that takes as its parameter a collection of things, but you want it to be more flexible than just accepting a Collection<thing>.</thing></p>
+<p>Case 1: You want to go through the collection and do things with each item.<br>Then the list is a producer, so you should use a Collection&lt;? extends Thing&gt;.</p>
+<p>The reasoning is that a Collection&lt;? extends Thing&gt; could hold any subtype of Thing, and thus each element will behave as a Thing when you perform your operation. (You actually cannot add anything to a Collection&lt;? extends Thing&gt;, because you cannot know at runtime which specific subtype of Thing the collection holds.)</p>
+<p>Case 2: You want to add things to the collection.<br>Then the list is a consumer, so you should use a Collection&lt;? super Thing&gt;.</p>
+<p>The reasoning here is that unlike Collection&lt;? extends Thing&gt;, Collection&lt;? super Thing&gt; can always hold a Thing no matter what the actual parameterized type is. Here you don’t care what is already in the list as long as it will allow a Thing to be added; this is what ? super Thing guarantees.</p>
+<p>I’m always trying to think about it this way: A producer is allowed to produce something more specific, hence extends, a consumer is allowed to accept something more general, hence super. – Feuermurmel May 7 ‘13 at 13:11</p>
+<p>Another way to remember the producer/consumer distinction is to think of a method signature. If you have a method doSomethingWithList(List list), you are consuming the list and so will need covariance / extends (or an invariant List). On the other hand if your method is List doSomethingProvidingList, then you are producing the List and will need contravariance / super (or an invariant List). – Raman Jan 24 ‘14 at 19:20</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/principles-therom/">principles, therom</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2016/01/15/java-principles/" data-title="java principles | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/17/hadoop-usage/" title="关于hadoop">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于hadoop</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/01/11/websockeet/"  title="websockeet">
+ <strong>下一篇：</strong><br/> 
+ <span>websockeet
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2016/01/15/java-principles/" data-title="java principles" data-url="http://silveringsea.github.io/2016/01/15/java-principles/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PECS_u539F_u5219_uFF1A_u751F_u4EA7_u8005_uFF08Producer_uFF09_u4F7F_u7528extends_uFF0C_u6D88_u8D39_u8005_uFF08Consumer_uFF09_u4F7F_u7528super_u3002"><span class="toc-number">1.</span> <span class="toc-text">PECS原则：生产者（Producer）使用extends，消费者（Consumer）使用super。</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

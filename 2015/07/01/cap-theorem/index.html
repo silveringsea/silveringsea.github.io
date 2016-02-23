@@ -1,0 +1,698 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>cap theorem | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="```目前，CAP（Consistency一致性、Availability可用性、Partition-tolerance分区可容忍性）理论普遍被当作是大数据[注]技术的理论基础。同时根据该理论，业界有一种非常流行和“专业”的认识，那就是：关系型数据库设计选择了C（一致性）与A（可用性），NoSQL数据库设计则不同。其中，HBase选择了C（一致性）与P（分区可容忍性），Cassandra选择了A（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cap theorem">
+<meta property="og:url" content="http://silveringsea.github.io/2015/07/01/cap-theorem/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="```目前，CAP（Consistency一致性、Availability可用性、Partition-tolerance分区可容忍性）理论普遍被当作是大数据[注]技术的理论基础。同时根据该理论，业界有一种非常流行和“专业”的认识，那就是：关系型数据库设计选择了C（一致性）与A（可用性），NoSQL数据库设计则不同。其中，HBase选择了C（一致性）与P（分区可容忍性），Cassandra选择了A（">
+<meta property="og:updated_time" content="2016-02-22T23:54:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cap theorem">
+<meta name="twitter:description" content="```目前，CAP（Consistency一致性、Availability可用性、Partition-tolerance分区可容忍性）理论普遍被当作是大数据[注]技术的理论基础。同时根据该理论，业界有一种非常流行和“专业”的认识，那就是：关系型数据库设计选择了C（一致性）与A（可用性），NoSQL数据库设计则不同。其中，HBase选择了C（一致性）与P（分区可容忍性），Cassandra选择了A（">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/01/cap-theorem/" title="cap theorem" itemprop="url">cap theorem</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-01T09:49:50.000Z" itemprop="datePublished"> 发表于 2015-07-01</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>```<br>目前，CAP（Consistency一致性、Availability可用性、Partition-tolerance分区可容忍性）理论普遍被当作是大数据[注]技术的理论基础。同时根据该理论，业界有一种非常流行和“专业”的认识，那就是：关系型数据库设计选择了C（一致性）与A（可用性），NoSQL数据库设计则不同。其中，HBase选择了C（一致性）与P（分区可容忍性），Cassandra选择了A（可用性）与P（分区可容忍性）。</p>
+<p>该说法现在似乎已经成为一种经典认知，无论是初学大数据技术，还是已经有了相当经验的技术人员，都将其奉为真理。大家大概是认为，从CAP这样著名的理论推导出来的结论当然是权威而又正确的，最起码在形式上感觉是专业而又严肃的。有人甚至还将这种认知画成一个三角形图，三个顶点分别是C、A、P，三条边分别是关系型数据库、HBase与Cassandra，这样一来，CAP理论就显然更加神圣了。</p>
+<p>实际上，这种认识是不准确，甚至是不正确的。暂且不说深入的分析与研究，只要先从表面上简单分析一下，你就能发现问题：难道说从理论上讲Cassandra就一定比HBase的可用性更高吗？而要彻底搞清楚这个问题，还得先从CAP理论本身开始研究。</p>
+<p>常见的理解及分析</p>
+<p>目前流行的对CAP理论解释的情形，是从同一数据在网络环境中的多个副本出发的。为了保证数据不会丢失，在企业级的数据管理方案中，一般必须考虑数据的冗余存储问题，而这应该是通过在网络上的其他独立物理存储节点上保留的另一份或多份数据副本来实现的（如附图所示）。因为在同一个存储节点上的数据冗余明显不能解决单点故障问题，这与通过多节点集群来提供更好的计算可用性的道理是相同的。</p>
+<p>其实，不用做严格的证明也可以想见，如附图的情况，数据在节点A、B、C上保留了三份，如果对节点A上的数据进行了修改，然后再让客户端通过网络对该数据进行读取。那么，客户端的读取操作应该什么时候返回呢？</p>
+<p>有这样两种情况：一种情况是要求节点A、B、C的三份数据完全一致后返回。也就是说，这时从任何一个网络节点读取的数据都是一样的，这就是所谓的强一致性读。很明显，这时数据读取的Latency要高一些（因为要等数据在网络中的复制）。同时，A、B、C三个节点中任何一个宕机，都会导致数据不可用。也就是说，要保证强一致性，网络中的副本越多，数据的可用性就越差。</p>
+<p>另一种情况是，允许读操作立即返回，容忍B节点读取与A节点读取不一致的情况发生。这样一来，可用性显然得到了提高，网络中的副本也可以多一些，唯一得不到保证的是数据一致性。当然，对写操作同样也有多个节点一致性的情况，此处不再赘述。</p>
+<p>可以看出，上述对CAP理论的解释主要是从网络上多个节点之间的读写一致性出发考虑问题的。而这一点，对于关系型数据库意味着什么呢？当然主要是指通常所说的Standby（关于分布式事务，涉及到更多考虑，随后讨论）情况。对此，在实践中我们大多已经采取了弱一致性的异步延时同步方案，以提高可用性。这种情况并不存在关系型数据库为保证C、A而放弃P的情况。而对海量数据管理的需求，关系型数据库扩展过程中所遇到的性能瓶颈，似乎也并不是CAP理论中所描述的那种原因造成的。那么，上述流行的说法中所描述的关系型数据库为保证C、A而牺牲P到底是在指什么呢？</p>
+<p>因此，如果根据现有的大多数资料对CAP理论的如上解释，即只将其当作分布式系统中多个数据副本之间的读写一致性问题的通用理论对待，那么就可以得出结论：CAP既适用于NoSQL数据库，也适用于关系型数据库。它是NoSQL数据库、关系型数据库，乃至一切分布式系统在设计数据多个副本之间读写一致性问题时需要遵循的共同原则。</p>
+<p>更深入的探究：</p>
+<p>两种重要的分布式场景</p>
+<p>在本文中我们要说的重点与核心是：关于对CAP理论中一致性C的理解，除了上述数据副本之间的读写一致性以外，分布式环境中还有两种非常重要的场景，如果不对它们进行认识与讨论，就永远无法全面地理解CAP，当然也就无法根据CAP做出正确的解释。但可惜的是，目前为止却很少有人提及这两种场景：那就是事务与关联。</p>
+<p>先来看看分布式环境中的事务场景。我们知道，在关系型数据库的事务操作遵循ACID原则，其中的一致性C，主要是指一个事务中相关联的数据在事务操作结束后是一致的。所谓ACID原则，是指在写入/异动资料的过程中，为保证交易正确可靠所必须具备的四个特性：即原子性（Atomicity，或称不可分割性）、一致性（Consistency）、隔离性（Isolation，又称独立性）和持久性（Durability）。</p>
+<p>例如银行的一个存款交易?务，将导致交易流水表增加一条记录，同时账户表余额也必须发生变化，这两个操作必须是在一个事务中全部完成，以保证相关数据的一致性。而前文解释的CAP理论中的C是指对一个数据多个备份的读写一致性。表面上看，这两者不是一回事，但实际上却是本质基本相同的事物：数据请求会等待多个相关数据操作全部完成才返回。对分布式系统来讲，这就是我们通常所说的分布式事务问题。</p>
+<p>众所周知，分布式事务一般采用两阶段提交策略来实现，这是一个非常耗时的复杂过程，会严重影响系统效率，在实践中我们尽量避免使用它。在实践过程中，如果我们为了扩展数据容量将数据分布式存储，而事务的要求又完全不能降低，那么系统的可用性一定会大大降低。在现实中我们一般都采用对这些数据不分散存储的策略。</p>
+<p>当然，我们也可以说，最常使用的关系型数据库因为这个原因，扩展性（分区可容忍性P）受到了限制，这是完全符合CAP理论的。但同时我们应该意识到，这对NoSQL数据库也是一样的。如果NoSQL数据库也要求严格的分布式事务功能，情况并不会比关系型数据库好多少。只是在NoSQL的设计中，我们往往会弱化，甚至去除事务的功能，该问题才表现得不那么明显而已。</p>
+<p>因此，在扩展性问题上，如果要说关系型数据库是为了保证C、A而牺牲P，在尽量避免分布式事务这一点上来看，应该是正确的。也就是说：关系型数据库应该具有强大的事务功能，如果分区扩展，可用性就会降低。而NoSQL数据库干脆弱化，甚至去除了事务功能。因此，分区的可扩展性就大大增加了。</p>
+<p>再来看看分布式环境中的关联场景。初看起来，关系型数据库中常用的多表关联操作与CAP理论就更加不沾边了。但仔细想想，也可以用它来解释数据库分区扩展对关联所带来的影响。对一个数据库来讲，采用了分区扩展策略来扩充容量，数据分散存储了，很显然多表关联的性能就会下降。因为我们必须在网络上进行大量的数据迁移操作，这与CAP理论中数据副本之间的同步操作，本质上也是相同的。</p>
+<p>因此，如果要保证系统的高可用性，需要同时实现强大的多表关系操作的关系型数据库，在分区可扩展性上就遇到了极大的限制（即使是那些采用了各种优秀解决方案的MPP架构的关系型数据库，如TeraData，Netezza等，其水平可扩展性也是远远不如NoSQL数据库的）。而NoSQL数据库则干脆在设计上弱化，甚至去除了多表关联操作。那么，从这一点上来理解“NoSQL数据库是为了保证A与P，而牺牲C”的说法也是可以讲得通的。当然，我们应该理解，关联问题在很多情况下不是并行处理的优点所在，这在很大程度上与Amdahl定律相符合。</p>
+<p>所以，从事务与关联的角度来看关系型数据库的分区可扩展性为什么受限的原因是最为清楚的。而NoSQL数据库也正是因为弱化，甚至去除了像事务与关联（全面地讲，其实还有索引等特性）等在分布式环境中会严重影响系统可用性的功能，才获得了更好的水平可扩展性。</p>
+<p>那么，如果将事务与关联也纳入CAP理论中一致性C的范畴的话，问题就很清楚了：关于“关系型数据库为了保证一致性C与可用性A，而不得不牺牲分区可容忍性P”的说法便是正确的了。但关于“NoSQL选择了C与P，或者A与P”的说法则是错误的。所有的NoSQL数据库在设计策略的大方向上都是选择了A与P（虽然对同一数据多个副本的读写一致性问题的设计各有不同），从来没有完全选择C与P的情况存在。</p>
+<p>结论</p>
+<p>现在看来，如果理解CAP理论只是指多个数据副本之间读写一致性的问题，那么它对关系型数据库与NoSQL数据库来讲是完全一样的。它只是运行在分布式环境中的数据管理设施在设计读写一致性问题时需要遵循的一个原则而已，却并不是NoSQL数据库具有优秀的水平可扩展性的真正原因。而如果将CAP理论中的一致性C理解为读写一致性、事务与关联操作的综合，则可以认为关系型数据库选择了C与A，而NoSQL数据库则全都是选择了A与P，并没有选择C与P的情况存在。这才是用CAP理论来支持NoSQL数据库设计的正确认识。</p>
+<p>其实，这种认识正好与被广泛认同的NoSQL的另一个理论基础相吻合，即与ACID对着干的BASE（基本可用性、软状态与最终一致性）。因为BASE的含义正好是指“NoSQL数据库设计可以通过牺牲一定的数据一致性和容错性来换取高性能的保持，甚至提高”，即NoSQL数据库都应该是牺牲C来换取P，而不是牺牲A。可用性A正好是所有NoSQL数据库都普遍追求的特性。（更多内容详见: <a href="http://www.cnw.com.cn/P/5523）" target="_blank" rel="external">http://www.cnw.com.cn/P/5523）</a><br>转自网界网：<a href="http://weekly.cnw.com.cn/weekly/htm2014/20140312_293558.shtml" target="_blank" rel="external">http://weekly.cnw.com.cn/weekly/htm2014/20140312_293558.shtml</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/thorem/">thorem</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/thorem-distribute/">thorem, distribute</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/07/01/cap-theorem/" data-title="cap theorem | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/07/05/java8/" title="java8">
+  <strong>上一篇：</strong><br/>
+  <span>
+  java8</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/04/10/maven-param/"  title="maven param">
+ <strong>下一篇：</strong><br/> 
+ <span>maven param
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/07/01/cap-theorem/" data-title="cap theorem" data-url="http://silveringsea.github.io/2015/07/01/cap-theorem/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

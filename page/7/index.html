@@ -1,0 +1,866 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="科学，技术，点滴">
+<meta property="og:type" content="website">
+<meta property="og:title" content="silveringsea on the run">
+<meta property="og:url" content="http://silveringsea.github.io/page/7/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="科学，技术，点滴">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="silveringsea on the run">
+<meta name="twitter:description" content="科学，技术，点滴">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/13/encoding-problem/" title="编码问题总结（随时更新）" itemprop="url">编码问题总结（随时更新）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-13T14:26:41.000Z" itemprop="datePublished"> 发表于 2015-11-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="URL_u7F16_u7801"><a href="#URL_u7F16_u7801" class="headerlink" title="URL编码"></a>URL编码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">### URL中一些字符的特殊含义，基本编码规则如下：   </span></span><br><span class="line"><span class="number">1</span>、空格换成加号(+)   </span><br><span class="line"><span class="number">2</span>、正斜杠(/)分隔目录和子目录   </span><br><span class="line"><span class="number">3</span>、问号(?)分隔URL和查询   </span><br><span class="line"><span class="number">4</span>、百分号(%)制定特殊字符   </span><br><span class="line"><span class="number">5</span>、<span class="preprocessor">#号指定书签   </span></span><br><span class="line"><span class="number">6</span>、&amp;号分隔参数   </span><br><span class="line">  </span><br><span class="line"><span class="preprocessor">### 如果需要在URL中用到，需要将这些特殊字符换成相应的十六进制的值   </span></span><br><span class="line">+   %<span class="number">20</span>   </span><br><span class="line">/   %<span class="number">2F</span>   </span><br><span class="line">?   %<span class="number">3F</span>   </span><br><span class="line">%   %<span class="number">25</span>   </span><br><span class="line"><span class="preprocessor">#   %<span class="number">23</span>   </span></span><br><span class="line">&amp;   %<span class="number">26</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>javascript对url进行编码的函数有3个，escape，encodeURI，encodeURIComponent 推荐使用最后一个，因为encodeURIComponent()不编码的字符最少，只有5个</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~!*<span class="comment">()</span><span class="string">'</span><br><span class="line">encodeURIComponent和decodeURIComponent 可以成对使用</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对应python</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">urllib</span><span class="class">.quote</span> 和 <span class="tag">urllib</span><span class="class">.unquote</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="tomcat"><a href="#tomcat" class="headerlink" title="<a href=" https:="" confluence.atlassian.com="" doc="" configuring-url-encoding-on-tomcat-application-server-174898.html"="">tomcat</a>"><a href="https://confluence.atlassian.com/doc/configuring-url-encoding-on-tomcat-application-server-174898.html" target="_blank" rel="external">tomcat</a></h3><p><connector port="8009" protocol="AJP/1.3" uriencoding="UTF-8"><br>request.getParameter(“name”)之前会自动做一次解码的工作，而且URIEncoding是默认的ISO-8859-1</connector></p>
+<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">表单数据会在未编码的情况下进行发送：</span><br><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"form_action.asp"</span> <span class="attribute">enctype</span>=<span class="value">"text/plain"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>enctype 规定在发送到服务器之前应该如何对表单数据进行编码:<br>application/x-www-form-urlencoded         在发送前编码所有字符（默认）</p>
+<p>multipart/form-data                                        不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。</p>
+<p>text/plain                                                           空格转换为 “+” 加号，但不对特殊字符编码。</p>
+<p>```</p>
+<h3 id="termial_u7F16_u8BD1_u4E71_u7801_u95EE_u9898_uFF1A"><a href="#termial_u7F16_u8BD1_u4E71_u7801_u95EE_u9898_uFF1A" class="headerlink" title="termial编译乱码问题："></a>termial编译乱码问题：</h3><p>macos:<br>在MAC OS X 控制台下使用Javac命令编译java程序时,会出现乱码的情况,现提供一种解决办法:<br>打开终端( terminal)窗口,点击桌面左上方的终端(terminal)–&gt;偏好设置(preferences)–&gt;设置–&gt;高级–&gt;字符编码–&gt;中文(GBK)<br>或者<br>-J-Dfile.encoding=UTF-8<br>javac -encoding utf-8 -classpath D:\web\xxx\WEB-INF\classes;D:\web\xxx\WEB-INF\lib\struts.jar -d D:\web\xxx\WEB-INF\classes xxx.java</p>
+<h3 id="u89E3_u51B3mac_u4E0Bmaven_u7F16_u8BD1_u4E71_u7801_u7684_u95EE_u9898"><a href="#u89E3_u51B3mac_u4E0Bmaven_u7F16_u8BD1_u4E71_u7801_u7684_u95EE_u9898" class="headerlink" title="<a href=" http:="" blog.csdn.net="" xiejx618="" article="" details="" 12031955"="">解决mac下maven编译乱码的问题</a>"><a href="http://blog.csdn.net/xiejx618/article/details/12031955" target="_blank" rel="external">解决mac下maven编译乱码的问题</a></h3><p>在.profile下新增： export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8<br>其他方法， 比如在pom.xml里面的<artifactid>maven-compiler-plugin</artifactid> 增加 <encoding>utf-8</encoding>测试不成功<br>maven:<br>-Dfile.encoding=UTF-8</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a><a href="/tags/javascript/">javascript</a><a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/13/encoding-problem/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/13/encoding-problem/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/10/hello-world/" title="j2ee热部署开发" itemprop="url">j2ee热部署开发</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-10T13:29:48.000Z" itemprop="datePublished"> 发表于 2015-11-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u5F00_u53D1_u73AF_u5883_u70ED_u90E8_u7F72"><a href="#u5F00_u53D1_u73AF_u5883_u70ED_u90E8_u7F72" class="headerlink" title="开发环境热部署"></a>开发环境热部署</h3><ol>
+<li>用jrebel</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Could you please add -Drebel.log=<span class="literal">true</span> -Drebel.log.perf=<span class="literal">true</span></span><br><span class="line">Most of the options are listed <span class="keyword">in</span> the reference manual http://zeroturnaround.com/reference-manual/agent.html<span class="comment">#agent-5.1</span></span><br><span class="line">-noverify</span><br><span class="line">-javaagent:E:/src/jrebel-<span class="number">3.0</span>-M1/jrebel.jar</span><br><span class="line">-Drebel.dirs=E:\frameWork\strutsWork\SpringMVC2\WebRoot\WEB-INF\classes</span><br></pre></td></tr></table></figure>
+<p>However not everything is listed as some of the options can only be used for the specific cases and might do more harm than good to the overly curious user.<br>原理java agent: </p>
+<ol>
+<li>osgi<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Spring itself doesn&#39;t tell much about redeployment and stuff, but in most cases you can reload your templates without restarting depending on your ViewResolver.&#10;Furthermore in some environments (for example in OSGi) it is possible to hot-deploy classes, resources and nearly everything. Having a properly configured SpringSource [Tool Suite](https://spring.io/) and eg. [Virgo](http://www.eclipse.org/virgo/) WebServer it is possible to achieve hot deployment and as such you can reload the running classes as you save them.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>生产环境使用切换集群</p>
+<ol>
+<li>dcevm</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/10/hello-world/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/10/hello-world/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/05/maven/" title="maven详解" itemprop="url">maven详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-05T09:54:31.000Z" itemprop="datePublished"> 发表于 2015-11-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="maven_u914D_u7F6E_u8BE6_u89E3"><a href="#maven_u914D_u7F6E_u8BE6_u89E3" class="headerlink" title="maven配置详解"></a>maven配置详解</h2><pre><code>compile （编译范围）
+compile是默认的范围；如果没有提供一个范围，那该依赖的范围就是编译范围。编译范围依赖在所有的classpath 中可用，同时它们也会被打包。
+
+provided （已提供范围）
+provided 依赖只有在当JDK 或者一个容器已提供该依赖之后才使用。例如， 如果你开发了一个web 应用，你可能在编译 classpath 中需要可用的Servlet API 来编译一个servlet，但是你不会想要在打包好的WAR 中包含这个Servlet API；这个Servlet API JAR 由你的应用服务器或者servlet 容器提供。已提供范围的依赖在编译classpath （不是运行时）可用。它们不是传递性的，也不会被打包。
+
+runtime （运行时范围）
+runtime 依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如，你可能在编译的时候只需要JDBC API JAR，而只有在运行的时候才需要JDBC
+驱动实现。
+test （测试范围）
+test范围依赖 在一般的编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用。
+
+system （系统范围）
+system范围依赖与provided 类似，但是你必须显式的提供一个对于本地系统中JAR 文件的路径。这么做是为了允许基于本地对象编译，而这些对象是系统类库的一部分。这样的构件应该是一直可用的，Maven 也不会在仓库中去寻找它。如果你将一个依赖范围设置成系统范围，你必须同时提供一个 systemPath 元素。注意该范围是不推荐使用的（你应该一直尽量去从公共或定制的 Maven 仓库中引用依赖）。
+</code></pre><h2 id="u5E38_u7528mavan_u547D_u4EE4"><a href="#u5E38_u7528mavan_u547D_u4EE4" class="headerlink" title="常用mavan命令"></a>常用mavan命令</h2><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mvn dependency:sources 					<span class="comment">#下载源码jar 或者 dependency里面加&lt;classifer&gt;true&lt;/classifer&gt;</span></span><br><span class="line">mvn dependency:resolve -Dclassifier=javadoc</span><br><span class="line">mvn dependency:sources -DincludeArtifactIds=guava</span><br><span class="line">mvn clean packget -U -f pom.xml -Dmaven.test.<span class="keyword">skip</span></span><br><span class="line"></span><br><span class="line">安装本地包source ：</span><br><span class="line">mvn install:install-file -D<span class="keyword">group</span>Id=com.xxx -DartifactId=xxx -Dversion=<span class="number">0.11</span> -Dpackaging=jar -Dfile=xx.jar -DgeneratePom=true -Dclassifier=sources </span><br><span class="line">-Dclassifier=javadoc</span><br><span class="line"><span class="comment">#从源码安装javadoc</span></span><br><span class="line">mvn clean source:jar install -Dmaven.test.<span class="keyword">skip</span>=true </span><br><span class="line"><span class="comment"># 安装本地包：</span></span><br><span class="line">mvn install:install-file -Dfile=xxx.jar -D<span class="keyword">group</span>Id=com.xxx.xxx -DartifactId=xxx -Dversion=xxx -DcreateChecksum=true -Dpacking=jar -DgeneratePom=true [-Dclassifer=binary]</span><br><span class="line"></span><br><span class="line">mvn install:install-file -Dfile=xx.jar -DpomFile=/path/<span class="keyword">to</span>/java-memcached-<span class="number">2.6</span>.<span class="number">2</span>.pom</span><br><span class="line">mvn eclipse:eclipse引入源码jar, 在</span><br><span class="line">		<span class="variable">&lt;plugin&gt;</span></span><br><span class="line">			<span class="variable">&lt;groupId&gt;</span>org.apache.plugins<span class="variable">&lt;/groupId&gt;</span></span><br><span class="line">			<span class="variable">&lt;artifactId&gt;</span>maven-eclipse-plugin<span class="variable">&lt;/artifactId&gt;</span></span><br><span class="line">			<span class="variable">&lt;configuration&gt;</span></span><br><span class="line"></span><br><span class="line">			<span class="variable">&lt;/configuration&gt;</span></span><br></pre></td></tr></table></figure>
+<p> Maven在仓库中的存储路径 = groupId + artifactId + version + classifier + extension(packaging)</p>
+<h3 id="Maven__u4ED3_u5E93_u7684_u5206_u7C7B_uFF1A"><a href="#Maven__u4ED3_u5E93_u7684_u5206_u7C7B_uFF1A" class="headerlink" title="Maven 仓库的分类："></a>Maven 仓库的分类：</h3><p>maven的仓库只有两大类：1.本地仓库 2.远程仓库，在远程仓库中又分成了3种：2.1 中央仓库 2.2 私服 2.3 其它公共库 所有的maven项目都会继承超级pom，具体的说，包含了下面配置的pom我们就称之为超级pom<br>[html] view plaincopy</p>
+<p><repositories><br>    <repository><br>      <id>central</id><br>      <name>Central Repository</name><br>      <url><a href="http://repo.maven.apache.org/maven2" target="_blank" rel="external">http://repo.maven.apache.org/maven2</a></url><br>      <layout>default</layout><br>      <snapshots><br>        <enabled>false</enabled><br>      </snapshots><br>    </repository><br>  </repositories><br>三、远程仓库配置<br>配置远程仓库将引入新的配置元素：<repositories>     <repository><br>在<repositories>元素下，可以使用  <repository>子元素声明一个或者多个远程仓库。</repository></repositories></repository></repositories></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;project&#62;   &#10;  &#60;!-- &#37197;&#32622;&#31169;&#26381;&#22320;&#22336; --&#62;  &#10;  &#60;repositories&#62;  &#10;    &#60;repository&#62;  &#10;      &#60;id&#62;nexus&#60;/id&#62;  &#10;      &#60;url&#62;http://localhost:8081/nexus/content/groups/public/&#60;/url&#62;  &#10;      &#60;snapshots&#62;&#60;enabled&#62;true&#60;/enabled&#62;&#60;/snapshots&#62;  &#10;      &#60;releases&#62;&#10;        &#60;updatePolicy&#62;daily&#60;/updatePolicy&#62;&#60;!-- never,always,interval n --&#62;  &#10;        &#60;enabled&#62;true&#60;/enabled&#62;&#10;        &#60;checksumPolicy&#62;warn&#60;/checksumPolicy&#62;&#60;!-- fail,ignore --&#62; &#10;      &#60;/releases&#62;  &#10;    &#60;/repository&#62;  &#10;  &#60;/repositories&#62;  &#10;  &#60;pluginRepositories&#62;  &#10;    &#60;pluginRepository&#62;  &#10;      &#60;id&#62;nexus&#60;/id&#62;  &#10;      &#60;url&#62;http://localhost:8081/nexus/content/groups/public/&#60;/url&#62;  &#10;      &#60;snapshots&#62;&#60;enabled&#62;true&#60;/enabled&#62;&#60;/snapshots&#62;  &#10;      &#60;releases&#62;&#60;enabled&#62;true&#60;/enabled&#62;&#60;/releases&#62;  &#10;    &#60;/pluginRepository&#62;  &#10;  &#60;/pluginRepositories&#62;   &#10;&#60;project&#62;  &#10;&#183;&#183;&#183;&#10;&#10;&#60;updatePolicy&#62;&#20803;&#32032;&#65306;&#34920;&#31034;&#26356;&#26032;&#30340;&#39057;&#29575;&#65292;&#20540;&#26377;&#65306;never, always,interval,daily, daily &#20026;&#40664;&#35748;&#20540;&#10;&#60;checksumPolicy&#62;&#20803;&#32032;&#65306;&#34920;&#31034;maven&#26816;&#26597;&#21644;&#26816;&#39564;&#25991;&#20214;&#30340;&#31574;&#30053;&#65292;warn&#20026;&#40664;&#35748;&#20540;&#10;&#35748;&#35777;&#20449;&#24687;&#37197;&#32622;&#22312;settings.xml&#20013;&#65306;</span><br></pre></td></tr></table></figure>
+<p> <servers><br>    <server><br>        <id>same with repository id in pom</id>   这里的id必须与POM中需要认证的repository元素的Id一致<br>        <username>username</username><br>        <password>pwd</password><br>    </server><br></servers><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将生成的项目部署到远程仓库</span><br></pre></td></tr></table></figure></p>
+<p>&lt;?xml version=”1.0” encoding=”UTF-8” standalone=”no”?&gt;</p>
+<p><settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"><br>   <servers><br>   <!-- 
+distributionManagement包含了2个子元素：repository和snapshotRepository, 前者表示发布版本构件的仓库，后者表示快照版本的仓库
+这两个元素都需要配置 id(该远程仓库的唯一标识)，name，url(表示该仓库的地址):  --><br>      <server><br>        <id>deployment</id><br>        <username>deployment</username><br>        <password>deployment123</password><br>     </server><br>  </servers><br></settings><br>  mvn release:clean -P release<br>  mvn release:prepare -P release<br>mvn release:prepare release:perform<br> mvn clean deploy<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 正确的看待快照</span><br><span class="line">之前我们在配置pom的时候，对于快照的配置都很谨慎，或者说很少用快照的版本，原因是它还很不稳定，极容易给我们的系统带来未知的错误，让我们很难查找。其实快照版本也并不是一无是处，快照最大的用途是用在开发的过程中，尤其是有模块依赖的时候，比如说AB两个模块同时开发，A依赖于B，开发过程中AB都是持续集成的开发，不断的修改POM文件和构建工程，这时候版本同步就成了一个很大的问题。使用快照就可以达到这一目的。</span><br><span class="line">其实在快照版本在发布的过程中，Maven会自动为构件以当前时间戳做标记，有了这个时间戳，我们就可以随时找到最新的快照版本，这样也就解决刚才说的 协作开发的问题。</span><br><span class="line">至于A如何检查B的更新，刚刚在讲配置的时候说过，快照配置中有一个元素可以控制检查更新的频率<span class="comment">------updatePolicy</span></span><br><span class="line">我们也可以使用命令行加参数的形式强制执行让maven检查更新：</span><br><span class="line">mvn clean <span class="operator"><span class="keyword">install</span>-U</span><br><span class="line"></span><br><span class="line">### maven从仓库解析依赖的机制</span><br><span class="line"><span class="number">1.</span> 当依赖的范围是<span class="keyword">system</span>的时候，Maven直接从本地文件系统解析构件</span><br><span class="line"><span class="number">2.</span> 根据依赖坐标计算仓库路径后，尝试直接从本地仓库寻找构件，如果发现相应构件，则解析成功</span><br><span class="line"><span class="number">3.</span> 在本地仓库不存在相应的构件情况下，如果依赖的版本是显示的发布版本构件，则遍历所有的远程仓库，发现后下载使用</span><br><span class="line"><span class="number">4.</span> 如果依赖的版本是<span class="keyword">RELEASE</span>或LATEST, 则基于更新策略读取所有远程仓库的元数据，将其于本地仓库的对应元数据合并后，计算出<span class="keyword">RELEASE</span>或者LATEST的真实值，然后基于这个真实值检查本地仓库</span><br><span class="line"><span class="number">5.</span> 如果依赖的版本是<span class="keyword">SNAPSHOT</span>， 则基于更新策略读取所有远程仓库的元数据， 将其与本地仓库的对应元数据合并后，得到最新快照版本的值，然后基于该值检查本地仓库或从远程仓库下载</span><br><span class="line"><span class="number">6.</span> 如果最后解析到的构件版本是时间戳格式的快照，则复制其时间戳格式的文件 至 非时间戳格式，并使用该非时间戳格式的构件</span><br><span class="line">注：一定要记得&lt;<span class="keyword">release</span>&gt;  &lt;enabled&gt;     &amp;    &lt;<span class="keyword">snapshot</span>&gt;  &lt;enabled&gt; ，对于快照也是一样</span><br><span class="line">在POM的依赖声明的时候不推荐使用LATEST &amp; <span class="keyword">RELEASE</span>, 在Maven3中也不再支持在插件配置中使用LATEST &amp; <span class="keyword">RELEASE</span>， 如果不设置插件版本，那么最终版本和<span class="keyword">release</span>一样，</span><br><span class="line">maven只会解析最新的发布版本构建。 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### maven plugins: </span><br><span class="line"><span class="number">1.</span> jar plugins</span></span><br></pre></td></tr></table></figure></p>
+<p><project><br>  <build><br>    <plugins><br>      <!-- Make this jar executable --><br>      <plugin><br>        <groupid>org.apache.maven.plugins</groupid><br>        <artifactid>maven-jar-plugin</artifactid><br>        <configuration><br>                <!-- exclude log4j.properties --><br>          <excludes><br>            <exclude>**/log4j.properties</exclude><br>          </excludes><br>          <archive><br>              <manifest><br>            <addclasspath>true</addclasspath><br>            <mainclass>xxxx.testing</mainclass><br>            <classpathprefix>dependency-jars/</classpathprefix><br>               </manifest><br>          </archive><br>        </configuration><br>      </plugin><br>    </plugins><br>  </build><br></project><br>```</p>
+<ol>
+<li>shade plugin:</li>
+</ol>
+<p>参考：<br><a href="http://psy-lob-saw.blogspot.com/2013/01/java-print-assembly.html" target="_blank" rel="external">http://psy-lob-saw.blogspot.com/2013/01/java-print-assembly.html</a><br><a href="http://www.chrisnewland.com/images/jitwatch/HotSpot_Profiling_Using_JITWatch.pdf" target="_blank" rel="external">http://www.chrisnewland.com/images/jitwatch/HotSpot_Profiling_Using_JITWatch.pdf</a><br><a href="https://dzone.com/articles/java-multi-threading-volatile-variables-happens-be-1" target="_blank" rel="external">https://dzone.com/articles/java-multi-threading-volatile-variables-happens-be-1</a><br><a href="http://qifuguang.me/2015/09/02/%5BJava并发包学习七%5D解密ThreadLocal/" target="_blank" rel="external">http://qifuguang.me/2015/09/02/%5BJava并发包学习七%5D解密ThreadLocal/</a><br><a href="https://blog.codecentric.de/en/2014/01/useful-jvm-flags-part-8-gc-logging/" target="_blank" rel="external">https://blog.codecentric.de/en/2014/01/useful-jvm-flags-part-8-gc-logging/</a><br><a href="https://maven.apache.org/plugins/maven-shade-plugin/examples/includes-excludes.html" target="_blank" rel="external">https://maven.apache.org/plugins/maven-shade-plugin/examples/includes-excludes.html</a><br><a href="http://psy-lob-saw.blogspot.jp/2013/05/using-jmh-to-benchmark-multi-threaded.html" target="_blank" rel="external">http://psy-lob-saw.blogspot.jp/2013/05/using-jmh-to-benchmark-multi-threaded.html</a><br><a href="http://iissnan.com/progit/html/zh/ch9_2.html" target="_blank" rel="external">http://iissnan.com/progit/html/zh/ch9_2.html</a><br><a href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="external">https://marklodato.github.io/visual-git-guide/index-zh-cn.html</a><br><a href="https://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="external">https://marklodato.github.io/visual-git-guide/index-zh-cn.html</a><br><a href="http://www.lxway.com/45419456.htm" target="_blank" rel="external">http://www.lxway.com/45419456.htm</a><br><a href="http://github.com/javaee-samples/javaee7-simple-sample" target="_blank" rel="external">http://github.com/javaee-samples/javaee7-simple-sample</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/tools/">tools</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/development-tools/">development tools</a><a href="/tags/maven/">maven</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/05/maven/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/05/maven/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/05/docker/" title="docker thinking" itemprop="url">docker thinking</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-05T06:15:53.000Z" itemprop="datePublished"> 发表于 2015-11-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u94FE_u63A5"><a href="#u94FE_u63A5" class="headerlink" title="链接"></a>链接</h3><ol>
+<li>the decline of Java application servers when using docker containers <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#104;&#x74;&#116;&#x70;&#x73;&#x3a;&#47;&#47;&#109;&#x65;&#x64;&#105;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#x2f;&#64;&#x6a;&#x73;&#116;&#x72;&#97;&#x63;&#x68;&#97;&#x6e;&#47;&#x74;&#x68;&#101;&#x2d;&#x64;&#101;&#99;&#x6c;&#105;&#110;&#x65;&#45;&#x6f;&#x66;&#x2d;&#106;&#x61;&#x76;&#97;&#45;&#x61;&#x70;&#x70;&#x6c;&#x69;&#99;&#x61;&#116;&#105;&#111;&#x6e;&#45;&#x73;&#x65;&#x72;&#118;&#101;&#x72;&#115;&#x2d;&#119;&#104;&#101;&#x6e;&#x2d;&#117;&#x73;&#105;&#x6e;&#x67;&#x2d;&#x64;&#x6f;&#x63;&#107;&#x65;&#114;&#45;&#x63;&#111;&#110;&#x74;&#x61;&#105;&#x6e;&#101;&#114;&#x73;&#45;&#101;&#x64;&#x62;&#101;&#x30;&#x33;&#x32;&#x65;&#49;&#x66;&#51;&#x30;">&#104;&#x74;&#116;&#x70;&#x73;&#x3a;&#47;&#47;&#109;&#x65;&#x64;&#105;&#117;&#x6d;&#46;&#99;&#x6f;&#109;&#x2f;&#64;&#x6a;&#x73;&#116;&#x72;&#97;&#x63;&#x68;&#97;&#x6e;&#47;&#x74;&#x68;&#101;&#x2d;&#x64;&#101;&#99;&#x6c;&#105;&#110;&#x65;&#45;&#x6f;&#x66;&#x2d;&#106;&#x61;&#x76;&#97;&#45;&#x61;&#x70;&#x70;&#x6c;&#x69;&#99;&#x61;&#116;&#105;&#111;&#x6e;&#45;&#x73;&#x65;&#x72;&#118;&#101;&#x72;&#115;&#x2d;&#119;&#104;&#101;&#x6e;&#x2d;&#117;&#x73;&#105;&#x6e;&#x67;&#x2d;&#x64;&#x6f;&#x63;&#107;&#x65;&#114;&#45;&#x63;&#111;&#110;&#x74;&#x61;&#105;&#x6e;&#101;&#114;&#x73;&#45;&#101;&#x64;&#x62;&#101;&#x30;&#x33;&#x32;&#x65;&#49;&#x66;&#51;&#x30;</a> <a href="http://dockone.io/article/267" target="_blank" rel="external">http://dockone.io/article/267</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/docker/">docker</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/development-tools/">development tools</a><a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/05/docker/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/05/docker/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/05/java-webapp/" title="java webapp" itemprop="url">java webapp</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-04T18:52:13.000Z" itemprop="datePublished"> 发表于 2015-11-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/05/java-webapp/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/05/java-webapp/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

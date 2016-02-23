@@ -1,0 +1,769 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>java 编译相关  &amp;&amp; java profile | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="查看jvm编译代码：osx下 要点： 在bash_profile或个人的其他文件定义环境变量 LD_LIBRARY_PATH, 里面包含hdis-amd64.dylib参考这里
+[参考这里]http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X
+GC策略 StrategyJVM里的GC(Garbage Colle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 编译相关  && java profile">
+<meta property="og:url" content="http://silveringsea.github.io/2015/12/02/java-profile/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="查看jvm编译代码：osx下 要点： 在bash_profile或个人的其他文件定义环境变量 LD_LIBRARY_PATH, 里面包含hdis-amd64.dylib参考这里
+[参考这里]http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X
+GC策略 StrategyJVM里的GC(Garbage Colle">
+<meta property="og:updated_time" content="2015-12-17T06:32:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 编译相关  && java profile">
+<meta name="twitter:description" content="查看jvm编译代码：osx下 要点： 在bash_profile或个人的其他文件定义环境变量 LD_LIBRARY_PATH, 里面包含hdis-amd64.dylib参考这里
+[参考这里]http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X
+GC策略 StrategyJVM里的GC(Garbage Colle">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/02/java-profile/" title="java 编译相关  &amp;&amp; java profile" itemprop="url">java 编译相关  &amp;&amp; java profile</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-02T14:39:14.000Z" itemprop="datePublished"> 发表于 2015-12-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u67E5_u770Bjvm_u7F16_u8BD1_u4EE3_u7801_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">查看jvm编译代码：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC_u7B56_u7565_Strategy"><span class="toc-number">2.</span> <span class="toc-text">GC策略 Strategy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#concept_3A"><span class="toc-number">2.1.</span> <span class="toc-text">concept:</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="u67E5_u770Bjvm_u7F16_u8BD1_u4EE3_u7801_uFF1A"><a href="#u67E5_u770Bjvm_u7F16_u8BD1_u4EE3_u7801_uFF1A" class="headerlink" title="查看jvm编译代码："></a>查看jvm编译代码：</h3><p>osx下 要点： 在bash_profile或个人的其他文件定义环境变量 LD_LIBRARY_PATH, 里面包含hdis-amd64.dylib<br><a href="http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X" title="http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X" target="_blank" rel="external">参考这里</a></p>
+<p>[参考这里]<a href="http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X" target="_blank" rel="external">http://www.nitschinger.at/Printing-JVM-generated-Assembler-on-Mac-OS-X</a></p>
+<h3 id="GC_u7B56_u7565_Strategy"><a href="#GC_u7B56_u7565_Strategy" class="headerlink" title="GC策略 Strategy"></a>GC策略 Strategy</h3><p>JVM里的GC(Garbage Collection)的算法有很多种，如标记清除收集器，压缩收集器，分代收集器等等,详见HotSpot VM GC 的种类</p>
+<pre><code>现在比较常用的是分代收集（generational collection,也是SUN VM使用的,J2SE1.2之后引入），即将内存分为几个区域，将不同生命周期的对象放在不同区域里:young generation，tenured generation和permanet generation。绝大部分的objec被分配在young generation(生命周期短)，并且大部分的object在这里die。当young generation满了之后，将引发minor collection(YGC)。在minor collection后存活的object会被移动到tenured generation(生命周期比较长)。最后，tenured generation满之后触发major collection。major collection（Full gc）会触发整个heap的回收，包括回收young generation。permanet generation区域比较稳定，主要存放classloader信息。
+
+young generation有eden、2个survivor 区域组成。其中一个survivor区域一直是空的，是eden区域和另一个survivor区域在下一次copy collection后活着的objecy的目的地。object在survivo区域被复制直到转移到tenured区。
+
+我们要尽量减少 Full gc 的次数(tenured generation 一般比较大,收集的时间较长,频繁的Full gc会导致应用的性能收到严重的影响)。
+</code></pre><p>堆内存GC<br>       JVM(采用分代回收的策略)，用较高的频率对年轻的对象(young generation)进行YGC，而对老对象(tenured generation)较少(tenured generation 满了后才进行)进行Full GC。这样就不需要每次GC都将内存中所有对象都检查一遍。</p>
+<p>非堆内存不GC</p>
+<pre><code>GC不会在主程序运行期对PermGen Space进行清理，所以如果你的应用中有很多CLASS(特别是动态生成类，当然permgen space存放的内容不仅限于类)的话,就很可能出现PermGen Space错误。
+</code></pre><p>内存申请、对象衰老过程<br>一、内存申请过程</p>
+<p>JVM会试图为相关Java对象在Eden中初始化一块内存区域；<br>当Eden空间足够时，内存申请结束。否则到下一步；<br>JVM试图释放在Eden中所有不活跃的对象（minor collection），释放后若Eden空间仍然不足以放入新对象，则试图将部分Eden中活跃对象放入Survivor区；<br>Survivor区被用来作为Eden及old的中间交换区域，当OLD区空间足够时，Survivor区的对象会被移到Old区，否则会被保留在Survivor区；<br>当old区空间不够时，JVM会在old区进行major collection；<br>完全垃圾收集后，若Survivor及old区仍然无法存放从Eden复制过来的部分对象，导致JVM无法在Eden区为新对象创建内存区域，则出现”Out of memory错误”；<br>二、对象衰老过程</p>
+<p>新创建的对象的内存都分配自eden。Minor collection的过程就是将eden和在用survivor space中的活对象copy到空闲survivor space中。对象在young generation里经历了一定次数(可以通过参数配置)的minor collection后，就会被移到old generation中，称为tenuring。</p>
+<h4 id="concept_3A"><a href="#concept_3A" class="headerlink" title="concept:"></a>concept:</h4><table>
+<thead>
+<tr>
+<th>GC Type</th>
+<th>什么时候发生</th>
+<th>触发时发生了什么</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YGC: young generation gc</td>
+<td>当young generation满了之后，将引发minor collection</td>
+<td>清空Eden+from survivor中所有no ref的对象占用的内存</td>
+</tr>
+</tbody>
+</table>
+<p>将eden+from sur中所有存活的对象copy到to sur中 一些对象将晋升到old中: to sur放不下的 存活次数超过turning threshold中的<br>重新计算tenuring threshold(serial parallel GC会触发此项) 重新调整Eden 和from的大小(parallel GC会触发此项) |全过程暂停应用 \n 是否为多线程处理由具体的GC决定 | jstat –gcutil  gc log |<br>|FGC: FullGC | old空间不足<br>perm空间不足<br>显示调用System.GC, RMI等的定时触发<br>YGC时的悲观策略<br>dump live的内存信息时(jmap –dump:live) | 清空heap中no ref的对象<br>permgen中已经被卸载的classloader中加载的class信息</p>
+<p>如配置了CollectGenOFirst,则先触发YGC(针对serial GC)<br>如配置了ScavengeBeforeFullGC,则先触发YGC(针对serial GC) | 全过程暂停应用<br>是否为多线程处理由具体的GC决定</p>
+<p>是否压缩需要看配置的具体GC | jstat –gcutil  gc log |</p>
+<p>permanent generation空间不足会引发Full GC,仍然不够会引发PermGen Space错误。</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>介绍</th>
+<th>试用场景</th>
+<th>使用</th>
+<th>内存回收触发</th>
+<th>细节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>throughput collector与concurrent low pause collector的区别是throughput collector只在young area使用使用多线程，而concurrent low pause collector则在tenured generation也使用多线程。<br>根据官方文档，他们俩个需要在多CPU的情况下，才能发挥作用。在一个CPU的情况下，会不如默认的serial collector，因为线程管理需要耗费CPU资源。而在两个CPU的情况下，也提高不大。只是在更多CPU的情况下，才会有所提高。当然 concurrent low pause collector有一种模式可以在CPU较少的机器上，提供尽可能少的停顿的模式，见CMS GC Incremental mode。<br>当要使用throughput collector时，在java opt里加上-XX:+UseParallelGC，启动throughput collector收集。也可加上-XX:ParallelGCThreads=<desired number="">来改变线程数。还有两个参数 -XX:MaxGCPauseMillis=<nnn>和 -XX:GCTimeRatio=<nnn>，MaxGCPauseMillis=<nnn>用来控制最大暂停时间，而-XX: GCTimeRatio可以提高GC说占CPU的比，以最大话的减小heap。</nnn></nnn></nnn></desired></p>
+<p>附注SUN的官方说明： </p>
+<ol>
+<li><p>The throughput collector: this collector uses a parallel version of the young generation collector. It is used if the -XX:+UseParallelGC option is passed on the command line. The tenured generation collector is the same as the serial collector.</p>
+</li>
+<li><p>The concurrent low pause collector: this collector is used if the -Xincgc™ or -XX:+UseConcMarkSweepGC is passed on the command line. The concurrent collector is used to collect the tenured generation and does most of the collection concurrently with the execution of the application. The application is paused for short periods during the collection. A parallel version of the young generation copying collector is used with the concurrent collector. The concurrent low pause collector is used if the option -XX:+UseConcMarkSweepGC is passed on the command line.</p>
+</li>
+<li><p>The incremental (sometimes called train) low pause collector: this collector is used only if -XX:+UseTrainGC is passed on the command line. This collector has not changed since the J2SE Platform version 1.4.2 and is currently not under active development. It will not be supported in future releases. Please see the 1.4.2 GC Tuning Document for information on this collector.</p>
+</li>
+</ol>
+<p>CMS GC Incremental mode</p>
+<pre><code>当要使用 concurrent low pause collector时，在java的opt里加上 -XX:+UseConcMarkSweepGC。concurrent low pause collector还有一种为CPU少的机器准备的模式，叫Incremental mode。这种模式使用一个CPU来在程序运行的过程中GC，只用很少的时间暂停程序，检查对象存活。
+
+在Incremental mode里，每个收集过程中，会暂停两次，第二次略长。第一次用来，简单从root查询存活对象。第二次用来，详细检查存活对象。整个过程如下：
+</code></pre><ul>
+<li>stop all application threads; do the initial mark; resume all application threads（第一次暂停，初始话标记）</li>
+<li>do the concurrent mark (uses one procesor for the concurrent work)（运行是标记）</li>
+<li>do the concurrent pre-clean (uses one processor for the concurrent work)（准备清理）</li>
+<li>stop all application threads; do the remark; resume all application threads（第二次暂停，标记，检查）</li>
+<li>do the concurrent sweep (uses one processor for the concurrent work)(运行过程中清理)</li>
+<li><p>do the concurrent reset (uses one processor for the concurrent work)(复原)</p>
+<pre><code>当要使用Incremental mode时，需要使用以下几个变量：
+</code></pre></li>
+</ul>
+<p>-XX:+CMSIncrementalMode default: disabled 启动i-CMS模式（must with -XX:+UseConcMarkSweepGC）<br>-XX:+CMSIncrementalPacing default: disabled 提供自动校正功能<br>-XX:CMSIncrementalDutyCycle=<n> default: 50 启动CMS的上线<br>-XX:CMSIncrementalDutyCycleMin=<n> default: 10 启动CMS的下线<br>-XX:CMSIncrementalSafetyFactor=<n> default: 10 用来计算循环次数<br>-XX:CMSIncrementalOffset=<n> default: 0 最小循环次数（This is the percentage (0-100) by which the incremental mode duty cycle is shifted to the right within the period between minor collections.）<br>-XX:CMSExpAvgFactor=<n> default: 25 提供一个指导收集数</n></n></n></n></n></p>
+<pre><code>SUN推荐的使用参数是：
+</code></pre><p>-XX:+UseConcMarkSweepGC \<br>-XX:+CMSIncrementalMode \<br>-XX:+CMSIncrementalPacing \<br>-XX:CMSIncrementalDutyCycleMin=0 \<br>-XX:CMSIncrementalDutyCycle=10 \<br>-XX:+PrintGC Details \<br>-XX:+PrintGCTimeStamps \<br>-XX:-TraceClassUnloading<br>注：如果使用throughput collector和concurrent low pause collector，这两种垃圾收集器，需要适当的挺高内存大小，以为多线程做准备。<br>如何选择collector:</p>
+<p>app运行在单处理器机器上且没有pause time的要求，让vm选择或者UseSerialGC.<br>重点考虑peak application performance(高性能)，没有pause time太严格要求，让vm选择或者UseParallelGC+UseParallelOldGC(optionally).<br>重点考虑response time,pause time要小，UseConcMarkSweepGC.<br>Garbage Collctor – Future</p>
+<p>Garbage First(G1)<br>jdk1.6 update 14 or jdk7<br>few flags need to set<br>-XX:MaxGCPauseMillis=100<br>-XX:GCPauseIntervalMillis=6000<br>     还没尝试过使用…</p>
+<p>Summary</p>
+<p>import java.util.ArrayList;<br>import java.util.List;<br>public class SummaryCase {<br>    public static void main(String[] args) throws InterruptedException {<br>        List<object> caches = new ArrayList<object>();<br>        for (int i = 0; i &lt; 7; i++) {<br>            caches.add(new byte[1024 <em> 1024 </em> 3]);<br>            Thread.sleep(1000);<br>        }<br>        caches.clear();<br>        for (int i = 0; i &lt; 2; i++) {<br>            caches.add(new byte[1024 <em> 1024 </em> 3]);<br>            Thread.sleep(1000);<br>        }<br>    }<br>}</object></object></p>
+<p>用以下两种参数执行,会执行几次YGC几次FGC?<br>-Xms30M -Xmx30M -Xmn10M  -Xloggc:gc.log -XX:+PrintTenuringDistribution -XX:+UseParallelGC<br>2.062: [GC<br>Desired survivor size 1310720 bytes, new threshold 7 (max 15)<br> 6467K-&gt;6312K(29440K), 0.0038214 secs]<br>4.066: [GC<br>Desired survivor size 1310720 bytes, new threshold 7 (max 15)<br> 12536K-&gt;12440K(29440K), 0.0036804 secs]<br>6.070: [GC<br>Desired survivor size 1310720 bytes, new threshold 7 (max 15)<br> 18637K-&gt;18584K(29440K), 0.0040175 secs]<br>6.074: [Full GC 18584K-&gt;18570K(29440K), 0.0031329 secs]<br>8.078: [Full GC 24749K-&gt;3210K(29440K), 0.0045590 secs]<br>(具体分析见<a href="http://rdc.taobao.com/team/jm/archives/440" target="_blank" rel="external">http://rdc.taobao.com/team/jm/archives/440</a>)<br>-Xms30M -Xmx30M -Xmn10M  -Xloggc:gc.log -XX:+PrintTenuringDistribution -XX:+UseSerialGC<br>2.047: [GC<br>Desired survivor size 524288 bytes, new threshold 15 (max 15)</p>
+<ul>
+<li>age   1:     142024 bytes,     142024 total<br>6472K-&gt;6282K(29696K), 0.0048686 secs]<br>4.053: [GC<br>Desired survivor size 524288 bytes, new threshold 15 (max 15)</li>
+<li>age   2:     141880 bytes,     141880 total<br>12512K-&gt;12426K(29696K), 0.0047334 secs]<br>6.058: [GC<br>Desired survivor size 524288 bytes, new threshold 15 (max 15)</li>
+<li>age   3:     141880 bytes,     141880 total<br>18627K-&gt;18570K(29696K), 0.0049135 secs]<br>8.063: [Full GC 24752K-&gt;3210K(29696K), 0.0077895 secs]<br>(具体分析见<a href="http://rdc.taobao.com/team/jm/archives/458" target="_blank" rel="external">http://rdc.taobao.com/team/jm/archives/458</a>)</li>
+</ul>
+<p><a href="http://www.cnblogs.com/redcreen/archive/2011/05/04/2037029.html" target="_blank" rel="external">http://www.cnblogs.com/redcreen/archive/2011/05/04/2037029.html</a><br><a href="http://www.cnblogs.com/redcreen/archive/2011/05/04/2037056.html" target="_blank" rel="external">http://www.cnblogs.com/redcreen/archive/2011/05/04/2037056.html</a><br><a href="http://www.infoq.com/cn/articles/zzm-java-hsdis-jvm/" target="_blank" rel="external">http://www.infoq.com/cn/articles/zzm-java-hsdis-jvm/</a><br><a href="http://thinkinmylife.iteye.com/blog/443900" target="_blank" rel="external">http://thinkinmylife.iteye.com/blog/443900</a><br><a href="http://download.oracle.com/javase/6/docs/api/" target="_blank" rel="external">http://download.oracle.com/javase/6/docs/api/</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/12/02/java-profile/" data-title="java 编译相关  &amp;&amp; java profile | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/06/redis-in-action/" title="redis in action">
+  <strong>上一篇：</strong><br/>
+  <span>
+  redis in action</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/11/14/python-optimize/"  title="python optimize">
+ <strong>下一篇：</strong><br/> 
+ <span>python optimize
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/12/02/java-profile/" data-title="java 编译相关  && java profile" data-url="http://silveringsea.github.io/2015/12/02/java-profile/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u67E5_u770Bjvm_u7F16_u8BD1_u4EE3_u7801_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">查看jvm编译代码：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC_u7B56_u7565_Strategy"><span class="toc-number">2.</span> <span class="toc-text">GC策略 Strategy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#concept_3A"><span class="toc-number">2.1.</span> <span class="toc-text">concept:</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

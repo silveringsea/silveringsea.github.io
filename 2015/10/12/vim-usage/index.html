@@ -1,0 +1,734 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>vim usage | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="vi常用操作
+文件操作 
+12345678910111213141516171819202122vi FileName 打开文件 FileName,并将光标置于第一行首。 vi +n FileName 打开文件 FileName,并将光标置于第 n 行首。 vi + FileName 打开文件 FileName,并将光标置于最后一行。 vi + /pattern File 打开文件 File,并将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim usage">
+<meta property="og:url" content="http://silveringsea.github.io/2015/10/12/vim-usage/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="vi常用操作
+文件操作 
+12345678910111213141516171819202122vi FileName 打开文件 FileName,并将光标置于第一行首。 vi +n FileName 打开文件 FileName,并将光标置于第 n 行首。 vi + FileName 打开文件 FileName,并将光标置于最后一行。 vi + /pattern File 打开文件 File,并将">
+<meta property="og:updated_time" content="2016-02-23T01:17:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim usage">
+<meta name="twitter:description" content="vi常用操作
+文件操作 
+12345678910111213141516171819202122vi FileName 打开文件 FileName,并将光标置于第一行首。 vi +n FileName 打开文件 FileName,并将光标置于第 n 行首。 vi + FileName 打开文件 FileName,并将光标置于最后一行。 vi + /pattern File 打开文件 File,并将">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/12/vim-usage/" title="vim usage" itemprop="url">vim usage</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-12T05:35:10.000Z" itemprop="datePublished"> 发表于 2015-10-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vi_u5E38_u7528_u64CD_u4F5C"><span class="toc-number">1.</span> <span class="toc-text">vi常用操作</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="vi_u5E38_u7528_u64CD_u4F5C"><a href="#vi_u5E38_u7528_u64CD_u4F5C" class="headerlink" title="vi常用操作"></a>vi常用操作</h2><ol>
+<li><p>文件操作 </p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="keyword">FileName</span> 打开文件 <span class="keyword">FileName</span>,并将光标置于第一行首。 </span><br><span class="line">vi +n <span class="keyword">FileName</span> 打开文件 <span class="keyword">FileName</span>,并将光标置于第 n 行首。 </span><br><span class="line">vi + <span class="keyword">FileName</span> 打开文件 <span class="keyword">FileName</span>,并将光标置于最后一行。 </span><br><span class="line">vi + /pattern <span class="keyword">File</span> 打开文件 <span class="keyword">File</span>,并将光标置于其中第一个于 pattern 匹配的字符串处。 </span><br><span class="line">vi –r <span class="keyword">FileName</span> 在上次正用 vi 编辑 <span class="keyword">FileName</span> 发生系统崩溃后,恢复<span class="keyword">FileName</span>。 </span><br><span class="line">vi File1 … Filen 打开多个文件,依次对之进行编辑。 </span><br><span class="line">:%!xxd 按十六进制查看当前文件 </span><br><span class="line">:%!xxd -r 从十六进制返回正常模式 </span><br><span class="line"></span><br><span class="line">:n1,n2 co n3 将 n1 行到 n2 行之间的内容拷贝到第 n3 行下。 </span><br><span class="line">:n1,n2 m m3 将 n1 行到 n2 行之间的内容移至第 n3 行下。 </span><br><span class="line">:n1,n2 d 将 n1 行到 n2 行之间的内容删除。 </span><br><span class="line">:n1,n2 w filename 将 n1 行到 n2 行之间的内容保存到文件 filename 中 </span><br><span class="line">:n1,n2 w! Command 将文件中n1行到n2行的内容作为 Command的输入并执行之， </span><br><span class="line">若不指定 n1、n2，则将整个文件内容作为 Command 的输入。 </span><br><span class="line">:r! Command 将命令 Command 的输出结果放到当前行。 </span><br><span class="line">:nr &lt;文件&gt; 把&lt;文件&gt;插入到第n行 </span><br><span class="line">:so &lt;文件&gt; 读取&lt;文件&gt;,再执行文件里面的命令(文件中的命令应该都是一些ex命令) </span><br><span class="line">:l1,l2w &lt;文件&gt; 把第l1和第l2行之间的文本写到&lt;文件&gt;中去 </span><br><span class="line">:w &gt;&gt; &lt;文件&gt; 添加到&lt;文件&gt;末尾. 也可以使用行号 </span><br><span class="line">:e! 重新编辑当前文件,忽略所有的修改 </span><br><span class="line">:w !sudo tee % 编辑了没有权限的文件时</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>光标移动</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">h</span> 光标左移一个字符。 </span><br><span class="line"><span class="keyword">l</span> 光标右移一个字符。  </span><br><span class="line">w 或 W 光标右移一个字至字首。 </span><br><span class="line">B 或 b 光标左移一个字至字首。 </span><br><span class="line"><span class="keyword">E</span> 或 <span class="keyword">e</span> 光标右移一个字至字尾。  </span><br><span class="line">·句&#125; 光标移至句尾。 </span><br><span class="line">( 光标移至句首。  </span><br><span class="line">·段) 光标移至段落开头。 </span><br><span class="line">&#123; 光标移至段落结尾。  </span><br><span class="line">·行k 或 Ctrl+p 光标上移一行。 </span><br><span class="line">j 或 Ctrl+<span class="keyword">n</span> 光标下移一行。 </span><br><span class="line">Enter 光标下移一行。 </span><br><span class="line">nG 光标移至第 <span class="keyword">n</span> 行首。 </span><br><span class="line"><span class="keyword">n</span>+ 光标下移 <span class="keyword">n</span> 行。 </span><br><span class="line"><span class="keyword">n</span>- 光标上移 <span class="keyword">n</span> 行。 </span><br><span class="line"><span class="keyword">n</span>$ 光标移至第 <span class="keyword">n</span> 行尾。 </span><br><span class="line">0 光标移至当前行首。 </span><br><span class="line">$ 光标移至当前行尾。  </span><br><span class="line"><span class="keyword">H</span> 光标移至屏幕顶行。 </span><br><span class="line"><span class="keyword">M</span> 光标移至屏幕中间行。 </span><br><span class="line"><span class="keyword">L</span> 光标移至屏幕最后行。 </span><br><span class="line">Ctrl+<span class="keyword">u</span> 向文件首翻半屏。 </span><br><span class="line">Ctrl+<span class="keyword">d</span> 向文件尾翻半屏。 </span><br><span class="line">Ctrl+f 向文件尾翻一屏。 </span><br><span class="line">Ctrl+b 向文件首翻一屏。 </span><br><span class="line">nz 将第 <span class="keyword">n</span> 行滚至屏幕顶部。不指定 <span class="keyword">n</span> 时将当前行滚至屏幕顶。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件中插入行号(不是显示行号，是插入！) </span></span><br><span class="line"><span class="symbol">:g/^/exec</span> <span class="string">"s/^/"</span>.strpart(line(<span class="string">"."</span>).<span class="string">" "</span>, <span class="number">0</span>, <span class="number">4</span>)  </span><br><span class="line">i 在光标前插入。 </span><br><span class="line">a 在光标后插入。  </span><br><span class="line"><span class="constant">I </span>在当前行首插入。 </span><br><span class="line"><span class="constant">A </span>在当前行尾插入。 </span><br><span class="line">o 在当前行之下一新行插入。 </span><br><span class="line"><span class="constant">O </span>在当前行之上新开一行插入。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>替换 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">r 替换当前字符。 </span><br><span class="line"><span class="constant">R </span>替换当前字符及其后的字符，直至按 <span class="constant">ESC </span>键。 </span><br><span class="line">s 从当前光标位置处开始，以输入的文本代替指定数目的字符。 </span><br><span class="line"><span class="constant">S </span>删除指定数目的行，并以所输入的文本代替。</span><br><span class="line"><span class="symbol">:</span>.,+<span class="number">3</span> s/^<span class="regexp">/#/g</span>            注释从当前行起的后三行（不含当前行）</span><br><span class="line"><span class="symbol">:ranges/pat1/pat2/g</span>  </span><br><span class="line">range  可以使用百分号（%）表示所有行，使用点（.）表示当前行，使用美元符号（<span class="variable">$）</span>表示最后一行。你还可以使用行号，例如<span class="number">10</span>,<span class="number">20</span>表 示第<span class="number">10</span>到<span class="number">20</span>行，.,<span class="variable">$表</span>示当前行到最后一行，.+<span class="number">2</span>,<span class="variable">$-</span><span class="number">5</span>表示当前行后两行直到全文的倒数第五行，等等。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 </p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ncw 或 nCW 修改指定数目的字符。 </span><br><span class="line">nCC 修改指定数目的行。 </span><br><span class="line">:r <span class="keyword">filename</span> 将文件 <span class="keyword">filename</span> 插入在当前行之下</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找替换 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/&lt;<span class="constant">C-R&gt;</span>&lt;<span class="constant">C-W&gt;</span> 把狭义单词 &lt;cword&gt; 写到 搜索命令 行 </span><br><span class="line">/&lt;<span class="constant">C-R&gt;</span>&lt;<span class="constant">C-A&gt;</span> 把广义单词 &lt;cWORD&gt; 写到 搜索命令 行 </span><br><span class="line"><span class="symbol">:g/str/s/str1/str2/g</span>  </span><br><span class="line"><span class="symbol">:%s/f</span> <span class="variable">$/</span><span class="keyword">for</span><span class="variable">$/</span>g 将每一行尾部的“f ”（f键和空格键）替换为<span class="keyword">for</span> </span><br><span class="line"><span class="symbol">:%s/^/mv</span> /g 在每一行的头部添加“mv ”（mv键和空格键） </span><br><span class="line"><span class="symbol">:s/fred/&lt;c-r&gt;a/g</span> 替换fred成register a中的内容，呵呵 </span><br><span class="line"><span class="symbol">:g/&lt;input|&lt;form/p</span> 显示含&lt;input或&lt;form的行 </span><br><span class="line"><span class="comment"># 替换一个visual区域 </span></span><br><span class="line"><span class="comment"># 选择一个区域，然后输入 :s/Emacs/Vim/ 等等，vim会自动进入:模式 </span></span><br><span class="line"><span class="symbol">:<span class="string">'&lt;,'</span>&gt;s/Emacs/Vim/g</span> 前面的<span class="string">'&lt;,'</span>&gt;是vim自动添加的 </span><br><span class="line"><span class="comment"># 在多个文档中搜索 </span></span><br><span class="line"><span class="symbol">:bufdo</span> /searchstr </span><br><span class="line"><span class="symbol">:argdo</span> /searchstr  </span><br><span class="line">复制与剪切 </span><br><span class="line">xp 交换前后两个字符的位置 </span><br><span class="line">ddp 上下两行的位置交换 </span><br><span class="line"><span class="symbol">:g/fred/t</span><span class="variable">$ </span>拷贝行，从fred到文件末尾(<span class="constant">EOF)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>窗口操作 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:vne</span> [filename] </span><br><span class="line"><span class="symbol">:sp</span> [filename] </span><br><span class="line"><span class="symbol">:S</span> [filename] </span><br><span class="line"><span class="symbol">:new</span> [filename] </span><br><span class="line"><span class="symbol">:^w</span> + ^r 交换两个窗口的位置 </span><br><span class="line">^w = 窗口等宽 </span><br><span class="line"><span class="symbol">:res</span> -n 窗口高度减小n </span><br><span class="line"><span class="symbol">:res</span> +n 窗口高度增大n </span><br><span class="line"><span class="symbol">:vert</span> res -n </span><br><span class="line"><span class="symbol">:vert</span> res +n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除操作 </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:%s/r//g</span> 删除<span class="constant">DOS</span>方式的回车^<span class="constant">M</span> </span><br><span class="line"><span class="symbol">:%s=</span> *<span class="variable">$=</span>= 删除行尾空白 </span><br><span class="line"></span><br><span class="line"><span class="symbol">:%s/^</span>(.*)n1/<span class="number">1</span><span class="variable">$/</span> 删除重复行 </span><br><span class="line"></span><br><span class="line"><span class="symbol">:%s/^</span>.&#123;-&#125;pdf/new.pdf/ 只是删除第一个pdf </span><br><span class="line"></span><br><span class="line"><span class="symbol">:%s/&lt;</span>!--<span class="number">_</span>.&#123;-&#125;--&gt;<span class="regexp">//</span> 又是删除多行注释（咦？为什么要说「又」呢？） </span><br><span class="line"></span><br><span class="line"><span class="symbol">:g/^s*</span><span class="variable">$/</span>d 删除所有空行 </span><br><span class="line"><span class="symbol">:g!/^dd/d</span> 删除不含字符串<span class="string">'dd'</span>的行 </span><br><span class="line"><span class="symbol">:v/^dd/d</span> 同上 （译释：v == g!，就是不匹配！） </span><br><span class="line"></span><br><span class="line"><span class="symbol">:g/str1/</span>,<span class="regexp">/str2/d</span> 删除所有第一个含str1到第一个含str2之间的行 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="symbol">:v/</span>./.,<span class="regexp">/./</span>-<span class="number">1</span>join 压缩空行 </span><br><span class="line"><span class="symbol">:g/^</span><span class="variable">$/</span>,<span class="regexp">/./</span>-j 压缩空行 </span><br><span class="line"></span><br><span class="line">ndw 或 ndW 删除光标处开始及其后的 n-<span class="number">1</span> 个字符。 </span><br><span class="line">d<span class="number">0</span> 删至行首。 </span><br><span class="line">d<span class="variable">$ </span>删至行尾。 </span><br><span class="line">ndd 删除当前行及其后 n-<span class="number">1</span> 行。 </span><br><span class="line">x 或 <span class="constant">X</span> 删除一个字符。 </span><br><span class="line"><span class="constant">Ctrl</span>+u 删除输入方式下所输入的文本。 </span><br><span class="line">^<span class="constant">R</span> 恢复u的操作 </span><br><span class="line"><span class="constant">J</span> 把下一行合并到当前行尾 </span><br><span class="line"><span class="constant">V</span> 选择一行 </span><br><span class="line">^<span class="constant">V</span> 按下^<span class="constant">V</span>后即可进行矩形的选择了 </span><br><span class="line">aw 选择单词 </span><br><span class="line">iw 内部单词(无空格) </span><br><span class="line">as 选择句子 </span><br><span class="line">is 选择句子(无空格) </span><br><span class="line">ap 选择段落 </span><br><span class="line">ip 选择段落(无空格) </span><br><span class="line"><span class="constant">D</span> 删除到行尾 </span><br><span class="line">x,y 删除与复制包含高亮区 </span><br><span class="line"></span><br><span class="line">dl 删除当前字符（与x命令功能相同） </span><br><span class="line">d<span class="number">0</span> 删除到某一行的开始位置 </span><br><span class="line">d^ 删除到某一行的第一个字符位置（不包括空格或<span class="constant">TAB</span>字符） </span><br><span class="line">dw 删除到某个单词的结尾位置 </span><br><span class="line">d3w 删除到第三个单词的结尾位置 </span><br><span class="line">db 删除到某个单词的开始位置 </span><br><span class="line">dW 删除到某个以空格作为分隔符的单词的结尾位置 </span><br><span class="line">dB 删除到某个以空格作为分隔符的单词的开始位置 </span><br><span class="line">d7B 删除到前面<span class="number">7</span>个以空格作为分隔符的单词的开始位置 </span><br><span class="line">d） 删除到某个语句的结尾位置 </span><br><span class="line">d4） 删除到第四个语句的结尾位置 </span><br><span class="line">d（ 删除到某个语句的开始位置 </span><br><span class="line">d） 删除到某个段落的结尾位置 </span><br><span class="line">d&#123; 删除到某个段落的开始位置 </span><br><span class="line">d7&#123; 删除到当前段落起始位置之前的第<span class="number">7</span>个段落位置 </span><br><span class="line">dd 删除当前行 </span><br><span class="line">d/text 删除从文本中出现“text”中所指定字样的位置， </span><br><span class="line">一直向前直到下一个该字样所出现的位置（但不包括该字样）之间的内容 </span><br><span class="line">dfc 删除从文本中出现字符“c”的位置，一直向前直到下一个该字符所出现的位置（包括该字符）之间的内容 </span><br><span class="line">dtc 删除当前行直到下一个字符“c”所出现位置之间的内容 </span><br><span class="line"><span class="constant">D</span> 删除到某一行的结尾 </span><br><span class="line">d<span class="variable">$ </span>删除到某一行的结尾 </span><br><span class="line"><span class="number">5</span>dd 删除从当前行所开始的<span class="number">5</span>行内容 </span><br><span class="line">dL 删除直到屏幕上最后一行的内容 </span><br><span class="line">dH 删除直到屏幕上第一行的内容 </span><br><span class="line">dG 删除直到工作缓存区结尾的内容 </span><br><span class="line">d1G 删除直到工作缓存区开始的内容 </span><br><span class="line">修改命令操作 </span><br><span class="line">r 更改当前字符 </span><br><span class="line">cw 修改到某个单词的结尾位置 </span><br><span class="line">c3w 修改到第三个单词的结尾位置 </span><br><span class="line">cb 修改到某个单词的开始位置 </span><br><span class="line">cW 修改到某个以空格作为分隔符的单词的结尾位置 </span><br><span class="line">cB 修改到某个以空格作为分隔符的单词的开始位置 </span><br><span class="line">c7B 修改到前面<span class="number">7</span>个以空格作为分隔符的单词的开始位置 </span><br><span class="line">c<span class="number">0</span> 修改到某行的结尾位置 </span><br><span class="line">c&#125; 修改到某个语句的结尾位置 </span><br><span class="line">c4&#125; 修改到第四个语句的结尾位置 </span><br><span class="line">c（ 修改到某个语句的开始位置 </span><br><span class="line">c） 修改到某个段落的结尾位置 </span><br><span class="line">c&#123; 修改到某个段落的开始位置 </span><br><span class="line">c7&#123; 修改到当前段落起始位置之前的第<span class="number">7</span>个段落位置 </span><br><span class="line">ctc 修改当前行直到下一个字符c所出现位置之间的内容 </span><br><span class="line"><span class="constant">C</span> 修改到某一行的结尾 </span><br><span class="line">cc 修改当前行 </span><br><span class="line"><span class="number">5</span>cc 修改从当前行所开始的<span class="number">5</span>行内容 </span><br><span class="line">. 重复上一次修改！</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set 选项设置 </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> all 列出所有选项设置情况。 </span><br><span class="line"><span class="keyword">set</span> term 设置终端类型。 </span><br><span class="line"><span class="keyword">set</span> ignorecase 在搜索中忽略大小写。 </span><br><span class="line"><span class="keyword">set</span> <span class="keyword">list</span> 显示制表位(^I)和行尾标志($)。 </span><br><span class="line"><span class="keyword">set</span> number 显示行号。 </span><br><span class="line"><span class="keyword">set</span> showmode 示用户处在什么模式下 </span><br><span class="line"><span class="keyword">set</span> <span class="keyword">report</span> 显示由面向行的命令修改国的行数目。 </span><br><span class="line"><span class="keyword">set</span> terse 显示简短的警告信息。 </span><br><span class="line"><span class="keyword">set</span> warn 在转到别的文件时，若没有保存当前文件则显示 <span class="keyword">No</span> write 信息。 </span><br><span class="line"><span class="keyword">set</span> autowrite 在“:<span class="keyword">n</span>”和“:!”命令之前都自动保存文件 </span><br><span class="line"><span class="keyword">set</span> nomagic 允许在搜索模式中，使用前面不带/的特殊字符。 </span><br><span class="line"><span class="keyword">set</span> nowrapscan 禁止 vi 在搜索到达文件两端时,又从另一端开始。 </span><br><span class="line"><span class="keyword">set</span> mesg 允许 vi 显示其他用户用 write 写到自己终端上的信息。 </span><br><span class="line"></span><br><span class="line">autoindent (ai) noai 使新行自动缩进,和上(下)行的位置对齐 </span><br><span class="line">autoprint (<span class="keyword">ap</span>) <span class="keyword">ap</span> 每条命令之后都显示出修改之处 </span><br><span class="line">autowrite (aw) noaw 在:<span class="keyword">n</span>,:!命令之前都自动保存文件 </span><br><span class="line">beautify (bf) nobf 在输入的时候忽略所有的控制字符(除了制表键(<span class="keyword">tab</span>),换行(newline),进纸(formfeed)) </span><br><span class="line">directory= (<span class="keyword">dir</span>=) /tmp 存放缓冲区的目录名 </span><br><span class="line">edcompatible noedcompatible 在替换的时候使用类<span class="keyword">ed</span>的用法 </span><br><span class="line">errorbells (eb) errorbells 出错的时候响铃 </span><br><span class="line">exrc (<span class="keyword">ex</span>) noexrc 允许在主目录(home)外面之外放.exrc文件 </span><br><span class="line">hardtabs= (ht=) 8 设置硬制表的边界 </span><br><span class="line">ignore case (ic) noic 正规式里忽略大小写 </span><br><span class="line">lisp nolisp 打开lisp模式 </span><br><span class="line"><span class="keyword">list</span> nolist 显示所有的制表键和行的结尾 </span><br><span class="line">magic agic 可以使用更多的正规表达式 </span><br><span class="line">mesg mesg 允许向终端发送消息 </span><br><span class="line">number (nu) nonumber 显示行号 </span><br><span class="line"><span class="keyword">open</span> <span class="keyword">open</span> 允许开放和可视化 </span><br><span class="line">optimize (opt) optimize 优化吞吐量,打印时不发回车 </span><br><span class="line">paragraphs= (para=) IPLPPPQPPLIbp 设置&#123; &amp; &#125;的分界符 </span><br><span class="line">prompt prompt 命令模式下的输入给出:的提示符 </span><br><span class="line">readonly (ro) noro 除非用!号否则不准保存文件 </span><br><span class="line">redraw noredraw 当编辑的时候重绘屏幕 </span><br><span class="line"><span class="keyword">remap</span> <span class="keyword">remap</span> 允许宏指向其他的宏 </span><br><span class="line"><span class="keyword">report</span>= 5 如果影响的行数&gt;这个数的话就报告 </span><br><span class="line">scroll 1/2 <span class="keyword">window</span> 下卷屏幕时滚动屏幕的数目, 同样这也是z命令输出的行数(z 输出2倍滚屏的大小) </span><br><span class="line">sections= SHNHH HU 定义节的末尾(当使用命令[[ 和 ]] 时) </span><br><span class="line"><span class="keyword">shell</span>= (<span class="keyword">sh</span>=) /bin/<span class="keyword">sh</span> 缺省的<span class="keyword">SHELL</span>,如果设置了环境变量<span class="keyword">SHELL</span>的话,就使用变量 </span><br><span class="line">shiftwidth= (<span class="keyword">sw</span>=) 8 当使用移动(shift)命令时移动的字符数 </span><br><span class="line">showmatch (sm) nosm 显示&#123;, &#125;, (, ), [, 或者 ] 的匹配情况 </span><br><span class="line">showmode noshowmode 显示你处在什么模式下面 </span><br><span class="line">slowopen (slow) 插入之后不要立刻更新显示 </span><br><span class="line">tabstop= (ts=) 8 设置制表停止位(tabstop)的长度 </span><br><span class="line">taglength= (tl=) 0 重要标记的字符个数(0表示所有的字符) </span><br><span class="line">tags= tag, /usr/lib/tags 定义包含标记的文件路径 </span><br><span class="line">term= 设置终端类型 </span><br><span class="line">terse noterse 显示简短的错误信息 </span><br><span class="line">timeout (to) timeout 一秒钟后键盘映射超时 </span><br><span class="line">ttytype= 设置终端类型 </span><br><span class="line">warn warn 显示<span class="string">"No write since last change"</span>信息 </span><br><span class="line"><span class="keyword">window</span>= (w=) 可视模式下窗口的行数 </span><br><span class="line">wrapmargin= (wm=) 0 右边距,大于0的话最右边的单词将折行,留出<span class="keyword">n</span>个空白位置 </span><br><span class="line">wrapscan (ws) ws 查找到文件尾后再重头开始 </span><br><span class="line">writeany (wa) nowa 可以保存到任意一个文件去</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排序 </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:%!<span class="keyword">sort</span> -<span class="keyword">u</span> 使用<span class="keyword">sort</span>程序排序整个文件（用结果重写文件） </span><br><span class="line">!1） <span class="keyword">sort</span> -<span class="keyword">u</span> 排序当前段落 (只能在normal模式下使用!!) </span><br><span class="line">:.,+5!<span class="keyword">sort</span> 排序当前行及以下5行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列操作 </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:%s= [^ ]+$=&amp;&amp;= 复制最后一列 </span><br><span class="line">:%s= f+$=&amp;&amp;= 一样的功能 </span><br><span class="line">:%s= S+$=&amp;&amp; ft,还是一样 </span><br><span class="line"></span><br><span class="line"><span class="attribute">:s/(.*).*)/2"1/ 颠倒用:分割的两个字段</span> </span><br><span class="line"></span><br><span class="line"><span class="attribute">:%s(w+s+)&#123;2&#125;)str1:1str2:</span> 处理列，替换所有在第三列中的str1 </span><br><span class="line"></span><br><span class="line"><span class="attribute">:%sw+)(.*s+)(w+)$:321:</span> 交换第一列和最后一列 (共4列)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DOS格式文本转成Unix格式文本 </p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="number">1</span>,<span class="variable">$s</span>/^M//g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>书签<br>在阅读和编写大的程序文件时，利用标记（书签）功能定位是十分有帮助的。<br>将光标移到想做标记的位置。假如做一个名为“debug1”的标记，那么用户可在命令模式下输入做标记的命令“mdebug1”，然后敲入回车键，一个名 为“debug1”的标记就做好了。<br>接下来用户可以随意将光标移到其它的位置，当在命令模式下输入“`debug1”后，就能快速回到“debug1”的标记所在行的行首。 </p>
+</li>
+<li><p>特殊字符 </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">^ 匹配字符串位于行首。 </span><br><span class="line">$ 匹配字符串位于行尾。 </span><br><span class="line"><span class="bullet">. </span>用在模式串中，表示任何单个字符。 </span><br><span class="line">在命令模式下，重复上次的命令。 </span><br><span class="line"><span class="bullet">* </span>在模式串中，表示其前字符可出现任意多次。 </span><br><span class="line">[] 用在模式串中,表示指定方位内字符，其中可用-表示一个字 </span><br><span class="line">符范围，用^表示不在某个范围内的字符。 </span><br><span class="line">ESC 从插入状态转换到命令状态 </span><br><span class="line">^[ 功能同 ESC</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大小写转换 </p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">guu 行小写 </span><br><span class="line">gUU 行大写 </span><br><span class="line">g~~ 行翻转（当然指大小写啦） </span><br><span class="line">guw 字小写<span class="comment">(狭义字)</span> 译注：建议对比iw </span><br><span class="line">gUw 字大写<span class="comment">(狭义字)</span> </span><br><span class="line">g~w 字翻转<span class="comment">(狭义字)</span> </span><br><span class="line">vEU 字大写<span class="comment">(广义字)</span> </span><br><span class="line">vE~ 字翻转<span class="comment">(广义字)</span></span><br><span class="line">ggguG 把整个文章全部小写（ft!bt!）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跳转足迹’. 跳到最后修改的那一行  </p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`. 不仅跳到最后修改的那一行，还要定位到修改点 </span><br><span class="line">&lt;<span class="keyword">C</span>-<span class="keyword">O</span>&gt; 依次沿着你的跳转记录向回跳 (从最近的一次开始) </span><br><span class="line">&lt;<span class="keyword">C</span>-<span class="keyword">I</span>&gt; 依次沿着你的跳转记录向前跳 </span><br><span class="line">:ju(mps) 列出你跳转的足迹</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命令历史 </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:history</span> 列出历史命令记录 </span><br><span class="line"><span class="symbol">:his</span> c 命令行命令历史 </span><br><span class="line"><span class="symbol">:his</span> s 搜索命令历史 </span><br><span class="line">q/ 搜索命令历史的窗口 </span><br><span class="line">q 命令行命令历史的窗口 </span><br><span class="line"><span class="symbol">:&lt;C-F&gt;</span> 历史命令记录的窗口</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄存器 </p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 列出寄存器(Registers) </span></span><br><span class="line">:reg 显示所有当前的registers </span><br><span class="line"><span class="string">"1p 表示引用register，1表示一个名字叫做1的register，p就是粘贴（paste）命令 </span></span><br><span class="line"><span class="string">"也用来定义register </span></span><br><span class="line">先输入 <span class="string">",表示定义register </span></span><br><span class="line">然后输入名字，如<span class="number">0</span>~<span class="number">9</span>,a~z </span><br><span class="line">然后执行删除或复制命令，如dd或y， </span><br><span class="line">或者是visual模式下的d(删除选中的部分)或y(复制选中的部分) </span><br><span class="line">则被删除或复制的部分就被存入了这个命名的register </span><br><span class="line"></span><br><span class="line">观察：一个特殊的register, <span class="string">""</span> ，里面存储了一个匿名的删除/复制 </span><br><span class="line">在你执行dd或y的时候，被作用的部分被存到了<span class="string">""</span>中</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/tools/">tools</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vim-tools/">vim, tools</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/10/12/vim-usage/" data-title="vim usage | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/10/15/activemq-usage/" title="activemq usage">
+  <strong>上一篇：</strong><br/>
+  <span>
+  activemq usage</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/09/20/virtualbox-config/"  title="virtualbox config">
+ <strong>下一篇：</strong><br/> 
+ <span>virtualbox config
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/10/12/vim-usage/" data-title="vim usage" data-url="http://silveringsea.github.io/2015/10/12/vim-usage/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vi_u5E38_u7528_u64CD_u4F5C"><span class="toc-number">1.</span> <span class="toc-text">vi常用操作</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

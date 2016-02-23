@@ -1,0 +1,689 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>security config | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="iptables iptables的工作流程大体上可以表达为三种 
+源地址发送数据–&amp;gt; {PREROUTING–&amp;gt;路由规则–&amp;gt;POSTROUTING} –&amp;gt;目的地址接收到数据源地址发送数据–&amp;gt; {PREROUTING–&amp;gt;INPUT–&amp;gt;本机} {本机–&amp;gt;OUTPUT–&amp;gt;POSTROUTING} –&amp;gt;目的地址接收到数据不考虑地址转发的情况下，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="security config">
+<meta property="og:url" content="http://silveringsea.github.io/2015/12/14/security-config/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="iptables iptables的工作流程大体上可以表达为三种 
+源地址发送数据–&amp;gt; {PREROUTING–&amp;gt;路由规则–&amp;gt;POSTROUTING} –&amp;gt;目的地址接收到数据源地址发送数据–&amp;gt; {PREROUTING–&amp;gt;INPUT–&amp;gt;本机} {本机–&amp;gt;OUTPUT–&amp;gt;POSTROUTING} –&amp;gt;目的地址接收到数据不考虑地址转发的情况下，">
+<meta property="og:updated_time" content="2016-02-22T15:11:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="security config">
+<meta name="twitter:description" content="iptables iptables的工作流程大体上可以表达为三种 
+源地址发送数据–&amp;gt; {PREROUTING–&amp;gt;路由规则–&amp;gt;POSTROUTING} –&amp;gt;目的地址接收到数据源地址发送数据–&amp;gt; {PREROUTING–&amp;gt;INPUT–&amp;gt;本机} {本机–&amp;gt;OUTPUT–&amp;gt;POSTROUTING} –&amp;gt;目的地址接收到数据不考虑地址转发的情况下，">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/14/security-config/" title="security config" itemprop="url">security config</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-14T04:32:41.000Z" itemprop="datePublished"> 发表于 2015-12-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#iptables"><span class="toc-number">1.</span> <span class="toc-text">iptables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac_u4E0B_uFF0C__u4EE5_u524D_u7528_u7684_u662Fipsw_2C__u73B0_u5728_u7528_u7684_u662Fpf"><span class="toc-number">2.</span> <span class="toc-text">mac下， 以前用的是ipsw, 现在用的是pf</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h2><p> iptables的工作流程大体上可以表达为三种 </p>
+<p>源地址发送数据–&gt; {PREROUTING–&gt;路由规则–&gt;POSTROUTING} –&gt;目的地址接收到数据<br>源地址发送数据–&gt; {PREROUTING–&gt;INPUT–&gt;本机}<br> {本机–&gt;OUTPUT–&gt;POSTROUTING} –&gt;目的地址接收到数据<br>不考虑地址转发的情况下，例如一台独立的主机的网络管理，我们只需要配置INPUT和OUTPUT两条链即可完成对网络的管理<br>实例<br>iptables<br> -L  查看<br> -F  清除所有规则<br> -X  清除自定义链<br> -Z  清除所有链统计<br>-n的含义是用ip和端口的方式来显示规则</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> iptables -t filter -L -n   查看filter表中的所有规则 </span><br><span class="line"> iptables -t filter -F  清空filter表中的规则 </span><br><span class="line">首先要牢记iptables是有链 有表的结构 ， 那么定义每一条链上的每一条表的默认规则的格式为</span><br><span class="line">iptables -t 表 -P 链  动作类型 </span><br><span class="line">-t 就不说了 -P 这里要大写  链的名称也是大小写敏感的注意不要写错  动作类型有ACCEPT允许通过 DROP丢弃 也就是禁止 还有一种动作是LOG作为日志记录，目前我还没有用过。</span><br><span class="line"> iptables -t filter -P INPUT ACCEPT  <span class="preprocessor">#设置INPUT链上filter表默认规则</span></span><br><span class="line"></span><br><span class="line">这里要注意的是，默认允许了所有的链接都可以通过，到达服务器。这样的设置在正式生产服务器环境上是十分危险的，不建议这么设置，应当设置为DROP，但是默认允许所有的链接都禁止的后果就是把自己的远程操作也踢掉了，服务器在本地还无所谓，但是在远程这就麻烦了。于是要牢记，默认规则要在设置好自己访问的规则以后再设置，最好是在最后设置。</span><br><span class="line"> iptables -A INPUT -i eth0 -s <span class="number">192.168</span><span class="number">.1</span><span class="number">.110</span> -j DROP  <span class="preprocessor">#禁止ip为<span class="number">192.168</span><span class="number">.1</span><span class="number">.110</span>的计算机访问本机eth0网卡</span></span><br><span class="line"> iptables -A OUTPUT -o eth0 -d <span class="number">192.168</span><span class="number">.1</span><span class="number">.110</span> -j DROP  禁止本机访问<span class="number">192.168</span><span class="number">.1</span><span class="number">.110</span>可以这么写 </span><br><span class="line"> iptables -A INPUT -i lo -j ACCEPT 允许本机访问本地回环网卡 localhost </span><br><span class="line">iptables -A OUTPUT -o lo -j ACCEPT  </span><br><span class="line"> iptables -A INPUT -i eth0 -s <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span>/<span class="number">24</span> -j DROP  禁止<span class="number">192.168</span><span class="number">.1</span>.xxx 这个网段所有的IP访问本机，<span class="number">24</span>其实指的是二进制的从左到右 有<span class="number">24</span>个<span class="number">1</span> ，在IPV4的ip地址表示方法下 有<span class="number">32</span>位，那么<span class="number">32</span>-<span class="number">24</span>=<span class="number">8</span> 也就是十进制IP最后一段位置代表是<span class="number">0</span>  </span><br><span class="line">iptables  -A  链 -io 网卡 -p 协议  -s 源ip  --sport  源端口  -d  目标ip  --dport  目标端口  -j  动作 </span><br><span class="line">和IP一样 链的不同（可能是INPUT也可能是OUTPUT） 使用不同的-i或者-o</span><br><span class="line">-p是小写的。 代表协议，类型可以是tcp、udp、icmp或者all，特别是要注意的是我们平时使用的ping命令 其实是icmp协议，而这个协议比较特殊，不使用端口 所以在使用all的时候（包含icmp）同时设置端口可能会出错！</span><br><span class="line">INPUT要有源，OUTPUT要有目标，但是INPUT往往是限制目标端口，OUTPUT往往是限制源端口，注意逻辑不要乱。 </span><br><span class="line"> iptables -A INPUT -p tcp --dport <span class="number">80</span> -j ACCEPT  <span class="preprocessor"># web服务器添加<span class="number">80</span>服务 </span></span><br><span class="line"> iptables -A INPUT -p tcp -s <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span>/<span class="number">24</span> --dport <span class="number">3306</span> -j ACCEPT  允许<span class="number">192.168</span><span class="number">.1</span>.x网段访问mysql数据库</span><br><span class="line">iptables -I INPUT <span class="number">1</span> -p tcp --dport <span class="number">80</span> -j ACCEPT  <span class="preprocessor"># <span class="number">1</span>代表了第一位顺序 也就是最优先的匹配规则</span></span><br></pre></td></tr></table></figure>
+<p>有多条规则匹配一次访问的时候，以最前面的规则为准，当无法匹配到对应规则的时候，使用默认规则<br>开机自启动<br> chkconfig iptables on<br> service iptables save<br>上面的命令其实是把规则保存在/etc/sysconfig/iptables文件中，重启会自动读取<br>如果是业务相对固定的服务器这样做无所谓，但如果需要经常切换规则，那么讲规则都写在这一个文件中并不是十分容易管理<br>可以把规则写成单独的文件，在开机的时候自动载入（/etc/rc.local中添加），但是要注意权限设置（755），这样做的好处是便于管理，缺点是只有开机的时候有效<br>如果是重启防火墙服务，则无法载入对应规则。</p>
+<h2 id="mac_u4E0B_uFF0C__u4EE5_u524D_u7528_u7684_u662Fipsw_2C__u73B0_u5728_u7528_u7684_u662Fpf"><a href="#mac_u4E0B_uFF0C__u4EE5_u524D_u7528_u7684_u662Fipsw_2C__u73B0_u5728_u7528_u7684_u662Fpf" class="headerlink" title="mac下， 以前用的是ipsw, 现在用的是pf"></a>mac下， 以前用的是ipsw, 现在用的是pf</h2><p>Port Forwarding in Mavericks<br>Since Mavericks stopped using the deprecated ipfw (as of Mountain Lion), we’ll be using pf to allow port forwarding.</p>
+<ol>
+<li>anchor file<br>Create an anchor file under /etc/pf.anchors/<anchor file=""> with your redirection rule like:<br>rdr pass on lo0 inet proto tcp from any to 127.0.0.2 port 80 -&gt; 127.0.0.1 port 40070</anchor></li>
+<li>Test the anchor file<br>Parse and test your anchor file to make sure there are no errors:<br>sudo pfctl -vnf <anchor file=""></anchor></li>
+<li>Reference the anchor in pf.conf<br>/etc/pf.conf is the main configuration file that pf loads at boot. We’ll need to load the anchor file we previously created:<br>rdr-anchor “forwarding”<br>load anchor “forwarding” from “/etc/pf.anchors/<anchor file="">“<br>Make sure to add these entries to the appropriate spot.</anchor></li>
+<li>Load and enabling pf<br>pf is not enabled by default in Mavericks, few ways to enable this:<br>Manually load and enable from a pf.conf file via sudo pfctl -ef <pf.conf file=""><br>Auto enable by creating a launch daemon via this doc to run pfctl -ef <pf.conf file=""> on boot.<br>Auto enable by adding an -e(enable) to the pfctl ProgramArgument in /System/Library/LaunchDaemons/com.apple.pfctl.plist like this:<br><key>ProgramArguments</key><array><br><string>pfctl</string><br><string>-e</string><br><string>-f</string><br><string>/etc/pf.conf</string><br></array></pf.conf></pf.conf></li>
+<li>Forwarding across interfaces<br>By default, pf does not forward between interfaces. Here’s a snippet from man for pfctl with help from 2sidedfigure:<br>The packet filter does not itself forward packets between interfaces.  Forwarding can be enabled by setting the sysctl(8) variables net.inet.ip.forwarding and/or net.inet6.ip6.forwarding to 1.  Set them permanently in sysctl.conf(5).<br>We’ll need to enable this by adding to /etc/sysctl.conf:<br>net.inet.ip.forwarding=1<br>net.inet6.ip6.forwarding=1<br>There is the possibility that pf.conf will be overriden with updates to the OS. It might be best to create your own pf config file and load them in additon to the main pf.conf to prevent this.</li>
+</ol>
+<p>ref:<br><a href="https://gist.github.com/kujohn/7209628" target="_blank" rel="external">https://gist.github.com/kujohn/7209628</a><br><a href="https://gist.github.com/zhoutong/8adca7038639f0f5fb0e" target="_blank" rel="external">https://gist.github.com/zhoutong/8adca7038639f0f5fb0e</a><br><a href="http://blog.csdn.net/dog250/article/details/8944111" target="_blank" rel="external">http://blog.csdn.net/dog250/article/details/8944111</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/shell/">shell</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/12/14/security-config/" data-title="security config | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/14/git-usage/" title="git usage">
+  <strong>上一篇：</strong><br/>
+  <span>
+  git usage</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/12/mastering-markdown/"  title="markdown入门和进阶">
+ <strong>下一篇：</strong><br/> 
+ <span>markdown入门和进阶
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/12/14/security-config/" data-title="security config" data-url="http://silveringsea.github.io/2015/12/14/security-config/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#iptables"><span class="toc-number">1.</span> <span class="toc-text">iptables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac_u4E0B_uFF0C__u4EE5_u524D_u7528_u7684_u662Fipsw_2C__u73B0_u5728_u7528_u7684_u662Fpf"><span class="toc-number">2.</span> <span class="toc-text">mac下， 以前用的是ipsw, 现在用的是pf</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

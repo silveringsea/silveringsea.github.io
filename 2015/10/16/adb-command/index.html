@@ -1,0 +1,713 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>adb command | silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="adb 命令12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970-d: 让唯一连接到该PC端的真实安卓设备执行命令，如果发现USB中连接有多部设备，将会报错-e: 让唯一连接到该PC端的模拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="adb command">
+<meta property="og:url" content="http://silveringsea.github.io/2015/10/16/adb-command/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="adb 命令12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970-d: 让唯一连接到该PC端的真实安卓设备执行命令，如果发现USB中连接有多部设备，将会报错-e: 让唯一连接到该PC端的模拟">
+<meta property="og:updated_time" content="2016-02-23T00:51:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="adb command">
+<meta name="twitter:description" content="adb 命令12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970-d: 让唯一连接到该PC端的真实安卓设备执行命令，如果发现USB中连接有多部设备，将会报错-e: 让唯一连接到该PC端的模拟">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/16/adb-command/" title="adb command" itemprop="url">adb command</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-16T02:12:37.000Z" itemprop="datePublished"> 发表于 2015-10-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#adb__u547D_u4EE4"><span class="toc-number">1.</span> <span class="toc-text">adb 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u76EE_u5F55_u6982_u89C8"><span class="toc-number">2.</span> <span class="toc-text">目录概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u89C1_u9519_u8BEF"><span class="toc-number">3.</span> <span class="toc-text">常见错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6302_u8F7D_u76EE_u5F55_u4E3A_u53EF_u8BFB_u5199_u3001_u53EA_u8BFB_u547D_u4EE4_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">挂载目录为可读写、只读命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USB_u65B9_u5F0F_u53CA_u7F51_u7EDC_u65B9_u5F0F_u3002"><span class="toc-number">5.</span> <span class="toc-text">USB方式及网络方式。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#adb_client"><span class="toc-number">5.1.</span> <span class="toc-text">adb client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adb_daemon_uFF08adbd_uFF09__u7BA1_u7406_u5927_u5BB6_u5728_u7535_u8111_u7AEF_u7684adb_u547D_u4EE4_u8FDE_u63A5_uFF0C"><span class="toc-number">5.2.</span> <span class="toc-text">adb daemon（adbd） 管理大家在电脑端的adb命令连接，</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="adb__u547D_u4EE4"><a href="#adb__u547D_u4EE4" class="headerlink" title="adb 命令"></a>adb 命令</h3><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">-d: 让唯一连接到该PC端的真实安卓设备执行命令，如果发现USB中连接有多部设备，将会报错</span><br><span class="line">-e: 让唯一连接到该PC端的模拟器执行命令，如果发现开启了多个模拟器，将会报错</span><br><span class="line">-s：通过设备的序列号进行指定设备执行命令</span><br><span class="line">adb devices</span><br><span class="line">adb get-serialno 获取连接到的手机的序列号</span><br><span class="line">adb -s &lt;serialNumber&gt; get-state 获取设备的连接状态</span><br><span class="line">adb wait-<span class="keyword">for</span>-device 该命令将会阻塞一直到默认连接的那部机器状态变为device，也就是连接成功。</span><br><span class="line">adb kill-server</span><br><span class="line">adb start-server</span><br><span class="line">adb install (apk在PC上的路径/)*.apk （将apk文件上传到了模拟器自带操作系统的data/app目录下了）</span><br><span class="line">adb uninstall apk的包名（用EC切换到DDMS的File Explorer中查看，data/data下） 命令行用uninstall</span><br><span class="line">adb shell （进入模拟器自带的操作系统）</span><br><span class="line">adb remount 可能会挂载失败，提示remount failed: Operation not permitted, 用rm方法删除</span><br><span class="line"><span class="keyword">cd</span> data/app （切换到apk的安装目录）</span><br><span class="line">rm ***.apk （用EC切换到DDMS的File Explorer中查看，data/app下）</span><br><span class="line">adb shell </span><br><span class="line">mount <span class="number">1</span>、系统分区</span><br><span class="line">其挂载方式和 Linux 非常类似。其中需要说明一下的可能是 /dev/block/mtdblock* 这几个核心分区（写入 ROM 的），他们都是使用 yaffs2 文件系统（基于 FLASH 存储），其中是 /system 这个分区只有特殊的 readonly 只读权限，由此可见 Android 在安全性设计方面所下的一些功夫。另外 /dev/block/vold 据说是设计来替代 udev 的功能，主要用于支持一些热插拔设备。</span><br><span class="line"></span><br><span class="line">adb pull 手机文件地址 本地目录 就是从真机上拷贝文件到您的PC上。</span><br><span class="line">adb push 本地apk路径 /system/priv-app #安装系统app，直接将apk文件push到/system/priv-app目录下，重启手机即可</span><br><span class="line">删除:</span><br><span class="line">adb shell </span><br><span class="line"><span class="keyword">cd</span> /system/priv-app </span><br><span class="line">rm apk包名.apk </span><br><span class="line"><span class="keyword">cd</span> /data/data </span><br><span class="line">rm -rf 应用包名</span><br><span class="line"></span><br><span class="line">adb shell screenrecord /sdcard/demo.mp4 屏幕开始录像并且储存到/sdcard中，同时名字为demo.mp4</span><br><span class="line">adb shell stop  关闭设备请求，开启设备</span><br><span class="line">adb shell start</span><br><span class="line">adb reboot</span><br><span class="line">adb shutdown</span><br><span class="line">adb get-serialno 获取序列号</span><br><span class="line">adb devices 查看连接计算机的设备：</span><br><span class="line">adb reboot 重启机器：</span><br><span class="line">adb reboot bootloader 重启到bootloader，即刷机模式：</span><br><span class="line">adb reboot recovery 重启到recovery，即恢复模式：</span><br><span class="line">adb kill-server 终止adb服务进程：</span><br><span class="line">adb start-server 重启adb服务进程：</span><br><span class="line">adb install -r &lt;apkfile&gt; //比如：adb install -r baidu.apk 保留数据和缓存文件，重新安装apk：</span><br><span class="line">adb install -s &lt;apkfile&gt; // 比如：adb install -s baidu.apk 安装apk到sd卡：</span><br><span class="line">adb uninstall -k &lt;<span class="keyword">package</span>&gt; //比如：adb uninstall -k com.baidu.search 卸载app但保留数据和缓存文件：</span><br><span class="line">adb shell top 查看设备cpu和内存占用情况：</span><br><span class="line">adb shell top -m <span class="number">6</span> 查看占用内存前<span class="number">6</span>的app：</span><br><span class="line">adb shell top -n <span class="number">1</span> 刷新一次内存信息，然后返回：</span><br><span class="line">adb shell procrank 查询各进程内存使用情况：</span><br><span class="line">adb shell kill [<span class="keyword">pid</span>] 杀死一个进程：</span><br><span class="line">adb shell ps -x [PID] 查看指定进程状态：</span><br><span class="line">adb shell service <span class="keyword">list</span> 查看后台services信息：</span><br><span class="line">adb shell cat /<span class="keyword">proc</span>/meminfo 查看当前内存占用：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /<span class="keyword">proc</span>/iomem 查看IO内存分区：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> rename</span> path/oldfilename<span class="symbol"> path/newfilename</span> 重命名文件：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /data/misc/wifi/*.conf 查看wifi密码：<span class="symbol"></span><br><span class="line"></span><br><span class="line">adb</span> logcat 查看log：<span class="symbol"></span><br><span class="line">adb</span> logcat -c 清除log缓存：<span class="symbol"></span><br><span class="line">adb</span> bugreport 查看bug报告：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /system/build.prop 获取设备名称：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol">  cat</span> /sys/class/net/wlan0/address 获取机器MAC地址：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> cat</span> /<span class="keyword">proc</span>/cpuinfo 获取CPU序列号：<span class="symbol"></span><br><span class="line">adb</span> help<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> monkey</span> -v -p<span class="symbol"> your.package.name</span> 500 跑monkey：<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> am</span> start -n &lt;package_name&gt;/.&lt;activity_class_name&gt; 启动应用<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> am</span> start -a<span class="symbol"> android.intent.action.VIEW</span> -n<span class="symbol"> cn.uc.test/.MainActivity</span> -d<span class="symbol"> http://www.baidu.com</span> ## 进行app的开启，并且传递一定的参数过去,比如：</span><br><span class="line">##<span class="symbol"> disable</span> &lt;PACKAGE_OR_COMPONENT&gt; 其中<span class="symbol"> PACKAGE_OR_COMPONENT的格式是</span> package/class， 如<span class="symbol"> com.UCMobile/.main.UCMobile</span></span><br><span class="line">adb<span class="symbol"> shell</span> su<span class="symbol"> disable</span> com.UCMobile/.main.UCMobile<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> su</span> enable<span class="symbol"> com.UCMobile/.main.UCMobile</span> 让一个apk从禁用状态恢复过来<span class="symbol"></span><br><span class="line">adb</span> shell<span class="symbol"> pm</span> path<span class="symbol"> com.UCMobile</span>  查看一个apk所在的路径<span class="symbol"></span><br><span class="line">pm</span> list<span class="symbol"> packages</span>   查看手机中装的所有的包</span><br></pre></td></tr></table></figure>
+<h3 id="u76EE_u5F55_u6982_u89C8"><a href="#u76EE_u5F55_u6982_u89C8" class="headerlink" title="目录概览"></a>目录概览</h3><p>1、mnt               挂载点目录<br>2、etc               系统主要配置文件<br>3、system            Android 系统文件<br>     1、usr            用户文件夹，包含共享、键盘布局、时间区域文件等<br>　　2、app            常规下载的应用程序，这些 apk 包都是受保护的哦<br>　　3、lib            系统底层库，如平台运行时库等<br>　　4、etc            系统的配置文件，比如APN接入点设置等核心配置等<br>　　5、framework      Android 系统平台核心 framework 的文件<br>　　6、build.prop     Android 系统属性配置文件<br>　　7、xbin           常用开发工具，比如 tcpdump/sqlite3 等<br>　　8、bin            系统工具，比如 ps/cp/pm 等<br>　　9、priv-app       系统应用程序<br>4、sys               Linux 内核文件<br>5、proc              运行时文件<br>6、init.rc           启动脚本<br>7、default.prop      系统属性配置文件<br>8、data              用户程序目录<br>    1、data            存放安装后的apk数据<br>　　2、app             存放apk文件<br>9、dev              设备文件</p>
+<h3 id="u5E38_u89C1_u9519_u8BEF"><a href="#u5E38_u89C1_u9519_u8BEF" class="headerlink" title="常见错误"></a>常见错误</h3><p>以下错误，部分是由于权限不足引起的，在调试错误前，请保证可以获得手机的root权限 </p>
+<ol>
+<li><p>remount failed: Permission denied<br>fix:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">adb</span> root </span><br><span class="line">adb remount</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>error: device not found<br>尝试在任务管理器中关闭adb.exe进行，然后重试</p>
+</li>
+<li><p>INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES<br>安装包签名不一致，你需要卸载旧的安装包再重新安装。 对于普通app和系统app，分别按照上文方式进行卸载、安装即可。 </p>
+</li>
+<li><p>Read-only file system<br>也就是文件只能读，fix: </p>
+<ul>
+<li>remount或者chmod 777修改目录的读写权限(如果你是root用户)。 <ul>
+<li>顺序执行：<pre><code>1、adb shell
+2、mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system
+或，
+adb shell mount -o remount rw /system
+此时，对大部分设备而言均可解决。
+</code></pre><ul>
+<li>可先把文件PUSH到／DATA目录，然后到adb shell下面，使用su命令进行搬运到最终地址。<br>   1、adb shell<br>   2、su<br>   3、cat /data/test.so &gt; /system/lib/test.so</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>7、INSTALL_FAILED_INVALID_URI<br>在安装apk过程中，遇到这个错误，貌似root过的手机比较常出现，可以尝将/data/local目录的权限<br>从 rwxrwxr– 修改为 rwxrwxrwx</p>
+<h3 id="u6302_u8F7D_u76EE_u5F55_u4E3A_u53EF_u8BFB_u5199_u3001_u53EA_u8BFB_u547D_u4EE4_uFF1A"><a href="#u6302_u8F7D_u76EE_u5F55_u4E3A_u53EF_u8BFB_u5199_u3001_u53EA_u8BFB_u547D_u4EE4_uFF1A" class="headerlink" title="挂载目录为可读写、只读命令："></a>挂载目录为可读写、只读命令：</h3><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">su</span><br><span class="line">mount -o remount rw /<span class="keyword">system</span>                    （挂载/<span class="keyword">system</span>为可读写）</span><br><span class="line">或 busybox mount -o remount,rw /<span class="keyword">system</span>  （挂载/<span class="keyword">system</span>为可读写）</span><br><span class="line">busybox mount -o remount,ro /<span class="keyword">system</span>       （挂载/<span class="keyword">system</span>为只读）</span><br><span class="line">busybox df -h</span><br><span class="line">reboot                 重启命令</span><br><span class="line">reboot -p             关机命令</span><br><span class="line">reboot recovery    重启至recovery模式</span><br></pre></td></tr></table></figure>
+<p>超级终端命令备份 system、data、cache、boot、recodvery等分区为 .img文件：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/mtd</span><br><span class="line">假设mtd1对应recovery分区，mtd2对应system分区，备份命令如下：</span><br><span class="line">cat /dev/mtd/mtd1 &gt; /sdcard/recovery.img</span><br><span class="line">cat /dev/mtd/mtd2 &gt; /sdcard/system.img</span><br></pre></td></tr></table></figure></p>
+<p>　<br>mmcblk 等具体对应哪些分区可参考：APP2SD+开启原理及用Re管理器开启app2sd+方法<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">挂载EXT分区命令 ，假设mmcblk0p2对应内存卡第二分区（ext格式）</span><br><span class="line">mount -t ext2 <span class="regexp">/dev/</span>block<span class="regexp">/mmcblk0p2 /</span>system/sd-ext</span><br><span class="line">重新挂载Fat32格式的内存卡到<span class="regexp">/system/</span>sd-fat，假设mmcblk0p1对应内存卡第一分区（FAT32格式），在/system 下新建一个空目录 sd-fat 来挂载：</span><br><span class="line">mount -o remount -t vfat <span class="regexp">/mmcblk0p1 /</span>system/sd-fat</span><br><span class="line">重新挂载回/sdcard：</span><br><span class="line">mount -o remount -t vfat <span class="regexp">/mmcblk0p1 /</span>sdcard</span><br><span class="line">App2sd+完整开启命令，可参考：APP2SD+开启原理及用Re管理器开启app2sd+方法</span><br><span class="line">su</span><br><span class="line">busybox mount -o remount,rw <span class="regexp">/system  （挂载/</span>system为可读写）</span><br><span class="line">mkdir <span class="regexp">/system/</span>sd-ext                        （/system目录下新建目录 sd-ext）</span><br><span class="line">mount -t ext2 <span class="regexp">/dev/</span>block<span class="regexp">/mmcblk0p2 /</span>system/sd-ext   （将第二分区ext分区挂载到sd-ext）</span><br><span class="line">cp -a <span class="regexp">/data/</span>app <span class="regexp">/system/</span>sd-ext<span class="regexp">/　　    (将/</span>data<span class="regexp">/app目录复制到/</span>system<span class="regexp">/sd/</span>下)　　</span><br><span class="line">rm -r <span class="regexp">/data/</span>app　　                      (删除<span class="regexp">/data/</span>app目录)　</span><br><span class="line">ln -s <span class="regexp">/system/</span>sd-ext<span class="regexp">/app /</span>data/app　　(建立软链接)　　</span><br><span class="line">reboot　　                                    (重启手机)</span><br></pre></td></tr></table></figure></p>
+<h3 id="USB_u65B9_u5F0F_u53CA_u7F51_u7EDC_u65B9_u5F0F_u3002"><a href="#USB_u65B9_u5F0F_u53CA_u7F51_u7EDC_u65B9_u5F0F_u3002" class="headerlink" title="USB方式及网络方式。"></a>USB方式及网络方式。</h3><p>一般手机及平板默认会设置为USB方式, 配置的属性为：<br>   service.adb.tcp.port            &lt;-  监听的网络端口</p>
+<pre><code>&gt; 以上属性的值 &gt; 0    :    adbd将监听网络对应的端口（一般为5555）
+    以上属性的值 &lt;=-1：  adbd将监听USB  
+</code></pre><p>enable adb over wifi:<br>adb tcpip 5555<br>setprop service.adb.tcp.port -1<br>stop adbd<br>start adbd<br>adb connect 192.168.1.5:5555    (:5555可省略）  #如果连接成功会进行相关的提示，如果失败的话，可以先kill-server命令，然后重试连接。<br>adb kill-server<br>adb disconnect 192.168.1.5:5555</p>
+<h4 id="adb_client"><a href="#adb_client" class="headerlink" title="adb client"></a>adb client</h4><pre><code>每当我们发起一个adb命令的时候，就会开启一个client程序。当然，当我们开启DDMS或者ADT的时候，也会自动创建client。当我们开启一个client的时候，它首先会去检测后台是否已经有一个server程序在运行着，否则会开启一个adb-server进程。所有的client都是通过5037端口与adb-server进行通信的。
+</code></pre><h4 id="adb_daemon_uFF08adbd_uFF09__u7BA1_u7406_u5927_u5BB6_u5728_u7535_u8111_u7AEF_u7684adb_u547D_u4EE4_u8FDE_u63A5_uFF0C"><a href="#adb_daemon_uFF08adbd_uFF09__u7BA1_u7406_u5927_u5BB6_u5728_u7535_u8111_u7AEF_u7684adb_u547D_u4EE4_u8FDE_u63A5_uFF0C" class="headerlink" title="adb daemon（adbd） 管理大家在电脑端的adb命令连接，"></a>adb daemon（adbd） 管理大家在电脑端的adb命令连接，</h4><pre><code>作为一个后台进程运行在模拟器/真实Android设备中的, 使用端口的范围是5554-5585，每个模拟器/设备连接到PC端时，总会开启这么一个后台进程，并且为其分配了两个连续的端口，比如：
+</code></pre><p>　　　　Emulator 1, console: 5554<br>　　　　Emulator 1, adb: 5555<br>　　也正因为每个设备都分一组两个端口, adb连接手机的最大数量为16。 其中偶数端口是用于server 与设备进行交互的，可以让server直接从设备中读取数据，而奇数端口是用来与设备的adbd进行连接通信的。<br>adb server<br>　当一个server开启的时候，他会自动绑定并且监听5037端口，接收client通过该端口发送过来的命令。同时server还会对5555-5585间的奇数端口进行扫描，进行对已连接设备的定位。</p>
+<p><a href="http://developer.android.com/tools/help/adb.html#IntentSpec" target="_blank" rel="external">http://developer.android.com/tools/help/adb.html#IntentSpec</a><br><a href="https://code.google.com/p/adb-fastboot-install/downloads/list" target="_blank" rel="external">https://code.google.com/p/adb-fastboot-install/downloads/list</a><br><a href="http://blog.csdn.net/ddna/article/details/6939608" target="_blank" rel="external">http://blog.csdn.net/ddna/article/details/6939608</a><br><a href="http://wojiushiwolxw.spaces.eepw.com.cn/articles/article/item/97054" target="_blank" rel="external">http://wojiushiwolxw.spaces.eepw.com.cn/articles/article/item/97054</a><br><a href="http://blog.csdn.net/crazy__chen/article/details/50221177" target="_blank" rel="external">http://blog.csdn.net/crazy__chen/article/details/50221177</a><br><a href="http://blog.csdn.net/shuaihj/article/details/8889465" target="_blank" rel="external">1</a><br><a href="http://developer.android.com/tools/help/adb.html" target="_blank" rel="external">2</a><br><a href="http://www.cnblogs.com/xiaoxuetu/p/3411214.html" target="_blank" rel="external">3</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/android/">android</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/android/">android</a><a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://silveringsea.github.io/2015/10/16/adb-command/" data-title="adb command | silveringsea on the run" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/10/20/nginx-apache/" title="nginx apache">
+  <strong>上一篇：</strong><br/>
+  <span>
+  nginx apache</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/10/15/activemq-usage/"  title="activemq usage">
+ <strong>下一篇：</strong><br/> 
+ <span>activemq usage
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="2015/10/16/adb-command/" data-title="adb command" data-url="http://silveringsea.github.io/2015/10/16/adb-command/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#adb__u547D_u4EE4"><span class="toc-number">1.</span> <span class="toc-text">adb 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u76EE_u5F55_u6982_u89C8"><span class="toc-number">2.</span> <span class="toc-text">目录概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u89C1_u9519_u8BEF"><span class="toc-number">3.</span> <span class="toc-text">常见错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6302_u8F7D_u76EE_u5F55_u4E3A_u53EF_u8BFB_u5199_u3001_u53EA_u8BFB_u547D_u4EE4_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">挂载目录为可读写、只读命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USB_u65B9_u5F0F_u53CA_u7F51_u7EDC_u65B9_u5F0F_u3002"><span class="toc-number">5.</span> <span class="toc-text">USB方式及网络方式。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#adb_client"><span class="toc-number">5.1.</span> <span class="toc-text">adb client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adb_daemon_uFF08adbd_uFF09__u7BA1_u7406_u5927_u5BB6_u5728_u7535_u8111_u7AEF_u7684adb_u547D_u4EE4_u8FDE_u63A5_uFF0C"><span class="toc-number">5.2.</span> <span class="toc-text">adb daemon（adbd） 管理大家在电脑端的adb命令连接，</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,839 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>silveringsea on the run</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="silveringsea">
+    
+
+    
+    <meta name="description" content="科学，技术，点滴">
+<meta property="og:type" content="website">
+<meta property="og:title" content="silveringsea on the run">
+<meta property="og:url" content="http://silveringsea.github.io/page/8/index.html">
+<meta property="og:site_name" content="silveringsea on the run">
+<meta property="og:description" content="科学，技术，点滴">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="silveringsea on the run">
+<meta name="twitter:description" content="科学，技术，点滴">
+
+    
+    <link rel="alternative" href="/atom.xml" title="silveringsea on the run" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="silveringsea on the run" title="silveringsea on the run"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="silveringsea on the run">silveringsea on the run</a></h1>
+				<h2 class="blog-motto">going forward</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页 | Home</a></li>
+					
+						<li><a href="/archives">归档 | Archives</a></li>
+					
+						<li><a href="/about">简介 | About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:silveringsea.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/04/net-config/" title="linux一些网络设置" itemprop="url">linux一些网络设置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-03T17:30:55.000Z" itemprop="datePublished"> 发表于 2015-11-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u53CC_u7F51_u5361_u9ED8_u8BA4_u7F51_u5173_u95EE_u9898_uFF1A"><a href="#u53CC_u7F51_u5361_u9ED8_u8BA4_u7F51_u5173_u95EE_u9898_uFF1A" class="headerlink" title="双网卡默认网关问题："></a>双网卡默认网关问题：</h2><p>   假设有线连内网， 无线连外网,  无线网关ip:192.168.1.1 , 有线网关ip: 192.168.6.1<br>   +method 1:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">route <span class="keyword">print</span> -<span class="number">4</span> </span><br><span class="line">route delete <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="string">'''添加无线路由： 目标，子网掩码，网关， 可以加metric跃点'''</span></span><br><span class="line">route add <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> mask <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> [无线网关ip] -p metric <span class="number">1</span></span><br><span class="line"><span class="string">'''添加有线路由： 目标，子网掩码，网关， 可以加metric跃点'''</span></span><br><span class="line">route add <span class="number">192.168</span><span class="number">.6</span><span class="number">.0</span> mask <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> [有线网关ip] -p</span><br><span class="line">route <span class="keyword">print</span> -<span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<pre><code>+method 2: （未验证）
+ windows下， 外网（无线）网卡 =&gt; 属性 =&gt; 高级 =&gt; 手工跃点数为1
+ 然后配置有线路由， 同上
+</code></pre><h2 id="nat_u8BBE_u7F6E"><a href="#nat_u8BBE_u7F6E" class="headerlink" title="nat设置"></a>nat设置</h2><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#添加默认路由</span></span><br></pre></td></tr></table></figure>
+<p>virtualbox有四种模式 NAT, Bridge, Host Only, Internal, 可以认为Host Only就是vm和外部主机通讯</p>
+<p>##svn服务的搭建，迁移<br>   搭建：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">    svnadmin create --fs-type fsfs /www/svn/repository/</span><br><span class="line">    <span class="comment">#修改</span></span><br><span class="line">    svn import /www/svn/tmp/ file:///www/svn/repository/ -m <span class="string">"first import"</span></span><br><span class="line">    <span class="comment">#修改版本库文件的权限</span></span><br><span class="line">    <span class="comment"># chmod 770 repository</span></span><br><span class="line">    <span class="comment"># 修改允许访问版本库的用户文件</span></span><br><span class="line"><span class="comment"># vim /www/svn/repository/conf/passwd</span></span><br><span class="line">    <span class="comment"># chmod -R g+w repository</span></span><br><span class="line">    <span class="comment"># 修改用户访问版本库的权限</span></span><br><span class="line">    <span class="comment"># vim /www/svn/repository/conf/authz 权限配置文件中出现的用户名必须在passwd文件中有定义过，对权限配置文件aauthz的修改会立即生效。</span></span><br><span class="line">    [groups]</span><br><span class="line">    user_group_name=username1,username2  //用户间以逗号分割</span><br><span class="line">    版本库目录格式：</span><br><span class="line">    [repository:/project/directory]   //版本库:/项目/目录</span><br><span class="line">    @user_group_name=permissions  //用户组名=权限</span><br><span class="line">    username=permissions  //用户名=权限</span><br><span class="line">    []可以有多种定义 /表示对全部的版本库设置权限，repos1:/表示对repos1设置权限，repos2:/www表示对repos2中的www项目设置权限，repos2:/www/example.com表示对repos2中的www项目的example.com目录设置权限。</span><br><span class="line">    可以用*来表示所有用户。</span><br><span class="line">    权限可以设置为w,r,wr和空，空表示没有任何权限。</span><br><span class="line">    新建用户访问版本库权限</span><br><span class="line">    [aliases]</span><br><span class="line">    [groups]</span><br><span class="line">    developer = xuhh</span><br><span class="line">    [/]</span><br><span class="line">    @developer = rw</span><br><span class="line">    <span class="comment">#启动svn</span></span><br><span class="line">    ./svnserve <span class="operator">-d</span> --listen-port <span class="number">9999</span> -r /www/svn/repository --log-file /usr/<span class="built_in">local</span>/subversion-<span class="number">1.6</span>.<span class="number">13</span>/logs/svn.log --pid-file /usr/<span class="built_in">local</span>/subversion-<span class="number">1.6</span>.<span class="number">13</span>/logs/svn.pid</span><br></pre></td></tr></table></figure></p>
+<p>-d 以daemon方式运行<br>–listen-port 监听端口号</p>
+<p>###svn服务器的完美迁移</p>
+<p>####方法1:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">svnadmin dump /opt/svn/svntest/ &gt; /var/tmp/svntest_20120604 </span><br><span class="line"><span class="comment">###3. 将dumpfile导入到新的repository 目录中。</span></span><br><span class="line">svnadmin load 新建的repos的目录路径（/repository/directory） &lt; dumpfile</span><br><span class="line">svnadmin load /opt/svn/svntest/ &lt; /var/tmp/svntest_20120604</span><br></pre></td></tr></table></figure></p>
+<p>####方法2 <a href="http://lutaf.com/107.htm" target="_blank" rel="external">来源</a>，未验证<br>    原有服务器上查看了一下，svnserver的运行状态如下<br>    svnserve -d –listen-port 9999 -r /opt/svn/repos直接用svn的认证方式，更加简单</p>
+<pre><code>在/etc/hosts中添加新服务器的别名为sara，并打穿ssh等待，同步数据rsync -avuzb /opt/svn/repos/ root@sara:/opt/svn_repos
+
+登录sara服务器，在/etc/rc.local中添加svn启动命令
+svnserve -d --listen-port 9999 -r /opt/svn_repos
+然后再手工执行一次10分钟不到，大功告成，开发机要继续用这个svn，只需要修改本机的host，把域名指向新的ip即可
+</code></pre><p>###方法3：hotcopy<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.备份</span></span><br><span class="line">svnadmin hotcopy /opt/svn/svntest/ /var/tmp/svntest_20120604 –clean-logs</span><br><span class="line"><span class="comment">#如果你传递–clean-logs选项，svnadmin会执行热拷贝操作，然后删除不用的Berkeley DB日志文件。你可以在任何时候运行这个命令得到一个版本库的安全拷贝，不管其它进程是否使用这个版本库。</span></span><br><span class="line"><span class="comment">#还原</span></span><br><span class="line"><span class="comment">#svnadmin hotcopy /var/tmp/svntest_20120604 /opt/svn/svntest/</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/net/">net</a><a href="/tags/settings/">settings</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/04/net-config/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/04/net-config/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/29/intelij-javaweb-相关/" title="intelij javaweb 相关" itemprop="url">intelij javaweb 相关</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-29T06:10:35.000Z" itemprop="datePublished"> 发表于 2015-10-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>intelij快捷键对应关系：</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a><a href="/tags/tools/">tools</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/29/intelij-javaweb-相关/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/29/intelij-javaweb-相关/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/29/linux-shell/" title="linux shell" itemprop="url">linux shell</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-28T17:40:22.000Z" itemprop="datePublished"> 发表于 2015-10-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span> . -<span class="built_in">name</span> <span class="string">"*.[h|c|sh]"</span>    <span class="preprocessor">#[sh]只能是s,或者是h, 不会去找sh</span></span><br><span class="line"><span class="built_in">find</span> 。 -<span class="built_in">name</span> <span class="string">"*.[h|c]"</span> -o -<span class="built_in">name</span> <span class="string">"*.sh"</span>  应该用这个</span><br><span class="line">查找/etc/rc.d目录下面所有以crond结束的文件，并使用file指令查看其属性</span><br><span class="line">查找删除</span><br><span class="line"><span class="built_in">find</span> . -<span class="built_in">name</span> filename -<span class="built_in">exec</span> rm -rf &#123;&#125; \;</span><br><span class="line"><span class="built_in">find</span> . -<span class="built_in">name</span> filename |xargs rm -rf</span><br><span class="line">磁盘中大于<span class="number">3</span>M的文件</span><br><span class="line"><span class="built_in">find</span> . -<span class="built_in">size</span> +<span class="number">3000</span>k -<span class="built_in">exec</span> ls -ld &#123;&#125; \; </span><br><span class="line"><span class="built_in">find</span> . -<span class="built_in">type</span> f -<span class="built_in">exec</span> grep “the string you want <span class="built_in">find</span>...” &#123;&#125; ; -print <span class="preprocessor">#含特定字符串的文件</span></span><br><span class="line"><span class="built_in">find</span> -<span class="built_in">name</span> <span class="string">".*"</span> -perm -<span class="number">007</span>  -<span class="number">007</span>是指查找所有用户都可读、写、执行的文件</span><br><span class="line"><span class="built_in">find</span> . -perm -<span class="number">100</span> -<span class="number">100</span>是指权限至少是属主可运行. 在unix系统下,你可以拥有对目录文件的执行权你才可以进入一个目录.这便是目录文件被列出的原因.</span><br><span class="line"><span class="built_in">find</span> *.c -<span class="built_in">exec</span> cp <span class="string">'&#123;&#125;'</span> /tmp <span class="string">';'</span></span><br><span class="line">如果有特殊文件，可以用cpio，也可以用这样的语法：</span><br><span class="line"><span class="built_in">find</span> dir -<span class="built_in">name</span> filename -print | cpio -pdv newdir</span><br><span class="line">A=`<span class="built_in">find</span> ~ -print` | ls -l --full-<span class="built_in">time</span> $A <span class="number">2</span>&gt;/dev/null | grep <span class="string">"Jun 27"</span> | grep <span class="number">1998</span> 查找某一天更改的文件</span><br><span class="line">使用<span class="built_in">find</span> 命令查找某个时间段的shell怎么写。比如<span class="number">11</span>点到<span class="number">12</span>点的。thanks</span><br><span class="line">创建一个脚本judgetime，内容如下：</span><br><span class="line">ls -l $*|awk <span class="string">'&#123;split($8,hour,":");if((hour[1]&gt;23 || hour[1] &lt; 1)&amp;&amp;hour[1]&lt;24)print&#125;'</span></span><br><span class="line">到要查找的目录下，运行</span><br><span class="line"><span class="built_in">find</span> ./ -<span class="built_in">name</span> <span class="string">"*"</span> -<span class="built_in">exec</span> judgetime &#123;&#125; /;</span><br><span class="line"></span><br><span class="line">删除指定日期的文件</span><br><span class="line"><span class="built_in">find</span> ./ -<span class="built_in">name</span> 文件名 -<span class="built_in">exec</span> rm -f &#123;&#125; /;</span><br><span class="line">例：删除当前<span class="number">30</span>天内没用过的文件,用如下命令：</span><br><span class="line"><span class="built_in">find</span> / -atime +<span class="number">30</span> -<span class="built_in">exec</span> rm -f &#123;&#125; /;</span><br><span class="line"></span><br><span class="line">使用chown, chgrp, chmod命令可以很好的比较mtime和ctime</span><br><span class="line">chown改变一个文件的属主,用ctime可以找到,用mtime便找不到.</span><br><span class="line">访问一个文件不能改变inode信息.</span><br><span class="line"></span><br><span class="line"><span class="built_in">find</span> / -<span class="built_in">size</span> <span class="number">1500</span>c 字符 c 表明这个要查找的文件的大小是以bytes为单位</span><br><span class="line"><span class="built_in">find</span>/ -<span class="built_in">size</span> +<span class="number">10000000</span>c 这个命令， 则标明我们指定系统在根目录中查找出大于<span class="number">10000000</span>字节的文件</span><br><span class="line"><span class="built_in">find</span> / -amin -<span class="number">10</span> <span class="preprocessor"># 查找在系统中最后<span class="number">10</span>分钟访问的文件</span></span><br><span class="line"><span class="built_in">find</span> / -atime -<span class="number">2</span> <span class="preprocessor"># 查找在系统中最后<span class="number">48</span>小时访问的文件</span></span><br><span class="line"><span class="built_in">find</span> / -empty <span class="preprocessor"># 查找在系统中为空的文件或者文件夹</span></span><br><span class="line"><span class="built_in">find</span> / -<span class="built_in">group</span> cat <span class="preprocessor"># 查找在系统中属于 groupcat的文件</span></span><br><span class="line"><span class="built_in">find</span> / -mmin -<span class="number">5</span> <span class="preprocessor"># 查找在系统中最后<span class="number">5</span>分钟里修改过的文件</span></span><br><span class="line"><span class="built_in">find</span> / -mtime -<span class="number">1</span> <span class="preprocessor">#查找在系统中最后<span class="number">24</span>小时里修改过的文件</span></span><br><span class="line"><span class="built_in">find</span> / -nouser <span class="preprocessor">#查找在系统中属于作废用户的文件</span></span><br><span class="line"><span class="built_in">find</span> / -user fred <span class="preprocessor">#查找在系统中属于FRED这个用户的文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">find</span> . -maxdepth <span class="number">2</span> -<span class="built_in">name</span> fred</span><br><span class="line"></span><br><span class="line"><span class="built_in">find</span> / -user fred -<span class="built_in">or</span> -user george 查找属于fred或者george这两个用户的文件。</span><br><span class="line"><span class="built_in">find</span> /tmp ! -user panda</span><br><span class="line"><span class="built_in">find</span> /tmp -<span class="built_in">size</span> +<span class="number">10000000</span>c -<span class="built_in">and</span> -mtime +<span class="number">2</span></span><br><span class="line"></span><br><span class="line">我是在 Solaris 上面试的.我是对 -ctime 不明白.</span><br><span class="line">试的结果如下:</span><br><span class="line">修改文件,-mtime 改了, -ctime 也会改.</span><br><span class="line">访问文件,-atime 改了, -ctime 没变.</span><br><span class="line">chown, chgrp, chmod,mv, 都会使 -ctime 改变,但不影响 -atime 和 -mtime.</span><br><span class="line">touch 可以改 -mtime <span class="built_in">and</span>/<span class="built_in">or</span> -atime,但 touch -a 只改访问时间时,-ctime也改了.</span><br><span class="line">touch -m 改修改时间时,-ctime当然也改了.</span><br><span class="line">好象还有别的很多东西可以令 -ctime 改变, 搞不清楚.</span><br><span class="line">有什么方法可以显示 -mtime,atime,ctime 吗?</span><br><span class="line">可以用 -ctime 来实现对目录的增量文件进行备份或 transfer 吗 ?</span><br><span class="line">多谢!</span><br><span class="line"></span><br><span class="line">没有什么工具显示,(可能是俺不知道)</span><br><span class="line">把下面程序里的st_mtime换成st_ctime,或st_atime便可以得到你要的了.</span><br><span class="line">＃i nclude</span><br><span class="line">int</span><br><span class="line">main (int argc, char **argv)</span><br><span class="line">&#123;</span><br><span class="line">struct stat buf;</span><br><span class="line">char <span class="built_in">date</span>[<span class="number">80</span>];</span><br><span class="line">char fname[<span class="number">80</span>];</span><br><span class="line">printf(<span class="string">"Enter filename (with full path) to check mtime : "</span>);</span><br><span class="line">scanf(<span class="string">"%s"</span>,fname);</span><br><span class="line">stat(fname, &amp;buf);</span><br><span class="line">printf (<span class="string">"mtime (in sec) of %s = %ld/n"</span>, fname, buf.st_mtime);</span><br><span class="line">strcpy(<span class="built_in">date</span>, ctime((time_t *)&amp;(buf.st_mtime)));</span><br><span class="line">printf (<span class="string">"mtime (in date) of %s = %s/n"</span>, fname, <span class="built_in">date</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>#压缩文件的问题<br>find . -name “<em>.jpg” -exec tar -czf picture.tgz {} \;       命令执行完毕后，picture.tgz中只有一个文件<br>find . -name “</em>.jpg” | xargs tar -czf picture.tgz      </p>
+<h2 id="ed"><a href="#ed" class="headerlink" title="ed"></a>ed</h2><h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>zip -rP a123 text.zip test.txt</p>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>-P 有的linux下没有<br>grep -Pnr “\d{3}” <code>find -name &quot;*.txt&quot;</code>  # 只搜索某一类文件<br>grep -Pnr “\d{3}” <code>find |grep -P &quot;.(txt|php)$&quot;</code> #只搜索某几类文件，如下，只搜索txt和php文件<br>grep -Pnr “\d{3}” <code>ls |grep -Fv weiba</code>  #排除含某关键词的子目录不搜索。如下，含“weiba”关键词的子目录不搜索<br>grep -Pnr “\d{3}” <code>ls |grep -Pv &#39;^(weiba|huati)$&#39;</code><br>grep -Pnr “\d{3}” <code>ls |grep -P &#39;^(weiba|huati)$&#39;</code><br>正则表达式选择与解释:<br>  -E, –extended-regexp     PATTERN 是一个可扩展的正则表达式(缩写为 ERE)<br>  -F, –fixed-strings       PATTERN 是一组由断行符分隔的定长字符串。<br>  -G, –basic-regexp        PATTERN 是一个基本正则表达式(缩写为 BRE)<br>  -P, –perl-regexp         PATTERN 是一个 Perl 正则表达式<br>  -e, –regexp=PATTERN      用 PATTERN 来进行匹配操作<br>  -f, –file=FILE           从 FILE 中取得 PATTERN<br>  -i, –ignore-case         忽略大小写<br>  -w, –word-regexp         强制 PATTERN 仅完全匹配字词<br>  -x, –line-regexp         强制 PATTERN 仅完全匹配一行<br>  -z, –null-data           一个 0 字节的数据行，但不是空行<br>杂项:<br>  -s, –no-messages         不显示错误信息<br>  -v, –invert-match        选中不匹配的行<br>  -V, –version             显示版本信息并退出<br>      –help                显示此帮助并退出<br>      –mmap                忽略向后兼容性<br>输出控制:<br>  -m, –max-count=NUM       NUM 次匹配后停止<br>  -b, –byte-offset         输出行的同时打印字节偏移<br>  -n, –line-number         输出行的同时打印行号<br>      –line-buffered       每行输出清空<br>  -H, –with-filename       为每一匹配项打印文件名<br>  -h, –no-filename         输出时不显示文件名前缀<br>      –label=LABEL         标准输入将LABEL 打印为文件名<br>  -o, –only-matching       只显示一行中匹配PATTERN 的部分<br>  -q, –quiet, –silent     不显示所有输出<br>      –binary-files=TYPE   假定二进制文件的TYPE 类型；<br>                            TYPE 可以是<code>binary&#39;,</code>text’, 或<code>without-match&#39;
+  -a, --text                等同于 --binary-files=text
+  -I                        等同于 --binary-files=without-match
+  -d, --directories=ACTION  操作目录的方式；
+                            ACTION 可以是</code>read’, <code>recurse&#39;,或</code>skip’<br>  -D, –devices=ACTION      操作设备、先入先出队列、套接字的方式；<br>                            ACTION 可以是<code>read&#39;或</code>skip’<br>  -R, -r, –recursive       等同于 –directories=recurse<br>      –include=FILE_PATTERN  只查找匹配FILE_PATTERN 的文件<br>      –exclude=FILE_PATTERN  跳过匹配FILE_PATTERN 的文件和目录<br>      –exclude-from=FILE   跳过所有除FILE 以外的文件<br>      –exclude-dir=PATTERN  跳过所有匹配PATTERN 的目录。<br>  -L, –files-without-match  只打印不匹配FILEs 的文件名<br>  -l, –files-with-matches  只打印匹配FILES 的文件名<br>  -c, –count               只打印每个FILE 中的匹配行数目<br>  -T, –initial-tab         行首tabs 分隔（如有必要）<br>  -Z, –null                在FILE 文件最后打印空字符<br>文件控制:<br>  -B, –before-context=NUM  打印以文本起始的NUM 行<br>  -A, –after-context=NUM   打印以文本结尾的NUM 行<br>  -C, –context=NUM         打印输出文本NUM 行<br>  -NUM                      等同于 –context=NUM<br>      –color[=WHEN],<br>      –colour[=WHEN]       使用标志高亮匹配字串；<br>                            WHEN 可以是<code>always&#39;,</code>never’或`auto’<br>  -U, –binary              不要清除行尾的CR 字符(MSDOS 模式)<br>  -u, –unix-byte-offsets   当CR 字符不存在，报告字节偏移(MSDOS 模式)</p>
+<h2 id="split"><a href="#split" class="headerlink" title="split"></a>split</h2><p>linux split含多个参数</p>
+<h2 id="apt-get"><a href="#apt-get" class="headerlink" title="apt-get"></a>apt-get</h2><p>debian的源<br>说明：<br>  1：deb/deb_src 表示获取安装包和源代码<br>  2：<a href="http://mirrors.163.com/debian/" target="_blank" rel="external">http://mirrors.163.com/debian/</a> 国内一般使用这个，Debian软件资源库<br>  3：stable 表示Debian系统的版本类型。stable/testing/unstable 三种</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="operator"><span class="keyword">update</span> # 更新软件包信息库。 </span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">upgrade</span> package_name1 package_name2 package_name3 ... # 升级指定软件包至最新版本</span><br><span class="line">apt-<span class="keyword">get</span> dist-<span class="keyword">upgrade</span> #更新整个Debian系统</span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> package_name1 package_name2 package_name3 ... # 安装新的软件包，安装的软件包默认会存放在/<span class="keyword">var</span>/<span class="keyword">cache</span>/apt/archives目录下，以便以后重新安装。</span><br><span class="line">如果已安装的软件包损坏了，你可通过–reinstall选项来重新安装。如：</span><br><span class="line">apt-<span class="keyword">get</span> <span class="comment">--reinstall install package_name</span></span><br><span class="line">使用–dry-run选项可使apt-<span class="keyword">get</span>在安装软件包前进行测试，如：</span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> package_name <span class="comment">--dry-run</span></span><br><span class="line">apt-<span class="keyword">get</span> remove package_name1 package_name2 package_name3 ... # 卸载指定软件包。</span><br><span class="line">如果你想把该软件的配置文件也删除，可以用–<span class="keyword">purge</span>选项，如：</span><br><span class="line">apt-<span class="keyword">get</span> <span class="comment">--purge remove package_name</span></span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">source</span> package_name1 package_name2 package_name3 ... #下载指定软件包的源码包文件</span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">build</span>-dep #为源码包配置所需的构建依赖关系</span><br><span class="line">apt-<span class="keyword">get</span> dselect-<span class="keyword">upgrade</span> # 通过dselect的“建议”和“推荐”功能更新系统。 </span><br><span class="line">apt-<span class="keyword">get</span> clean #删除下载了的软件包， APT会把软件包下载到本地/<span class="keyword">var</span>/<span class="keyword">cache</span>/apt/archives/目录。 </span><br><span class="line">apt-<span class="keyword">get</span> autoclean #删除已下载的旧版本的软件包。该命令类似于上面的命令，但它会有选择地删除旧版本的软件包</span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">check</span> #检查系统中已安装软件包的依赖性。</span><br><span class="line"> </span><br><span class="line">apt-<span class="keyword">cache</span> <span class="keyword">add</span> package_name #往源缓存加入一个软件包文件</span><br><span class="line">apt-<span class="keyword">cache</span> gencaches #并生成软件包和源代码包的缓存</span><br><span class="line">apt-<span class="keyword">cache</span> showpkg pkgname #显示软件的信息，包括版本号，安装状态和包依赖关系等。</span><br><span class="line">apt-<span class="keyword">cache</span> showsrc 显示源文件的各项记录</span><br><span class="line">  stats显示一些基本的统计信息</span><br><span class="line">  dump 简要显示整个缓存文件的内容</span><br><span class="line">  dumpavail 把所有有效的包文件列表打印到标准输出</span><br><span class="line">  unmet 显示所有未满足的依赖关系</span><br><span class="line">apt-<span class="keyword">cache</span> <span class="keyword">search</span> pkgname  搜索软件包，可用正则表达式(apt-<span class="keyword">cache</span> <span class="keyword">search</span> libc*)</span><br><span class="line">apt-<span class="keyword">cache</span> <span class="keyword">show</span> pkgname 以便于阅读的格式介绍该软件包</span><br><span class="line">apt-<span class="keyword">cache</span> depends pkgname 显示指定软件包所依赖的软件包</span><br><span class="line">apt-<span class="keyword">cache</span> rdepends pkgname 显示软件包的反向依赖关系，即有什么软件包需依赖你所指定的软件包</span><br><span class="line">apt-<span class="keyword">cache</span> pkgnames 列出所有软件包的名字</span><br><span class="line">apt-<span class="keyword">cache</span> dotty 生成可用 GraphVis 处理的软件包关系图</span><br><span class="line">apt-<span class="keyword">cache</span> xvcg 生成可用 xvcg 处理的软件包的关系图</span><br><span class="line">apt-<span class="keyword">cache</span> <span class="keyword">policy</span> package_name 显示软件包的安装设置状态</span><br><span class="line"></span><br><span class="line">### aptitude 命令</span><br><span class="line">该命令是调用交互模式，进行包的管理操作，和apt-<span class="keyword">get</span>命令类似。</span></span><br></pre></td></tr></table></figure>
+<p>aptitude [-S 文件名] [-u|-i]<br>install – 安装/升级软件包<br>remove – 卸载软件包<br>purge – 卸载软件包并删除其配置文件<br>hold – 将软件包置于保持状态<br>unhold – 取消对一个软件包的保持命令<br>markauto – 将软件包标记为自动安装<br>unmarkauto – 将软件包标记为手动安装<br>forbid-version – 禁止 aptitude 升级到某一特定版本的软件包。<br>update – 下载新/可升级软件包列表<br>upgrade – 执行一次安全的升级<br>dist-upgrade – 执行升级，可能会安装和卸载软件包<br>forget-new – 忘记哪些软件包是“新”的<br>search – 按名称 和/或 表达式搜索软件包<br>show – 显示一个软件包的详细信息<br>clean – 删除已下载的软件包文件<br>autoclean – 删除旧的已下载软件包文件<br>changelog – 查看一个软件包的变更日志<br>download – 下载软件包的 .deb 文件<br>reinstall – 下载并(可能)重新安装一个现在已经安装了的软件包<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### apt-<span class="variable">key</span>  每个发布的deb包，都是通过密钥认证的，apt-<span class="variable">key</span>用来管理密钥。</span><br></pre></td></tr></table></figure></p>
+<p>apt-key list<br>列出已保存在系统中key。<br>apt-key add keyname<br>把下载的key添加到本地trusted数据库中。<br>apt-key del keyname<br>从本地trusted数据库删除key。<br>apt-key update<br>更新本地trusted数据库，删除过期没用的key。<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">## netstat</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">##安装lxde图标显示 "X", 没有文件夹图标的解决方法：</span></span><br><span class="line"><span class="number">1.</span> apt-<span class="keyword">get</span> install libgdk-pixbuf2<span class="number">.0</span>-dev </span><br><span class="line">    然后设置 =&gt; 外观 里面设置为可用的主题比如 tango 就可以了</span><br><span class="line"><span class="number">2.</span> http:<span class="comment">//askubuntu.com/questions/294834/some-icons-from-xfce4-panel-missing You can install latest development packages for the elementary icons theme from the elementary Xfce PPA (daily) . If you still encounter issues, feel free to report them on the project's GitHub tracker.</span></span><br><span class="line">To install the icons, as root:</span><br><span class="line">add-apt-repository ppa:landronimirc/elementary-xfce</span><br><span class="line">apt-<span class="keyword">get</span> update</span><br><span class="line">apt-<span class="keyword">get</span> install xubuntu-icon-theme</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">## 依赖关系问题 - 仍未被配置  子进程 已安装 post-installation 脚本 返回了错误号,  不用使用mv  /var/lib/dpkg/info的方法</span></span><br></pre></td></tr></table></figure></p>
+<p>尝试自动修复<br> tiankonguse@tiankonguse:~$ sudo apt-get -f install<br>尝试修复依赖<br> tiankonguse@tiankonguse:~$ sudo dpkg –configure –pending<br>    先清空缓存<br>sudo apt-get autoclean<br>sudo apt-get clean<br>sudo apt-get autoremove<br>    然后卸载<br>sudo apt-get remove xxx<br>cd /var/lib/dpkg<br>sudo mv info info.bak<br>sudo mkdir info<br>sudo apt-get install -f<br>dpkg：警告：files list file for package ‘<em>*</em>‘ missing; assuming package has no files currently installed<br>解决 </p>
+<h1 id="u68C0_u67E5_u5F53_u524D_dpkg_u5E93_u4E2D_u6B8B_u7559_u7684_u6587_u4EF6_u5B89_u88C5_u4FE1_u606F"><a href="#u68C0_u67E5_u5F53_u524D_dpkg_u5E93_u4E2D_u6B8B_u7559_u7684_u6587_u4EF6_u5B89_u88C5_u4FE1_u606F" class="headerlink" title="检查当前 dpkg库中残留的文件安装信息"></a>检查当前 dpkg库中残留的文件安装信息</h1><p>dpkg -l | grep <em>**</em> </p>
+<p> #手 动删除所有包，这一步可能仍然会 有相关错误信息报出<br>sudo dpkg -r <strong><em>* </em></strong> <em>*</em></p>
+<p>#这一 步很重要，彻底清除任何<strong><strong>包相 关的信息<br>sudo dpkg -P </strong></strong> <strong><em>*<br>dpkg -l | grep </em></strong><br>```</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/shell/">shell</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/29/linux-shell/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/29/linux-shell/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/28/mysql总结/" title="mysql总结" itemprop="url">mysql总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-28T03:24:07.000Z" itemprop="datePublished"> 发表于 2015-10-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h2><blockquote>
+<p>*日志</p>
+<pre><code>+ 通用log： general_log_file        = /var/log/mysql/mysql.log
++ replication日志： server-id              = 1
+    log_bin                        = /var/log/mysql/mysql-bin.log
+    expire_logs_days        = 10
+    max_binlog_size         = 100M
+    binlog_do_db           = include_database_name
+    binlog_ignore_db       = include_database_name
+</code></pre></blockquote>
+<p>mysqld –help –verbose里面查看my.cnf的路径， 一般来说是 /etc/my.cnf &gt; etc/mysql/my.cn &gt; usr/etc/my.cnf &gt; ~/.my.cnf</p>
+<h2 id="u5EFA_u8868"><a href="#u5EFA_u8868" class="headerlink" title="建表"></a>建表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`NewTable`</span> (</span><br><span class="line">...</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line"><span class="keyword">CONSTRAINT</span> <span class="string">`pk_uid`</span> FOREIGN <span class="keyword">KEY</span> (<span class="string">`userid`</span>) <span class="keyword">REFERENCES</span> <span class="string">`blog_user`</span> (<span class="string">`id`</span>) <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">NO</span> <span class="keyword">ACTION</span></span><br><span class="line">)</span></span><br></pre></td></tr></table></figure>
+<p>##</p>
+<p>ref:</p>
+<p><a href="https://code.launchpad.net/~percona-dev/perconatools/tpcc-mysql" target="_blank" rel="external">https://code.launchpad.net/~percona-dev/perconatools/tpcc-mysql</a><br><a href="https://github.com/junneyang/easybenchmarktesttool.git" target="_blank" rel="external">https://github.com/junneyang/easybenchmarktesttool.git</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/28/mysql总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/28/mysql总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/20/nginx-apache/" title="nginx apache" itemprop="url">nginx apache</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="silveringsea" target="_blank" itemprop="author">silveringsea</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-20T13:49:25.000Z" itemprop="datePublished"> 发表于 2015-10-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/apache/">apache</a><a href="/tags/java/">java</a><a href="/tags/nginx/">nginx</a><a href="/tags/tomcat/">tomcat</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/20/nginx-apache/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/20/nginx-apache/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/android/" title="android">android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>20</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nosql/" title="nosql">nosql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/osx/" title="osx">osx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/settings/" title="settings">settings<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/thorem/" title="thorem">thorem<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tools/" title="tools">tools<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>17</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tools/" title="tools">tools<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/test/" title="test">test<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/new-feature/" title="new feature">new feature<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nosql/" title="nosql">nosql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/development-tools/" title="development tools">development tools<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/settings/" title="settings">settings<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/websocket/" title="websocket">websocket<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/activemq/" title="activemq">activemq<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim-tools/" title="vim, tools">vim, tools<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/zookeeper/" title="zookeeper">zookeeper<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html5/" title="html5">html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tomcat/" title="tomcat">tomcat<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/apache/" title="apache">apache<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/netty/" title="netty">netty<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://iteye.com" target="_blank" title="iteye">iteye</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Rony running on silveringsea <br/>
+			Help and be yourself</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1921609945" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="silveringsea">silveringsea</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"silveringsea"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+<script src="/js/ua-parser.js"></script>
+<script type="text/javascript">
+$(function() {
+  if (typeof DUOSHUO !== 'undefined')hookDUOSHUO_tp();
+  else $('[src="http://static.duoshuo.com/embed.js"]')[0].onload=hookDUOSHUO_tp;
+});
+function hookDUOSHUO_tp(){
+    var _D_post=DUOSHUO.templates.post
+    DUOSHUO.templates.post=function (e,t){
+        var rs=_D_post(e,t);
+        var agent=e.post.agent;
+        if(agent&&/^Mozilla/.test(agent))rs=rs.replace(/<\/div><p>/,show_ua(agent)+'</div><p>');
+        return rs;
+    }
+}
+function show_ua(string){
+    //console.log(string)
+    $.ua.set(string);
+    var sua=$.ua;
+    if(sua.os.version=='x86_64')sua.os.version='x64';
+    return '<span class="this_ua platform '+sua.os.name+'">'+sua.os.name+' '+sua.os.version+'</span><span class="this_ua browser '+sua.browser.name+'">'+sua.browser.name+'|'+sua.browser.version+'</span>';
+}
+</script>
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>
